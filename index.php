@@ -30,7 +30,7 @@
         <div class="p-3 mt-3">
             <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> 
             <input class="notelp" type="text" name="notelp" id="notelp" placeholder="No. Telepon" onkeypress="return hanyaAngka(event)"></div>
-            <div class="btn mt-3 signin">Sign in</div>
+            <div class="btn mt-3 signin">Sign In</div>
         </div>
     </div>
     

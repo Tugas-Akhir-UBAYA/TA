@@ -86,16 +86,16 @@
                             <input type="date" class="form-control" id="last_date" name="last_date" />
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Keterangan<span class="text-danger">*</span></label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Upload Bukti Foto </label>
                             <input class="form-control" type="file" id="formFile" accept="image/*" capture>
                         </div>
                         <div class="mb-3 foto">
                             <label class="form-label">Preview</label>
                             <div class="preview"><img src="../images/noimages.jpg" class="img-prev"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Keterangan<span class="text-danger">*</span></label>
-                            <textarea class="form-control"></textarea>
                         </div>
                         <div class="modal-footer d-block">
                             <button type="submit" class="btn float-end blues">Submit</button>

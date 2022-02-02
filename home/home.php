@@ -21,7 +21,7 @@
 <body>
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
-            <a class="navbar-brand white" href="index.php">PT. AMAN SAMUDERA LINESSSSS</a>
+            <a class="navbar-brand white" href="index.php">PT. AMAN SAMUDERA LINES</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
             </button>

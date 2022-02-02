@@ -54,7 +54,7 @@
                 <img src="../images/icon-qrcode.png"  class="icon-form">
             </div>
             <div class="form-text">
-                <div class="text">QR Code</div>
+                <div class="text">QR Codes</div>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
     <!-- <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <title>Karyawan PT. Aman Samudera Liness</title>
+    <title>Karyawan PT. Aman Samudera Lines</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm blue">

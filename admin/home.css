@@ -1,0 +1,10 @@
+.selamat{
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    /* border: 1px solid black; */
+}
+.red{
+    background-color: rgb(255, 116, 116);
+    color: white;
+}

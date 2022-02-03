@@ -95,7 +95,7 @@
                         </div>
                         <div class="mb-3 foto">
                             <label class="form-label">Preview</label>
-                            <div class="preview"><img src="../images/noimages.jpg" class="img-prev"></div>
+                            <div class="preview"><img src="../images//noimages.jpg" class="img-prev"></div>
                         </div>
                         <div class="modal-footer d-block">
                             <button type="submit" class="btn float-end blues">Submit</button>

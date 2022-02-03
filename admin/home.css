@@ -76,3 +76,6 @@
 .absen:active{
     transform: translateY(4px);
 }
+.red{
+    background-color: rgb(255, 117, 117);
+}

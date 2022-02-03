@@ -1,16 +1,27 @@
 <?php
     session_start();
+    $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+    $notelp = $_SESSION['notelp'];
+    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp");
+    $cekuser = mysqli_fetch_assoc($user);
+    if ($cekuser > 0) {
+        $id_users = $cekuser['id'];
+        $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
+        $cekcookies = mysqli_fetch_assoc($cookies);
+        if($cekcookies > 0){
+            $name = $cekcookies['name'];
+            $time = $cekcookies['time'];
+            setcookie('notelp', $name, time() + $time, '/TA');
+            if($name == ""){
+                header("location:../index.php");
+            }
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <!-- <script>
-        window.history.forward();
-        function noBack() 
-        { 
-            window.history.forward(); 
-        }
-    </script> -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

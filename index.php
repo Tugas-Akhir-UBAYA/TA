@@ -81,9 +81,10 @@ $notelp = "";
 				})
             }else{
                 $('.signin').click(function() {
-				var notelp = $('.notelp').val();
-				if(notelp != "" && notelp != 0)
-				{
+                    var notelp = $('.notelp').val();
+                    if(notelp != "" && notelp != 0)
+                    {
+                        
 					$.ajax({
 						url: "ajaxlogin.php",
 						method: "post",

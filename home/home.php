@@ -1,11 +1,15 @@
 <?php
     session_start();
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-    $notelp = $_SESSION['notelp'];
+    // $notelp = $_SESSION['notelp'];
+    if (isset($_COOKIE['notelp'])) {
+        $notelp = $_COOKIE['notelp'];
+    }
     $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp");
     $cekuser = mysqli_fetch_assoc($user);
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];
+        $nama = $cekuser['nama'];
         $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
         $cekcookies = mysqli_fetch_assoc($cookies);
         if($cekcookies > 0){
@@ -54,7 +58,7 @@
         </div>
     </nav>
     <div >
-        <center><h3 class="selamat">Selamat Datang <?php echo $_SESSION['nama'] ?></h3></center>
+        <center><h3 class="selamat">Selamat Datang <?php echo $nama ?></h3></center>
     </div>
     <div class="izin" id="myBtn" data-aos="zoom-in">
         <div class="pengajuan">

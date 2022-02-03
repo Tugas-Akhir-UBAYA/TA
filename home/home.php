@@ -4,6 +4,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <!-- <script>
+        window.history.forward();
+        function noBack() 
+        { 
+            window.history.forward(); 
+        }
+    </script> -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +25,7 @@
     <title>Karyawan PT. Aman Samudera Lines</title>
 
 </head>
-<body>
+<body >
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
             <a class="navbar-brand white" href="index.php">PT. AMAN SAMUDERA LINES</a>
@@ -133,6 +140,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         $(document).ready(function(){
+            
             $("#myBtn").click(function(){
                 $("#modalForm").modal('show');
             });

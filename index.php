@@ -6,6 +6,11 @@ $notelp = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<script type = "text/javascript" >
+    function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+</script>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,6 +116,12 @@ $notelp = "";
 								Swal.fire({
 									title: 'Login Gagal',
 									html: 'Nomor telepon tidak terdaftar',
+									type: 'error'
+								})
+							}else if(data == "Akun sedang login di perangkat lain"){
+								Swal.fire({
+									title: 'Login Gagal',
+									html: 'Akun sedang login di perangkat lain',
 									type: 'error'
 								})
 							}

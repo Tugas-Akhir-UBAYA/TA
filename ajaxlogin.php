@@ -32,7 +32,7 @@
                     $_SESSION['nama'] = $cekuser['nama'];
                     $_SESSION['notelp'] = $cekuser['nomor_telp'];
                     $id_users = $cekuser['id'];
-                    setcookie('notelp', $notelp, time() + 2147483647, '/TA');
+                    setcookie('notelp', $notelp, time() + 2147483647, '/');
                     $sql1 = mysqli_query($con, "UPDATE users SET status = 1 WHERE nomor_telp='$notelp'");
                     $sql2 = mysqli_query($con, "UPDATE cookies SET name = '$notelp', time = 2147483647 WHERE id_users= $id_users");
                     $hasil = "Login berhasil admin";
@@ -41,7 +41,7 @@
                     $_SESSION['nama'] = $cekuser['nama'];
                     $_SESSION['notelp'] = $cekuser['nomor_telp'];
                     $id_users = $cekuser['id'];
-                    setcookie('notelp', $notelp, time() + 2147483647, '/TA');
+                    setcookie('notelp', $notelp, time() + 2147483647, '/');
                     $sql1 = mysqli_query($con, "UPDATE users SET status = 1 WHERE nomor_telp='$notelp'");
                     $sql2 = mysqli_query($con, "UPDATE cookies SET name = '$notelp', time = 2147483647 WHERE id_users= $id_users");
                     $hasil = "Login berhasil karyawan";

@@ -15,7 +15,7 @@
         if($cekcookies > 0){
             $name = $cekcookies['name'];
             $time = $cekcookies['time'];
-            setcookie('notelp', $name, time() + $time, '/TA');
+            setcookie('notelp', $name, time() + $time, '/');
             if($name == ""){
                 header("location:../index.php");
             }

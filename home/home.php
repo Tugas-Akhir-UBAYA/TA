@@ -175,28 +175,47 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Hari</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                     <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>Senin</td>
+                                    <td>02/02/2022</td>
+                                    <td>Tepat Waktu</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
+                                    <td>Selasa</td>
+                                    <td>03/02/2022</td>
+                                    <td>Tepat Waktu</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
+                                    <td>Rabu</td>
+                                    <td>04/02/2022</td>
+                                    <td>Terlambat</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">4</th>
+                                    <td>Kamis</td>
+                                    <td>05/02/2022</td>
+                                    <td>Terlambat</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">5</th>
+                                    <td>Jum'at</td>
+                                    <td>06/02/2022</td>
+                                    <td>Izin</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">6</th>
+                                    <td>Sabtu</td>
+                                    <td>07/02/2022</td>
+                                    <td>Tepat Waktu</td>
                                     </tr>
                                 </tbody>
                             </table>

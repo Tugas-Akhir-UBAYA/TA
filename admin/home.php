@@ -199,17 +199,13 @@
         });
 
         scanner.addListener('scan', function(c){
+            document.getElementById('text').value=c;
             Swal.fire({
 				title: 'Yeah',
 				html: 'Absensi sukses',
-				type: 'success'
-			}).then((result) => {
-				if (result.value) {
-                    document.getElementById('text').value=c;
-					location.reload();
-				}
+				type: 'success',
+                timer: 3000
 			})
-            
         })
     </script>
     <script>

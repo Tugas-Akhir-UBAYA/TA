@@ -60,16 +60,6 @@
     <div >
         <center><h3 class="selamat">Selamat Datang <?php echo $nama ?></h3></center>
     </div>
-    <div class="izin" id="myBtn" data-aos="zoom-in">
-        <div class="pengajuan">
-            <div class="form-img">
-                <img src="../images/icon-form.png"  class="icon-form">
-            </div>
-            <div class="form-text">
-                <div class="text">Form Pengajuan Izin</div>
-            </div>
-        </div>
-    </div>
     <div class="absen" id="myBtn2" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
@@ -77,6 +67,26 @@
             </div>
             <div class="form-text">
                 <div class="text">QR Codes</div>
+            </div>
+        </div>
+    </div>
+    <div class="histori" id="myBtn3" data-aos="zoom-in">
+        <div class="pengajuan">
+            <div class="form-img">
+                <img src="../images/icon-histori.png"  class="icon-form">
+            </div>
+            <div class="form-text">
+                <div class="text">Histori Absensi</div>
+            </div>
+        </div>
+    </div>
+    <div class="izin" id="myBtn" data-aos="zoom-in">
+        <div class="pengajuan">
+            <div class="form-img">
+                <img src="../images/icon-form.png"  class="icon-form">
+            </div>
+            <div class="form-text">
+                <div class="text">Form Pengajuan Izin</div>
             </div>
         </div>
     </div>
@@ -141,9 +151,55 @@
                         <div class="mb-3">
                             <?php
                                 include "../phpqrcode/qrlib.php";
-                                QRcode::png($_SESSION['nama'], "image.png", "H", 20, 2);
+                                QRcode::png($nama, "image.png", "H", 20, 2);
                             ?>
                             <div ><img src="image.png" class="qrcode"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalForm3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Histori Absensi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </form>
                 </div>
@@ -161,6 +217,9 @@
             });
             $("#myBtn2").click(function(){
                 $("#modalForm2").modal('show');
+            });
+            $("#myBtn3").click(function(){
+                $("#modalForm3").modal('show');
             });
         });
     </script>

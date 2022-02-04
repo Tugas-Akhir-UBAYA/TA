@@ -68,7 +68,7 @@
                 <img src="../images/icon-menu.png"  class="icon-form">
             </div>
             <div class="form-text">
-                <div class="text">Menu Utama</div>
+                <div class="text">Dashboard</div>
             </div>
         </div>
     </div>

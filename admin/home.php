@@ -35,6 +35,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../admin/home.css">
     <title>Karyawan PT. Aman Samudera Lines</title>
@@ -112,6 +115,26 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalForm2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Scan QR Codes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="mb-3">
+                            <label class="form-label">QR Codes </label>
+                            <input type="text" class="form-control text" id="text" placeholder="Scan Qrcode" name="text" />
+                            <video id="preview" width="100%" style="margin-top: 20px;"></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -158,7 +181,36 @@
             $("#myBtn3").click(function(){
                 $("#modalForm").modal('show');
             });
+            $("#myBtn2").click(function(){
+                $("#modalForm2").modal('show');
+            });
         });
+    </script>
+    <script>
+        let scanner = new Instascan.Scanner({video: document.getElementById('preview')});
+        Instascan.Camera.getCameras().then(function(cameras){
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            }else{
+                alert("kamera tidak ditemukan");
+            }
+        }).catch(function(e){
+            console.error(e);
+        });
+
+        scanner.addListener('scan', function(c){
+            Swal.fire({
+				title: 'Yeah',
+				html: 'Absensi sukses',
+				type: 'success'
+			}).then((result) => {
+				if (result.value) {
+                    document.getElementById('text').value=c;
+					location.reload();
+				}
+			})
+            
+        })
     </script>
     <script>
         $(document).ready(function(){

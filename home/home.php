@@ -95,14 +95,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Pengajuan Izin</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Form Pengajuan Izin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label class="form-label">Kategori<span class="text-danger">*</span></label>
-                            <select name="kategori" id="kategori" class="form-select">
+                            <label class="form-label" style="font-size: 14px;">Kategori<span class="text-danger">*</span></label>
+                            <select name="kategori" id="kategori" class="form-select" style="font-size: 12px;">
                             <option value="">-- Pilih Kategori Izin --</option>
                                 <option value="sakit">Sakit</option>
                                 <option value="terlambat">Terlambat</option>
@@ -110,27 +110,27 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tanggal Mulai </label>
-                            <input type="date" class="form-control" id="start_date" name="start_date" />
+                            <label class="form-label" style="font-size: 14px;">Tanggal Mulai </label>
+                            <input type="date" class="form-control" id="start_date" name="start_date" style="font-size: 12px;" />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tanggal Akhir </label>
-                            <input type="date" class="form-control" id="last_date" name="last_date" />
+                            <label class="form-label" style="font-size: 14px;">Tanggal Akhir </label>
+                            <input type="date" class="form-control" id="last_date" name="last_date" style="font-size: 12px;" />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Keterangan<span class="text-danger">*</span></label>
-                            <textarea class="form-control"></textarea>
+                            <label class="form-label" style="font-size: 14px;">Keterangan<span class="text-danger" style="font-size: 14px;">*</span></label>
+                            <textarea class="form-control" style="font-size: 12px;"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Upload Bukti Foto </label>
-                            <input class="form-control" type="file" id="formFile" accept="image/*" capture>
+                            <label class="form-label" style="font-size: 14px;">Upload Bukti Foto </label>
+                            <input class="form-control" type="file" id="formFile" accept="image/*" capture style="font-size: 12px;">
                         </div>
                         <div class="mb-3 foto">
-                            <label class="form-label">Preview</label>
-                            <div class="preview"><img src="../images//noimages.jpg" class="img-prev"></div>
+                            <label class="form-label" style="font-size: 14px;">Preview</label>
+                            <div class="preview"><img src="../images//noimages.jpg" class="img-prev" style="font-size: 12px;"></div>
                         </div>
                         <div class="modal-footer d-block">
-                            <button type="submit" class="btn float-end blues">Submit</button>
+                            <button type="submit" class="btn float-end blues" style="font-size: 14px;">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -170,55 +170,8 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Hari</th>
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <th scope="row">1</th>
-                                    <td>Senin</td>
-                                    <td>02/02/2022</td>
-                                    <td>Tepat Waktu</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">2</th>
-                                    <td>Selasa</td>
-                                    <td>03/02/2022</td>
-                                    <td>Tepat Waktu</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">3</th>
-                                    <td>Rabu</td>
-                                    <td>04/02/2022</td>
-                                    <td>Terlambat</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">4</th>
-                                    <td>Kamis</td>
-                                    <td>05/02/2022</td>
-                                    <td>Terlambat</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">5</th>
-                                    <td>Jum'at</td>
-                                    <td>06/02/2022</td>
-                                    <td>Izin</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">6</th>
-                                    <td>Sabtu</td>
-                                    <td>07/02/2022</td>
-                                    <td>Tepat Waktu</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="mb-3 tampilabsensi">
+                            
                         </div>
                     </form>
                 </div>
@@ -239,6 +192,7 @@
             });
             $("#myBtn3").click(function(){
                 $("#modalForm3").modal('show');
+                $('.tampilabsensi').load("tampilhistoriabsensi.php");
             });
         });
     </script>

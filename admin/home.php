@@ -200,12 +200,58 @@
 
         scanner.addListener('scan', function(c){
             document.getElementById('text').value=c;
-            Swal.fire({
-				title: 'Yeah',
-				html: 'Absensi sukses',
-				type: 'success',
-                timer: 3000
+            var notelp = $('#text').val();
+            var timenow = new Date();
+            var hari = ["", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Minggu"]
+            var date = hari[timenow.getDay()];
+            // alert(date);
+            $.ajax({
+				url: "ajaxscan.php",
+				method: "post",
+				data: {
+					notelp: notelp
+				},
+				success: function(data) {
+					if(data == "Absensi sukses")
+					{
+						Swal.fire({
+							title: 'Yeah',
+							html: 'Absensi sukses',
+							type: 'success'
+						}).then((result) => {
+							if (result.value) {
+								location.reload();
+							}
+						})
+					}else if(data == "Absensi Melebihi Batas per Hari"){
+						Swal.fire({
+							title: 'Ups !!!',
+							html: 'Absensi Melebihi Batas per Hari',
+							type: 'error'
+						}).then((result) => {
+							if (result.value) {
+								document.getElementById('text').value = '';
+							}
+						})
+					}else if(data == "Absensi gagal"){
+						Swal.fire({
+							title: 'Ups !!!',
+							html: 'Absensi gagal',
+							type: 'error'
+						})
+					}
+				}
 			})
+            // Swal.fire({
+			// 	title: 'Yeah',
+			// 	html: 'Absensi sukses',
+			// 	type: 'success'
+            //     // timer: 3000
+			// }).then((result) => {
+			// 	if (result.value) {
+					
+			// 	}
+			// })
         })
     </script>
     <script>

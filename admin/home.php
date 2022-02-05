@@ -159,7 +159,7 @@
                             type: 'success'
                         }).then((result) => {
                             if (result.value) {
-								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/TA;";
+								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                                 document.location.href='../index.php';
 							}
 						})

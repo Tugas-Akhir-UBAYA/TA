@@ -108,18 +108,15 @@
     /* border: 1px solid black; */
 }
 
-table{
+.tampilabsensi{
     display: block;
-    height: 300px;
+    height: 400px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
+    border: 1px solid black;
 }
-
-th{
-    padding-left: 5px;
-}
-td{
-    padding-left: 5px;
+table{
+    width: 90%;
 }
 .kuning{
     background-color: rgb(255, 255, 160);

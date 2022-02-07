@@ -24,7 +24,7 @@
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];
         if($totalnow > $totalmax){
-            $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE id_users ='$id_users' AND tanggal_awal = '$date' AND kategori = 'Terlambat'");
+            $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE id_users ='$id_users' AND tanggal_awal = '$date' AND kategori = 'terlambat'");
             $cekpengajuan = mysqli_fetch_assoc($pengajuan);
             if($cekpengajuan > 0){
                 $status = "Izin";

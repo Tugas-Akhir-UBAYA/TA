@@ -15,7 +15,7 @@
 ?>
 
 <table class="table">
-    <thead style="font-size: 14px;">
+    <thead style="font-size: 12px;">
         <tr>
         <th scope="col">#</th>
         <th scope="col">Tanggal</th>

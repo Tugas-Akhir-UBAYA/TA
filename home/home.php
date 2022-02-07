@@ -35,6 +35,7 @@
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="home.css">
     <title>Karyawan PT. Aman Samudera Lines</title>
@@ -99,29 +100,45 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <div>
                         <div class="mb-3">
                             <label class="form-label" style="font-size: 14px;">Kategori<span class="text-danger">*</span></label>
-                            <select name="kategori" id="kategori" class="form-select" style="font-size: 12px;">
-                            <option value="">-- Pilih Kategori Izin --</option>
+                            <select name="kategori" id="kategori" class="form-select kategori" style="font-size: 12px;" onchange="izin()">
+                                <option value="">-- Pilih Kategori Izin --</option>
                                 <option value="sakit">Sakit</option>
-                                <option value="terlambat">Terlambat</option>
+                                <?php
+                                    date_default_timezone_set('Asia/Jakarta');
+                                    $menit = date("i") * 60;
+                                    $jam = date("H") * 3600;
+                                    $totalnow = $jam + $menit;
+                                
+                                    $maxmenit = 30 * 60;
+                                    $maxjam = 8 * 3600;
+                                    $totalmax = $maxjam + $maxmenit;
+                                    if($totalnow <= $totalmax){
+                                        ?>
+                                        <option value="terlambat">Terlambat</option>
+                                        <?php
+                                    }
+                                ?>
+                                
+                                <option value="cuti">Cuti</option>
                                 <option value="lainlain">Lain-lain</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" style="font-size: 14px;">Tanggal Mulai </label>
-                            <input type="date" class="form-control" id="start_date" name="start_date" style="font-size: 12px;" />
+                        <div class="mb-3 tgl_start">
+                            <label class="form-label" style="font-size: 14px;">Tanggal <span class="mulai">Mulai</span> </label>
+                            <input type="date" class="form-control start_date" id="start_date" name="start_date" min="<?php echo date('Y-m-d') ?>" style="font-size: 12px;" />
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 tgl_end">
                             <label class="form-label" style="font-size: 14px;">Tanggal Akhir </label>
-                            <input type="date" class="form-control" id="last_date" name="last_date" style="font-size: 12px;" />
+                            <input type="date" class="form-control last_date" id="last_date" name="last_date" style="font-size: 12px;" />
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 ket">
                             <label class="form-label" style="font-size: 14px;">Keterangan<span class="text-danger" style="font-size: 14px;">*</span></label>
-                            <textarea class="form-control" style="font-size: 12px;"></textarea>
+                            <textarea class="form-control keterangan" style="font-size: 12px;" id="ket"></textarea>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 foto">
                             <label class="form-label" style="font-size: 14px;">Upload Bukti Foto </label>
                             <input class="form-control" type="file" id="formFile" accept="image/*" capture style="font-size: 12px;">
                         </div>
@@ -130,9 +147,10 @@
                             <div class="preview"><img src="../images//noimages.jpg" class="img-prev" style="font-size: 12px;"></div>
                         </div>
                         <div class="modal-footer d-block">
-                            <button type="submit" class="btn float-end blues" style="font-size: 14px;">Submit</button>
+                            <button type="submit" class="btn float-end blues submit" style="font-size: 14px;">Submit</button>
                         </div>
-                    </form>
+                        <input class="notelp" hidden value="<?php echo $notelp ?>">
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,6 +199,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <script>
         $(document).ready(function(){
             
@@ -194,10 +213,83 @@
                 $("#modalForm3").modal('show');
                 $('.tampilabsensi').load("tampilhistoriabsensi.php");
             });
+            
+            $(".submit").click(function(){
+                var kategori = $('.kategori').val();
+                var start_date = $('.start_date').val();
+                var last_date = $('.last_date').val();
+                var keterangan = $('.keterangan').val();
+                var notelp = $('.notelp').val();
+                if(kategori == "terlambat"){
+                    document.getElementById('last_date').value = '';
+                    last_date = "";
+                }
+                if(kategori == ""){
+                    Swal.fire({
+							title: 'Ups !!!',
+							html: 'Kategori harus dipilih',
+							type: 'error'
+						})
+                }else{
+                    $.ajax({
+                        url: "ajaxpengajuan.php",
+                        method: "post",
+                        data: {
+                            kategori: kategori,
+                            start_date: start_date,
+                            last_date: last_date,
+                            keterangan: keterangan,
+                            notelp: notelp
+                        },
+                    success: function(data) {
+                        if(data == "Proses pengajuan telah berhasil")
+                        {
+                            Swal.fire({
+                                title: 'Yeah',
+                                html: 'Proses pengajuan telah berhasil',
+                                type: 'success'
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            })
+                        }else if(data == "Proses pengajuan gagal"){
+                                Swal.fire({
+                                    title: 'Ups !!!',
+                                    html: 'Proses pengajuan gagal',
+                                    type: 'error'
+                                })
+                            }
+                        }
+                    })
+                }
+
+                
+            });
+            
         });
     </script>
     <script>
       AOS.init();
+    </script>
+    <script type="text/javascript">
+        function izin() {
+                var kategori = document.getElementById("kategori").value;
+                if(kategori == "terlambat"){
+                    $(".tgl_end").hide();
+                    $(".mulai").hide();
+                    $(".foto").show();
+                }else  if(kategori == "cuti"){
+                    $(".foto").hide();
+                    $(".tgl_end").show();
+                    $(".mulai").show();
+                }else{
+                    $(".tgl_end").show();
+                    $(".mulai").show();
+                    $(".foto").show();
+
+                } 
+            }
     </script>
 </body>
 </html>

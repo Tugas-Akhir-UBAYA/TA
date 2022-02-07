@@ -159,7 +159,7 @@
                             type: 'success'
                         }).then((result) => {
                             if (result.value) {
-								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/TA;";
+								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                                 document.location.href='../index.php';
 							}
 						})
@@ -217,7 +217,8 @@
 						Swal.fire({
 							title: 'Yeah',
 							html: 'Absensi sukses',
-							type: 'success'
+							type: 'success',
+                            time: 3000
 						}).then((result) => {
 							if (result.value) {
 								location.reload();
@@ -227,7 +228,8 @@
 						Swal.fire({
 							title: 'Ups !!!',
 							html: 'Absensi Melebihi Batas per Hari',
-							type: 'error'
+							type: 'error',
+                            time: 3000
 						}).then((result) => {
 							if (result.value) {
 								document.getElementById('text').value = '';

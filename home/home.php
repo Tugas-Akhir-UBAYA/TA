@@ -121,14 +121,13 @@
                                         <?php
                                     }
                                 ?>
-                                
                                 <option value="cuti">Cuti</option>
                                 <option value="lainlain">Lain-lain</option>
                             </select>
                         </div>
                         <div class="mb-3 tgl_start">
-                            <label class="form-label" style="font-size: 14px;">Tanggal <span class="mulai">Mulai</span> </label>
-                            <input type="date" class="form-control start_date" id="start_date" name="start_date" min="<?php echo date('Y-m-d') ?>" style="font-size: 12px;" />
+                            <label class="form-label" style="font-size: 14px;">Tanggal Mulai </label>
+                            <input type="date" class="form-control start_date" id="start_date" onchange="mulai()" name="start_date" data-min="" style="font-size: 12px;" />
                         </div>
                         <div class="mb-3 tgl_end">
                             <label class="form-label" style="font-size: 14px;">Tanggal Akhir </label>
@@ -223,6 +222,8 @@
                 if(kategori == "terlambat"){
                     document.getElementById('last_date').value = '';
                     last_date = "";
+                    document.getElementById('start_date').value = '';
+                    start_date = "";
                 }
                 if(kategori == ""){
                     Swal.fire({
@@ -243,20 +244,26 @@
                         },
                     success: function(data) {
                         if(data == "Proses pengajuan telah berhasil")
-                        {
-                            Swal.fire({
-                                title: 'Yeah',
-                                html: 'Proses pengajuan telah berhasil',
-                                type: 'success'
-                            }).then((result) => {
-                                if (result.value) {
-                                    location.reload();
-                                }
-                            })
-                        }else if(data == "Proses pengajuan gagal"){
+                            {
+                                Swal.fire({
+                                    title: 'Yeah',
+                                    html: 'Proses pengajuan telah berhasil',
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                })
+                            }else if(data == "Proses pengajuan gagal"){
                                 Swal.fire({
                                     title: 'Ups !!!',
                                     html: 'Proses pengajuan gagal',
+                                    type: 'error'
+                                })
+                            }else if(data == "Tanggal yang diinputkan tidak valid"){
+                                Swal.fire({
+                                    title: 'Ups !!!',
+                                    html: 'Tanggal yang diinputkan tidak valid !!!',
                                     type: 'error'
                                 })
                             }
@@ -274,19 +281,43 @@
     </script>
     <script type="text/javascript">
         function izin() {
+            var start_date = document.getElementById("start_date").value;
+            alert("asd");
+        }
+    </script>
+    <script type="text/javascript">
+        
+        function izin() {
                 var kategori = document.getElementById("kategori").value;
+                var today = new Date();
+                var bulan = today.getMonth();
+                var hari = today.getDate();
+                var fixhari = today.getDate() + 3;
+                if(bulan < 10){
+                    var kosongbulan = 0;
+                }
+                if(fixhari < 10){
+                    var kosonghari = 0;
+                }else{
+                    var kosonghari = "";
+                }
                 if(kategori == "terlambat"){
                     $(".tgl_end").hide();
-                    $(".mulai").hide();
                     $(".foto").show();
+                    $(".tgl_start").hide();
                 }else  if(kategori == "cuti"){
+                    var date = today.getFullYear()+'-'+ kosongbulan +(today.getMonth()+1)+'-'+ kosonghari +(today.getDate() + 3);
+                    document.getElementById("start_date").min = date;
+                    document.getElementById("last_date").min = date;
                     $(".foto").hide();
                     $(".tgl_end").show();
-                    $(".mulai").show();
+                    $(".tgl_start").show();
                 }else{
                     $(".tgl_end").show();
-                    $(".mulai").show();
                     $(".foto").show();
+                    $(".tgl_start").show();
+                    document.getElementById("start_date").min = "";
+                    document.getElementById("last_date").min = "";
 
                 } 
             }

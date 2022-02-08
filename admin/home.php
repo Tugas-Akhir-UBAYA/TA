@@ -218,10 +218,12 @@
 							title: 'Yeah',
 							html: 'Absensi sukses',
 							type: 'success',
-                            time: 3000
+                            timer: 3000
+                            
 						}).then((result) => {
+                            document.getElementById('text').value = '';
 							if (result.value) {
-								location.reload();
+								document.getElementById('text').value = '';
 							}
 						})
 					}else if(data == "Absensi Melebihi Batas per Hari"){
@@ -229,7 +231,7 @@
 							title: 'Ups !!!',
 							html: 'Absensi Melebihi Batas per Hari',
 							type: 'error',
-                            time: 3000
+                            timer: 3000
 						}).then((result) => {
 							if (result.value) {
 								document.getElementById('text').value = '';

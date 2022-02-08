@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class="histori" id="myBtn3" data-aos="zoom-in">
+    <div class="historiabsensi" id="myBtn3" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
                 <img src="../images/icon-histori.png"  class="icon-form">
@@ -88,6 +88,16 @@
             </div>
             <div class="form-text">
                 <div class="text">Form Pengajuan Izin</div>
+            </div>
+        </div>
+    </div>
+    <div class="historipengajuan" id="myBtn4" data-aos="zoom-in">
+        <div class="pengajuan">
+            <div class="form-img">
+                <img src="../images/icon-historiizin.png"  class="icon-form">
+            </div>
+            <div class="form-text">
+                <div class="text">Histori Pengajuan Izin</div>
             </div>
         </div>
     </div>
@@ -195,6 +205,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalForm4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Histori Pengajuan Izin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3 tampilpengajuan">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -211,6 +239,10 @@
             $("#myBtn3").click(function(){
                 $("#modalForm3").modal('show');
                 $('.tampilabsensi').load("tampilhistoriabsensi.php");
+            });
+            $("#myBtn4").click(function(){
+                $("#modalForm4").modal('show');
+                $('.tampilpengajuan').load("tampilhistoripengajuan.php");
             });
             
             $(".submit").click(function(){
@@ -280,14 +312,20 @@
       AOS.init();
     </script>
     <script type="text/javascript">
-        function izin() {
+        function mulai() {
+            var kategori = document.getElementById("kategori").value;
             var start_date = document.getElementById("start_date").value;
-            alert("asd");
+            if(start_date != ""){
+                $(".tgl_end").show();
+                document.getElementById("last_date").min = start_date;
+            }
         }
     </script>
     <script type="text/javascript">
         
         function izin() {
+                document.getElementById('start_date').value = '';
+                document.getElementById('last_date').value = '';
                 var kategori = document.getElementById("kategori").value;
                 var today = new Date();
                 var bulan = today.getMonth();
@@ -310,10 +348,10 @@
                     document.getElementById("start_date").min = date;
                     document.getElementById("last_date").min = date;
                     $(".foto").hide();
-                    $(".tgl_end").show();
+                    $(".tgl_end").hide();
                     $(".tgl_start").show();
                 }else{
-                    $(".tgl_end").show();
+                    $(".tgl_end").hide();
                     $(".foto").show();
                     $(".tgl_start").show();
                     document.getElementById("start_date").min = "";

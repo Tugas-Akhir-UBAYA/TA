@@ -149,18 +149,18 @@
                             <textarea class="form-control keterangan" style="font-size: 12px;" id="ket"></textarea>
                         </div>
                         <div class="mb-3 foto">
-                            <label class="form-label" style="font-size: 14px;">Upload Bukti Foto </label>
+                            <!-- <label class="form-label" style="font-size: 14px;">Upload Bukti Foto </label>
                             <div id="my_camera"></div>
                             <div id="results"></div>
                             <input type=button id="take" class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
                             <input type=button class="btn btn-primary" id="Refresh" value="Refresh">
-                            <input type="hidden" name="image" class="image-tag">
-                            <!-- <input class="form-control" type="file" id="formFile" accept="image/*" capture="camera" style="font-size: 12px;"> -->
+                            <input type="hidden" name="image" class="image-tag"> -->
+                            <input class="form-control" type="file" id="formFile" accept="image/*" capture="camera" onchange="loadFile(event)" style="font-size: 12px;">
                         </div>
-                        <!-- <div class="mb-3 foto">
+                        <div class="mb-3 preview">
                             <label class="form-label" style="font-size: 14px;">Preview</label>
-                            <div class="preview"><img src="../images//noimages.jpg" class="img-prev" style="font-size: 12px;"></div>
-                        </div> -->
+                            <div class="preview1"><img src="../images//noimages.jpg" class="img-prev" id="img-prev" style="font-size: 12px;"></div>
+                        </div>
                         <div class="modal-footer d-block">
                             <button type="submit" class="btn float-end blues submit" style="font-size: 14px;">Submit</button>
                         </div>
@@ -233,12 +233,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
-    <script language="JavaScript">
+    <!-- <script language="JavaScript">
         Webcam.set({
             width: 250,
             height: 200,
             image_format: 'jpeg',
-            jpeg_quality:1080
+            jpeg_quality:1080,
+            facingMode: 'environment'
         });
     
         Webcam.attach( '#my_camera' );
@@ -254,8 +255,9 @@
                 $("#take").hide();
             } );
         }
-    </script>
-    <script>
+    </script> -->
+
+    <!-- <script>
         $(document).ready(function(){
             $("#results").hide();
             $("#Refresh").hide();
@@ -267,7 +269,15 @@
             $("#my_camera").show();
             $("#take").show();
         });
+    </script> -->
+    
+    <script>
+        var loadFile = function(event) {
+            var images = document.getElementById('img-prev');
+	        images.src = URL.createObjectURL(event.target.files[0]);
+        }
     </script>
+    
     <script>
         $(document).ready(function(){
             
@@ -291,9 +301,16 @@
                 var start_date = $('.start_date').val();
                 var last_date = $('.last_date').val();
                 var keterangan = $('.keterangan').val();
-                var images = $('.image-tag').val();
+                
+                var images = $('#formFile').prop('files')[0];
                 var notelp = $('.notelp').val();
-
+                let formData = new FormData();
+                formData.append('images', images);
+	            formData.append('kategori', kategori);
+	            formData.append('start_date', start_date);
+	            formData.append('last_date', last_date);
+	            formData.append('keterangan', keterangan);
+	            formData.append('notelp', notelp);
                 if(kategori == "cuti"){
                     var images = "";
                 }
@@ -310,7 +327,7 @@
 						html: 'Kategori harus dipilih',
 						type: 'error'
 					})
-                }else if(kategori != "cuti" &&  images == ""){
+                }else if(kategori != "cuti" &&  images == undefined){
                     Swal.fire({
 						title: 'Ups !!!',
 						html: 'Foto harus disertakan',
@@ -325,15 +342,11 @@
                 }else{
                     $.ajax({
                         url: "ajaxpengajuan.php",
-                        method: "post",
-                        data: {
-                            kategori: kategori,
-                            start_date: start_date,
-                            last_date: last_date,
-                            keterangan: keterangan,
-                            notelp: notelp,
-                            images: images
-                        },
+                        type: "post",
+                        data: formData,
+	                    cache: false,
+                        processData: false,
+                        contentType: false,
                     success: function(data) {
                         if(data == "Proses pengajuan telah berhasil")
                             {
@@ -368,9 +381,11 @@
             
         });
     </script>
+
     <script>
       AOS.init();
     </script>
+
     <script type="text/javascript">
         function mulai() {
             var kategori = document.getElementById("kategori").value;
@@ -381,6 +396,7 @@
             }
         }
     </script>
+    
     <script type="text/javascript">
         
         function izin() {
@@ -403,6 +419,7 @@
                     $(".tgl_end").hide();
                     $(".foto").show();
                     $(".tgl_start").hide();
+                    $(".preview").show();
                 }else  if(kategori == "cuti"){
                     var date = today.getFullYear()+'-'+ kosongbulan +(today.getMonth()+1)+'-'+ kosonghari +(today.getDate() + 3);
                     document.getElementById("start_date").min = date;
@@ -410,10 +427,12 @@
                     $(".foto").hide();
                     $(".tgl_end").hide();
                     $(".tgl_start").show();
+                    $(".preview").hide();
                 }else{
                     $(".tgl_end").hide();
                     $(".foto").show();
                     $(".tgl_start").show();
+                    $(".preview").show();
                     document.getElementById("start_date").min = "";
                     document.getElementById("last_date").min = "";
 

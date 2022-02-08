@@ -1,5 +1,13 @@
 <?php
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+
+    $temp = "upload/";
+    if (!file_exists($temp)){
+        mkdir($temp);
+    }
+
+    
+
     $kategori = $_POST['kategori'];
     $start_date = strtotime($_POST['start_date']);
     $fixstart_date = date("d-m-Y", $start_date);
@@ -9,21 +17,36 @@
     $notelp = $_POST['notelp'];
     date_default_timezone_set('Asia/Jakarta');
     $date = date("d-m-Y H:i:s");
-    $images = $_POST['images'];
+    // $images = $_POST['images'];
 
+    if($kategori == 'cuti'){
+        $NewImageName = "";
+    }else{
+        $fileupload      = $_FILES['images']['tmp_name'];
+        $ImageName       = $_FILES['images']['name'];
+        $ImageType       = $_FILES['images']['type'];
 
-    if($images != ""){
-        $folderPath = "upload/";
-        $image_parts = explode(";base64,", $images);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-    
-        $image_base64 = base64_decode($image_parts[1]);
-        $fileName = uniqid() . '.png';
-
-        $file = $folderPath . $fileName;
-        file_put_contents($file, $image_base64);
+        if(!empty($fileupload)){
+            $acak           = rand(11111111, 99999999);
+            $ImageExt       = substr($ImageName, strrpos($ImageName, '.'));
+            $ImageExt       = str_replace('.','',$ImageExt); // Extension
+            $ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
+            $NewImageName   = str_replace(' ', '', $acak.'.'.$ImageExt);
+            move_uploaded_file($_FILES["images"]["tmp_name"], $temp.$NewImageName);
+        }
     }
+    // if($images != ""){
+    //     $folderPath = "upload/";
+    //     $image_parts = explode(";base64,", $images);
+    //     $image_type_aux = explode("image/", $image_parts[0]);
+    //     $image_type = $image_type_aux[1];
+    
+    //     $image_base64 = base64_decode($image_parts[1]);
+    //     $fileName = uniqid() . '.png';
+
+    //     $file = $folderPath . $fileName;
+    //     file_put_contents($file, $image_base64);
+    // }
 
     $hariawal = date("d", $start_date) * 1;
     $bulanawal = date("m", $start_date) * 30.4167;
@@ -54,7 +77,7 @@
         $cekuser = mysqli_fetch_assoc($user);
         if ($cekuser > 0) {
             $id_users = $cekuser['id'];
-            $pengajuan = mysqli_query($con, "INSERT INTO pengajuan VALUES(null,'$id_users','$keterangan','$fileName','$fixstart_date','$fixlast_date','$date','$kategori','$status')");
+            $pengajuan = mysqli_query($con, "INSERT INTO pengajuan VALUES(null,'$id_users','$keterangan','$NewImageName','$fixstart_date','$fixlast_date','$date','$kategori','$status')");
             $hasil = "Proses pengajuan telah berhasil";
         }else{
             $hasil = "Proses pengajuan gagal";

@@ -15,7 +15,7 @@
 ?>
 
 <table class="table">
-    <thead style="font-size: 12px;">
+    <thead style="font-size: 10px;">
         <tr>
         <th scope="col">#</th>
         <th scope="col">Tanggal</th>
@@ -45,7 +45,7 @@
                 }
                 $keterangan = $data['keterangan'];
     ?>
-        <tr style="font-size: 12px;" class="<?php echo $warna ?>">
+        <tr style="font-size: 10px;" class="<?php echo $warna ?>">
             <th scope="row"><?php echo $row++ ?></th>
             <td><?php echo $tanggal ?></td>
             <td><?php echo $waktu ?></td>

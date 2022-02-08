@@ -9,6 +9,21 @@
     $notelp = $_POST['notelp'];
     date_default_timezone_set('Asia/Jakarta');
     $date = date("d-m-Y H:i:s");
+    $images = $_POST['images'];
+
+
+    if($images != ""){
+        $folderPath = "upload/";
+        $image_parts = explode(";base64,", $images);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+    
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
+
+        $file = $folderPath . $fileName;
+        file_put_contents($file, $image_base64);
+    }
 
     $hariawal = date("d", $start_date) * 1;
     $bulanawal = date("m", $start_date) * 30.4167;
@@ -30,6 +45,7 @@
         if($kategori == "cuti")
         {
             $status = "proses";
+            $fileName = "";
         }else{
             $status = "";
         }
@@ -38,7 +54,7 @@
         $cekuser = mysqli_fetch_assoc($user);
         if ($cekuser > 0) {
             $id_users = $cekuser['id'];
-            $pengajuan = mysqli_query($con, "INSERT INTO pengajuan VALUES(null,'$id_users','$keterangan','','$fixstart_date','$fixlast_date','$date','$kategori','$status')");
+            $pengajuan = mysqli_query($con, "INSERT INTO pengajuan VALUES(null,'$id_users','$keterangan','$fileName','$fixstart_date','$fixlast_date','$date','$kategori','$status')");
             $hasil = "Proses pengajuan telah berhasil";
         }else{
             $hasil = "Proses pengajuan gagal";

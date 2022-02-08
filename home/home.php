@@ -30,6 +30,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -149,12 +150,17 @@
                         </div>
                         <div class="mb-3 foto">
                             <label class="form-label" style="font-size: 14px;">Upload Bukti Foto </label>
-                            <input class="form-control" type="file" id="formFile" accept="image/*" capture style="font-size: 12px;">
+                            <div id="my_camera"></div>
+                            <div id="results"></div>
+                            <input type=button id="take" class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
+                            <input type=button class="btn btn-primary" id="Refresh" value="Refresh">
+                            <input type="hidden" name="image" class="image-tag">
+                            <!-- <input class="form-control" type="file" id="formFile" accept="image/*" capture="camera" style="font-size: 12px;"> -->
                         </div>
-                        <div class="mb-3 foto">
+                        <!-- <div class="mb-3 foto">
                             <label class="form-label" style="font-size: 14px;">Preview</label>
                             <div class="preview"><img src="../images//noimages.jpg" class="img-prev" style="font-size: 12px;"></div>
-                        </div>
+                        </div> -->
                         <div class="modal-footer d-block">
                             <button type="submit" class="btn float-end blues submit" style="font-size: 14px;">Submit</button>
                         </div>
@@ -227,6 +233,41 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+    <script language="JavaScript">
+        Webcam.set({
+            width: 250,
+            height: 200,
+            image_format: 'jpeg',
+            jpeg_quality:1080
+        });
+    
+        Webcam.attach( '#my_camera' );
+    
+        function take_snapshot() {
+            Webcam.snap( function(data_uri) {
+                $(".image-tag").val(data_uri);
+                document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+
+                $("#results").show();
+                $("#Refresh").show();
+                $("#my_camera").hide();
+                $("#take").hide();
+            } );
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#results").hide();
+            $("#Refresh").hide();
+        })
+
+        $("#Refresh").click(function(){
+            $("#results").hide();
+            $("#Refresh").hide();
+            $("#my_camera").show();
+            $("#take").show();
+        });
+    </script>
     <script>
         $(document).ready(function(){
             
@@ -250,7 +291,13 @@
                 var start_date = $('.start_date').val();
                 var last_date = $('.last_date').val();
                 var keterangan = $('.keterangan').val();
+                var images = $('.image-tag').val();
                 var notelp = $('.notelp').val();
+
+                if(kategori == "cuti"){
+                    var images = "";
+                }
+                
                 if(kategori == "terlambat"){
                     document.getElementById('last_date').value = '';
                     last_date = "";
@@ -259,10 +306,22 @@
                 }
                 if(kategori == ""){
                     Swal.fire({
-							title: 'Ups !!!',
-							html: 'Kategori harus dipilih',
-							type: 'error'
-						})
+						title: 'Ups !!!',
+						html: 'Kategori harus dipilih',
+						type: 'error'
+					})
+                }else if(kategori != "cuti" &&  images == ""){
+                    Swal.fire({
+						title: 'Ups !!!',
+						html: 'Foto harus disertakan',
+						type: 'error'
+					})
+                }else if(keterangan == ""){
+                    Swal.fire({
+						title: 'Ups !!!',
+						html: 'Keterangan wajib diisi',
+						type: 'error'
+					})
                 }else{
                     $.ajax({
                         url: "ajaxpengajuan.php",
@@ -272,7 +331,8 @@
                             start_date: start_date,
                             last_date: last_date,
                             keterangan: keterangan,
-                            notelp: notelp
+                            notelp: notelp,
+                            images: images
                         },
                     success: function(data) {
                         if(data == "Proses pengajuan telah berhasil")

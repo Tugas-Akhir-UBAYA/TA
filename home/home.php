@@ -13,13 +13,16 @@
         $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
         $cekcookies = mysqli_fetch_assoc($cookies);
         if($cekcookies > 0){
-            $name = $cekcookies['name'];
+            $nomor_telepon = $cekcookies['nomor_telepon'];
             $time = $cekcookies['time'];
-            setcookie('notelp', $name, time() + $time, '/');
-            if($name == ""){
+            setcookie('notelp', $nomor_telepon, time() + $time, '/');
+            if($nomor_telepon == ""){
                 header("location:../index.php");
             }
         }
+    }else{
+        setcookie('notelp', '', time() + $time, '/');
+        header("location:../index.php");
     }
 
 ?>

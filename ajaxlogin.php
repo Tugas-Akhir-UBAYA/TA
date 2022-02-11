@@ -14,6 +14,8 @@
                 $hasil = "Login berhasil karyawan";
             }
             
+        }else{
+            $hasil = "Nomor telepon tidak terdaftar";
         }
     }
     else{
@@ -34,7 +36,7 @@
                     $id_users = $cekuser['id'];
                     setcookie('notelp', $notelp, time() + 2147483647, '/');
                     $sql1 = mysqli_query($con, "UPDATE users SET status = 1 WHERE nomor_telp='$notelp'");
-                    $sql2 = mysqli_query($con, "UPDATE cookies SET name = '$notelp', time = 2147483647 WHERE id_users= $id_users");
+                    $sql2 = mysqli_query($con, "UPDATE cookies SET nomor_telepon = '$notelp', time = 2147483647 WHERE id_users= $id_users");
                     $hasil = "Login berhasil admin";
                 }else if($cekuser['jabatan'] == 0){
                     session_start();
@@ -43,7 +45,7 @@
                     $id_users = $cekuser['id'];
                     setcookie('notelp', $notelp, time() + 2147483647, '/');
                     $sql1 = mysqli_query($con, "UPDATE users SET status = 1 WHERE nomor_telp='$notelp'");
-                    $sql2 = mysqli_query($con, "UPDATE cookies SET name = '$notelp', time = 2147483647 WHERE id_users= $id_users");
+                    $sql2 = mysqli_query($con, "UPDATE cookies SET nomor_telepon = '$notelp', time = 2147483647 WHERE id_users= $id_users");
                     $hasil = "Login berhasil karyawan";
                 }
             }

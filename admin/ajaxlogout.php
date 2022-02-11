@@ -7,7 +7,7 @@
     $cekuser = mysqli_fetch_assoc($user);
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];
-        $cookies = mysqli_query($con, "UPDATE cookies SET name = '', time = 0 WHERE id_users=$id_users");
+        $cookies = mysqli_query($con, "UPDATE cookies SET nomor_telepon = '', time = 0 WHERE id_users=$id_users");
         $sql1 = mysqli_query($con, "UPDATE users SET status = 0 WHERE nomor_telp='$notelp'");
         $hasil = "Akun berhasil di logout";
     }else{

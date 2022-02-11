@@ -13,13 +13,17 @@
         $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
         $cekcookies = mysqli_fetch_assoc($cookies);
         if($cekcookies > 0){
-            $name = $cekcookies['name'];
+            $nomor_telepon = $cekcookies['nomor_telepon'];
             $time = $cekcookies['time'];
-            setcookie('notelp', $name, time() + $time, '/');
-            if($name == ""){
+            setcookie('notelp', $nomor_telepon, time() + $time, '/');
+            if($nomor_telepon == ""){
                 header("location:../index.php");
             }
         }
+    }
+    else{
+        setcookie('notelp', '', time() + $time, '/');
+        header("location:../index.php");
     }
 ?>
 
@@ -45,7 +49,7 @@
 <body>
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
-            <a class="navbar-brand white" href="index.php">PT. AMAN SAMUDERA LINES</a>
+            <a class="navbar-brand white" href="home.php">PT. AMAN SAMUDERA LINES</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -183,6 +187,9 @@
             });
             $("#myBtn2").click(function(){
                 $("#modalForm2").modal('show');
+            });
+            $("#myBtn").click(function(){
+                location.href = "dashboard.php";
             });
         });
     </script>

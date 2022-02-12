@@ -1,7 +1,7 @@
 <?php
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
 
-    $temp = "upload/";
+    $temp = "../admin/assets/upload/";
     if (!file_exists($temp)){
         mkdir($temp);
     }
@@ -63,6 +63,7 @@
     }else{
         if($kategori == "terlambat"){
             $fixstart_date = date("d-m-Y");
+            $fixlast_date = "";
         }
 
         if($kategori == "cuti")

@@ -35,40 +35,41 @@
                 }
             }
             $hasil .= '<div>
+                            <input type="text" class="form-control id_users" id="id_users" hidden name="id_users" style="font-size: 12px;" value="'. $id.'" />
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">NIK<span class="text-danger">*</span> </label><div class="form-control nik" id="nik" name="nik" style="font-size: 12px;" readonly>' . $nik . '</div> </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">NIK</label><div class="form-control nik" id="nik" name="nik" style="font-size: 12px;" readonly>' . $nik . '</div> </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nama<span class="text-danger">*</span> </label><div class="form-control nama" id="nama" name="nama" style="font-size: 12px;" readonly>' . $nama . '</div> </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nama</label><div class="form-control nama" id="nama" name="nama" style="font-size: 12px;" readonly>' . $nama . '</div> </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Tanggal Awal Mulai Kerja<span class="text-danger">*</span> </label><div class="form-control tgl_awal" id="tgl_awal" name="tgl_awal" style="font-size: 12px;" readonly>' . $fixtgl_awalkerja . '</div></div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Tanggal Awal Mulai Kerja</label><div class="form-control tgl_awal" id="tgl_awal" name="tgl_awal" style="font-size: 12px;" readonly>' . $fixtgl_awalkerja . '</div></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Rekening<span class="text-danger">*</span> </label><div class="form-control no_rekening" id="no_rekening" name="no_rekening" style="font-size: 12px;" readonly>' . $nomor_rekening . '</div> </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Rekening</label><div class="form-control no_rekening" id="no_rekening" name="no_rekening" style="font-size: 12px;" readonly>' . $nomor_rekening . '</div> </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok<span class="text-danger">*</span> </label><div class="form-control gaji" id="gaji" name="gaji" style="font-size: 12px;" readonly>' . rupiah($gaji_pokok) . '</div> </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok</label><div class="form-control gaji" id="gaji" name="gaji" style="font-size: 12px;" readonly>' . rupiah($gaji_pokok) . '</div> </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label><div class="form-control no_telp" id="no_telp" name="no_telp" style="font-size: 12px;" readonly>' . $nomor_telp . '</div> </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon</label><div class="form-control no_telp" id="no_telp" name="no_telp" style="font-size: 12px;" readonly>' . $nomor_telp . '</div> </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
+                                        <label class="form-label" style="font-size: 14px;">Jabatan</label>
                                         <div name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;" readonly>' . $fixjabatan . '</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label>
+                                        <label class="form-label" style="font-size: 14px;">Status BPJS</label>
                                         <div name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;" readonly>' . $fixbpjs . '</div>
                                     </div>
                                 </div>

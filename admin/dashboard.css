@@ -55,6 +55,67 @@ a:focus {
     color: white;
 }
 
+#notif{
+	background-color: #ff6565;
+	-webkit-animation: colors  5s ease-in  0s alternate running;
+	-moz-animation: colors 5s infinite  0s alternate running;
+	animation: colors 5s infinite  0s alternate running;
+}
+
+/* Animasi + Prefix untuk browser */
+@-webkit-keyframes colors {
+    0% { background-color: #ff6565; }
+    10% { background-color: #6aff7d; }
+    20% { background-color: #ff6565; }
+    30% { background-color: #6aff7d; }
+    40% { background-color: #ff6565; }
+    50% { background-color: #6aff7d; }
+    60% { background-color: #ff6565; }
+    70% { background-color: #6aff7d; }
+    80% { background-color: #ff6565; }
+    90% { background-color: #6aff7d; }
+    100% { background-color: #ff6565; }
+}
+@-moz-keyframes colors {
+    0% { background-color: #ff6565; }
+    10% { background-color: #6aff7d; }
+    20% { background-color: #ff6565; }
+    30% { background-color: #6aff7d; }
+    40% { background-color: #ff6565; }
+    50% { background-color: #6aff7d; }
+    60% { background-color: #ff6565; }
+    70% { background-color: #6aff7d; }
+    80% { background-color: #ff6565; }
+    90% { background-color: #6aff7d; }
+    100% { background-color: #ff6565; }
+}
+@keyframes colors {
+  0% { background-color: #ff6565; }
+    10% { background-color: #6aff7d; }
+    20% { background-color: #ff6565; }
+    30% { background-color: #6aff7d; }
+    40% { background-color: #ff6565; }
+    50% { background-color: #6aff7d; }
+    60% { background-color: #ff6565; }
+    70% { background-color: #6aff7d; }
+    80% { background-color: #ff6565; }
+    90% { background-color: #6aff7d; }
+    100% { background-color: #ff6565; }
+}
+
+.img{
+    width: 150px;
+}
+
+.divimg img {
+    transition: transform .5s ease;
+  }
+.divimg:hover img {
+  transform: scale(3);
+  z-index:1000;
+  position:relative;
+  margin-left: 50px;
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

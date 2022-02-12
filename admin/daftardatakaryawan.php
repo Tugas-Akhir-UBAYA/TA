@@ -35,17 +35,16 @@
     <title>Karyawan PT. Aman Samudera Lines</title>
 
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
-    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="assets/css/all v5.7.2.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="dashboard.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
+    <script defer src="assets/js/solid v5.0.13.js" crossorigin="anonymous"></script>
+    <script defer src="assets/js/fontawesome v5.0.13.js" crossorigin="anonymous"></script>
+    <script src="assets/js/jquery 3.5.1.js" crossorigin="anonymous"></script>
+    <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
+    <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
 </head>
 
 <body>
@@ -58,10 +57,36 @@
 
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a href="#" style="font-size: 16px;">Daftar Data Karyawan</a>
+                    <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
                 </li>
                 <li>
-                    <a href="#" style="font-size: 16px;">Daftar Pengajuan Izin</a>
+                    <?php
+                        $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
+                        $cekpengajuan = mysqli_fetch_assoc($pengajuan);
+                        if($cekpengajuan > 0){
+                            ?>
+                                <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
+                            <?php
+                        }else{
+                            ?>
+                                <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
+                            <?php
+                        }
+                    ?>
+                </li>
+                <li>
+                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
+                    <ul class="collapse list-unstyled" id="presensiSubmenu">
+                        <li>
+                            <a href="presensimasukpagi.php">Presensi Masuk Pagi</a>
+                        </li>
+                        <li>
+                            <a href="presensikeluaristirahat.php">Presensi Keluar Istirahat</a>
+                        </li>
+                        <li>
+                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
+                        </li>
+                    </ul>
                 </li>
                 <!-- <li>
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
@@ -149,8 +174,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div>
-                            
+                        <div> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="form-label" style="font-size: 14px;">NIK<span class="text-danger">*</span> </label> <input type="text" class="form-control nik" id="nik" onkeypress="return hanyaAngka(event)" name="nik" style="font-size: 12px;" /> </div>
@@ -199,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 alamat">
-                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal</label>
+                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
                                 <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;"></textarea>
                             </div>
                             <div class="modal-footer d-block">
@@ -214,11 +238,10 @@
 
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+    <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+    <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
+	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

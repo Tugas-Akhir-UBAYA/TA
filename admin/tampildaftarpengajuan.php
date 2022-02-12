@@ -166,64 +166,90 @@
         $('.setuju').click(function(){
             var id = $(this).attr('id');
             var verifikasi = $(this).attr('verifikasi');
-            $.ajax({
-                url: 'ajaxverifikasi.php',
-                method: 'post',
-                data: {
-                    id: id,
-                    verifikasi: verifikasi
-                },
-                success: function(data) {
-                    if(data == "Proses Verifikasi Telah Berhasil"){
-                        Swal.fire({
-                            title: 'Sukses',
-                            html: 'Proses Verifikasi Telah Berhasil',
-                            type: 'success'
-                        }).then((result) => {
-                            if (result.value) {
-                                $('.tabledaftarpengajuanizin').load("tampildaftarpengajuan.php");
+            Swal.fire({
+                title: 'Verifikasi Pengajuan Cuti',
+                text: "Apakah anda yakin ingin memberikan izin cuti?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yakin',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: 'ajaxverifikasi.php',
+                        method: 'post',
+                        data: {
+                            id: id,
+                            verifikasi: verifikasi
+                        },
+                        success: function(data) {
+                            if(data == "Proses Verifikasi Telah Berhasil"){
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    html: 'Proses Verifikasi Telah Berhasil',
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $('.tabledaftarpengajuanizin').load("tampildaftarpengajuan.php");
+                                    }
+                                })
+                            }else if(data == "Proses Verifikasi Gagal"){
+                                Swal.fire({
+                                    title: 'Ups...',
+                                    html: 'Proses Verifikasi Gagal',
+                                    type: 'error'
+                                })
                             }
-                        })
-                    }else if(data == "Proses Verifikasi Gagal"){
-                        Swal.fire({
-                            title: 'Ups...',
-                            html: 'Proses Verifikasi Gagal',
-                            type: 'error'
-                        })
-                    }
-                },
+                        },
+                    })
+                }
             })
         });
 
         $('.tolak').click(function(){
             var id = $(this).attr('id');
             var verifikasi = $(this).attr('verifikasi');
-            $.ajax({
-                url: 'ajaxverifikasi.php',
-                method: 'post',
-                data: {
-                    id: id,
-                    verifikasi: verifikasi
-                },
-                success: function(data) {
-                    if(data == "Proses Verifikasi Telah Berhasil"){
-                        Swal.fire({
-                            title: 'Sukses',
-                            html: 'Proses Verifikasi Telah Berhasil',
-                            type: 'success'
-                        }).then((result) => {
-                            if (result.value) {
-                                $('.tabledaftarpengajuanizin').load("tampildaftarpengajuan.php");
+            Swal.fire({
+                title: 'Verifikasi Pengajuan Cuti',
+                text: "Apakah anda yakin tidak memberikan izin cuti?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yakin',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: 'ajaxverifikasi.php',
+                        method: 'post',
+                        data: {
+                            id: id,
+                            verifikasi: verifikasi
+                        },
+                        success: function(data) {
+                            if(data == "Proses Verifikasi Telah Berhasil"){
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    html: 'Proses Verifikasi Telah Berhasil',
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $('.tabledaftarpengajuanizin').load("tampildaftarpengajuan.php");
+                                    }
+                                })
+                            }else if(data == "Proses Verifikasi Gagal"){
+                                Swal.fire({
+                                    title: 'Ups...',
+                                    html: 'Proses Verifikasi Gagal',
+                                    type: 'error'
+                                })
                             }
-                        })
-                    }else if(data == "Proses Verifikasi Gagal"){
-                        Swal.fire({
-                            title: 'Ups...',
-                            html: 'Proses Verifikasi Gagal',
-                            type: 'error'
-                        })
-                    }
-                },
+                        },
+                    })
+                }
             })
         });
     });

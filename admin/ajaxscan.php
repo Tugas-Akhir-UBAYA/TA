@@ -1,6 +1,8 @@
 <?php
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
     $notelp = $_POST['notelp'];
+    $pecahnotelp = explode(" - ", $notelp);
+    $fixnotelp = $pecahnotelp[0];
     date_default_timezone_set('Asia/Jakarta');
     $time = date("H:i:s");
     $date = date("d-m-Y");
@@ -19,7 +21,7 @@
 
 
     
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp='$notelp'");
+    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp='$fixnotelp'");
     $cekuser = mysqli_fetch_assoc($user);
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];

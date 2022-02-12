@@ -187,7 +187,7 @@
                         <div class="mb-3">
                             <?php
                                 include "../phpqrcode/qrlib.php";
-                                QRcode::png($notelp, "image.png", "H", 20, 2);
+                                QRcode::png($notelp . ' - ' . $nama, "image.png", "H", 20, 2);
                             ?>
                             <div ><img src="image.png" class="qrcode"></div>
                         </div>

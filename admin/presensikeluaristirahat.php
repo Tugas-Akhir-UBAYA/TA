@@ -158,7 +158,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tablepresensikeluaristirahat').load("tampildaftarpresensikeluaristirahat.php");
+            $('.tablepresensikeluaristirahat').load("tampildaftarpresensikeluarmasukistirahat.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });

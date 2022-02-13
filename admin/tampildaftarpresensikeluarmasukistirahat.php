@@ -13,7 +13,7 @@
     <tbody style="font-size: 12px;">
         <?php
             $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-            $absensi = mysqli_query($con, "SELECT id_users,  tanggal, GROUP_CONCAT(waktu SEPARATOR',') keluar_masuk FROM absensi WHERE status = '-' GROUP BY id_users, tanggal ORDER BY id DESC");
+            $absensi = mysqli_query($con, "SELECT id_users,  tanggal, GROUP_CONCAT(waktu SEPARATOR',') keluar_masuk FROM absensi WHERE status = '-' GROUP BY id_users, tanggal");
             if (mysqli_num_rows($absensi) > 0) {
                 $row = 1;
                 while ($data = $absensi->fetch_assoc()) {

@@ -5,7 +5,7 @@
     if (isset($_COOKIE['notelp'])) {
         $notelp = $_COOKIE['notelp'];
     }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp");
+    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1");
     $cekuser = mysqli_fetch_assoc($user);
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];

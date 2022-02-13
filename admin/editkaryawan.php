@@ -23,11 +23,7 @@
                 $alamat_tinggal = $data['alamat_tinggal'];
                 $gaji_pokok = $data['gaji_pokok'];
                 $status_bpjs = $data['status_bpjs'];
-                if($status_bpjs == 1){
-                    $fixbpjs = "Aktif";
-                }else if($status_bpjs == 0){
-                    $fixbpjs = "Tidak Aktif";
-                }
+                $status_kerja = $data['status_kerja'];
 
                 if($jabatan == 1){
                     $jabatantext = "Admin";
@@ -47,6 +43,16 @@
                     $status_bpjstext = "Tidak Aktif";
                     $status_bpjslain = 1;
                     $status_bpjslainetext = "Aktif"; 
+                }
+
+                if($status_kerja == 1){
+                    $status_kerjatext = "Aktif";
+                    $status_kerjalain = 0;
+                    $status_kerjalainetext = "Tidak Aktif";
+                }else if($status_kerja == 0){
+                    $status_kerjatext = "Tidak Aktif";
+                    $status_kerjalain = 1;
+                    $status_kerjalainetext = "Aktif"; 
                 }
 
             }
@@ -95,6 +101,15 @@
                                             <option value="'.$status_bpjslain.'">'.$status_bpjslainetext.'</option>
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 alamat">
+                                <div class="form-group"> 
+                                    <label class="form-label" style="font-size: 14px;">Status Kerja<span class="text-danger">*</span></label> 
+                                    <select name="kerja" id="kerja" class="form-control kerja" style="font-size: 12px;">
+                                        <option value="'.$status_kerja.'">'.$status_kerjatext.'</option>
+                                        <option value="'.$status_kerjalain.'">'.$status_kerjalainetext.'</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-3 alamat">

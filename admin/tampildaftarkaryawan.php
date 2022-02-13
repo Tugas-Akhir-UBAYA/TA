@@ -9,7 +9,7 @@
             <th>Jabatan</th>
             <th>Detail</th>
             <th>Edit</th>
-            <th>Hapus</th>
+            <!-- <th>Hapus</th> -->
         </tr>
     </thead>
     <tbody style="font-size: 12px;">
@@ -33,13 +33,23 @@
                     $no_rekening = $data['nomor_rekening'];
                     $gaji_pokok = $data['gaji_pokok'];
                     $status_bpjs = $data['status_bpjs'];
+                    $status_kerja = $data['status_kerja'];
                     if($status_bpjs == 1){
                         $status_bpjs = "Aktif";
                     }else if($status_bpjs == 0){
                         $status_bpjs = "Tidak Aktif";
                     }
+
+                    if($status_kerja == 1){
+                        $status_kerja = "Aktif";
+                        $color = "";
+                        
+                    }else if($status_kerja == 0){
+                        $status_kerja = "Tidak Aktif";
+                        $color = "background-color: rgb(204, 204, 204); color: rgb(126, 126, 126);";
+                    }
         ?>
-        <tr>
+        <tr style="<?php echo $color ?>" >
             <td><?php echo $nik ?></td>
             <td><?php echo $nama ?></td>
             <td><?php echo $no_telp ?></td>
@@ -48,7 +58,7 @@
             <td><?php echo $jabatan ?></td>
             <td style="text-align: center;"><button class="btn btn-info detail" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="detail"><img style="width: 25px; height: 30px;" src="../images/icon-deatail.png"></button></td>
             <td style="text-align: center;"><button class="btn btn-primary edit" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="edit"><img style="width: 25px; height: 30px;" src="../images/icon-edit.png"></button></td>
-            <td style="text-align: center;"><button class="btn btn-danger delete" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="delete"><img style="width: 25px; height: 30px;" src="../images/icon-delete2.png"></button></td>
+            <!-- <td style="text-align: center;"><button class="btn btn-danger delete" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="delete"><img style="width: 25px; height: 30px;" src="../images/icon-delete2.png"></button></td> -->
         </tr>
         <?php 
             }} 
@@ -165,6 +175,7 @@
                         var notelp = $('#no_telp').val();
                         var jabatan = $('#jabatan').val();
                         var bpjs = $('#bpjs').val();
+                        var kerja = $('#kerja').val();
                         var alamat_tinggal = $('#alamat_tinggal').val();
                         if(nik == "" || nama == "" || tgl_awal == "" || norek == "" || gaji == "" || notelp == "" || jabatan == "" || bpjs == ""|| alamat_tinggal == ""){
                             Swal.fire({
@@ -186,7 +197,8 @@
                                     notelp: notelp,
                                     jabatan: jabatan,
                                     bpjs: bpjs,
-                                    alamat_tinggal: alamat_tinggal
+                                    alamat_tinggal: alamat_tinggal,
+                                    kerja: kerja
                                 },
                                 success: function(data) {
                                     // $("#modalForm2").modal('hide');

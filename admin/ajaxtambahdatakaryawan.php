@@ -27,7 +27,7 @@
             if ($ceknoreks > 0) {
                 $hasil = "No. Rekening sudah digunakan";
             }else{
-                $tambahuser = mysqli_query($con, "INSERT INTO users VALUES(null,'$nik','$notelp','$nama','$jabatan',0,'$fixtanggal_awal','$norek','$alamat_tinggal','$fixgaji','$bpjs')");
+                $tambahuser = mysqli_query($con, "INSERT INTO users VALUES(null,'$nik','$notelp','$nama','$jabatan',0,'$fixtanggal_awal','$norek','$alamat_tinggal','$fixgaji','$bpjs',1)");
                 $user= mysqli_query($con, "SELECT * FROM users ORDER BY id DESC");
                 $cekuser = mysqli_fetch_assoc($user);
                 if($cekuser > 0){

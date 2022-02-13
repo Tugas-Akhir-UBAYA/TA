@@ -124,6 +124,12 @@ $notelp = "";
 									html: 'Akun sedang login di perangkat lain',
 									type: 'error'
 								})
+							}else if(data == "Akun sedang tidak aktif"){
+								Swal.fire({
+									title: 'Login Gagal',
+									html: 'Akun sedang tidak aktif',
+									type: 'error'
+								})
 							}
 						}
 					})

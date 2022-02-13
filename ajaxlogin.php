@@ -26,6 +26,8 @@
             
             if($cekuser['status'] == 1){
                 $hasil = "Akun sedang login di perangkat lain";
+            }else if($cekuser['status_kerja'] == 0){
+                $hasil = "Akun sedang tidak aktif";
             }else{
                 
                 if($cekuser['jabatan'] == 1)

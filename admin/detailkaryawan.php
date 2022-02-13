@@ -28,10 +28,17 @@
                 $alamat_tinggal = $data['alamat_tinggal'];
                 $gaji_pokok = $data['gaji_pokok'];
                 $status_bpjs = $data['status_bpjs'];
+                $status_kerja = $data['status_kerja'];
                 if($status_bpjs == 1){
                     $fixbpjs = "Aktif";
                 }else if($status_bpjs == 0){
                     $fixbpjs = "Tidak Aktif";
+                }
+
+                if($status_kerja == 1){
+                    $fixkerja = "Aktif";
+                }else if($status_kerja == 0){
+                    $fixkerja = "Tidak Aktif";
                 }
             }
             $hasil .= '<div>
@@ -73,6 +80,10 @@
                                         <div name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;" readonly>' . $fixbpjs . '</div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="mb-3 kerja">
+                                <label class="form-label" style="font-size: 14px;">Status Kerja</label>
+                                <div class="form-control statuskerja" id="statuskerja" style="font-size: 12px;"readonly>' . $fixkerja . '</div>
                             </div>
                             <div class="mb-3 alamat">
                                 <label class="form-label" style="font-size: 14px;">Alamat Tinggal</label>

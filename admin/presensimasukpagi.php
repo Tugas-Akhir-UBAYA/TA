@@ -81,11 +81,11 @@
                             <a href="presensimasukpagi.php">Presensi Masuk Pagi</a>
                         </li>
                         <li style="color: white;">
-                            <a href="presensikeluaristirahat.php">Presensi Keluar Istirahat</a>
+                            <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <li style="color: white;">
+                        <!-- <li style="color: white;">
                             <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 <!-- <li>

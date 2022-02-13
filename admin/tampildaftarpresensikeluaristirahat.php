@@ -5,21 +5,23 @@
             <th>Nama</th>
             <th>Nomor Telepon</th>
             <th>Tanggal</th>
-            <th>Waktu</th>
+            <th>Waktu Keluar</th>
+            <th>Waktu Masuk</th>
             <!-- <th>Status</th> -->
         </tr>
     </thead>
     <tbody style="font-size: 12px;">
         <?php
             $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-            $absensi = mysqli_query($con, "SELECT * FROM absensi WHERE keterangan = 'Keluar Istirahat' ORDER BY id DESC");
+            $absensi = mysqli_query($con, "SELECT id_users,  tanggal, GROUP_CONCAT(waktu SEPARATOR',') keluar_masuk FROM absensi WHERE status = '-' GROUP BY id_users, tanggal ORDER BY id DESC");
             if (mysqli_num_rows($absensi) > 0) {
                 $row = 1;
                 while ($data = $absensi->fetch_assoc()) {
                     $id_users = $data['id_users'];
                     $tanggal = strtotime($data['tanggal']);
                     $fixtanggal = date("d M Y", $tanggal);
-                    $waktu = $data['waktu'];
+                    $waktu = $data['keluar_masuk'];
+                    $fixwaktu = explode(",", $waktu);
                     // $status = $data['status'];
                     $users = mysqli_query($con, "SELECT * FROM users WHERE id = $id_users");
                     if (mysqli_num_rows($users) > 0) {
@@ -33,7 +35,8 @@
             <td><?php echo $nama ?></td>
             <td><?php echo $no_telp ?></td>
             <td><?php echo $fixtanggal ?></td>
-            <td><?php echo $waktu ?></td>
+            <td><?php echo $fixwaktu[0] ?></td>
+            <td><?php echo $fixwaktu[1] ?></td>
             <!-- <td><b><?php echo $status ?></b></td> -->
         </tr>
         <?php 

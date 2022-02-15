@@ -5,7 +5,7 @@
     if (isset($_COOKIE['notelp'])) {
         $notelp = $_COOKIE['notelp'];
     }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp");
+    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
     $cekuser = mysqli_fetch_assoc($user);
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];
@@ -20,6 +20,10 @@
                 header("location:../index.php");
             }
         }
+    }
+    else{
+        setcookie('notelp', '', time() + $time, '/');
+        header("location:../index.php");
     }
 
 ?>
@@ -56,6 +60,9 @@
             </div>
 
             <ul class="list-unstyled components">
+                <li>
+                    <a href="dashboard.php" style="font-size: 16px;">Dashboard</a>
+                </li>
                 <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
                 </li>

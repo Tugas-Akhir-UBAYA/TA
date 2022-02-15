@@ -46,7 +46,9 @@
     <script defer src="assets/js/solid v5.0.13.js" crossorigin="anonymous"></script>
     <script defer src="assets/js/fontawesome v5.0.13.js" crossorigin="anonymous"></script>
     <script src="assets/js/jquery 3.5.1.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
+    <script src="assets/js/chart 3.7.1.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
 </head>
@@ -60,10 +62,10 @@
             </div>
 
             <ul class="list-unstyled components">
-                <li>
+                <li class="active">
                     <a href="dashboard.php" style="font-size: 16px;">Dashboard</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
                 </li>
                 <li>
@@ -159,87 +161,18 @@
                     </div>
                 </div>
             </nav>
-            <input hidden class="notelp" value="<?php echo $notelp  ?>">
             
 
             <div>
-              <div><center><h1>Daftar Data Karyawan</h1></center></div>
-              <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Karyawan</button>
-              <div class="tabledaftarkaryawan">
-                
+              <div style="margin-bottom: 50px;"><center><h1>Dashboard</h1></center></div>
+              <div class="chartku" id="chartku" data-aos="flip-up">
+                <canvas id="myChart"></canvas>
+                <center style="margin-top: 20px;"><h5>Total Karyawan Aktif : <?php 
+                $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
+                $total_users = mysqli_num_rows($user); 
+                echo $total_users ?></h5>
+                </center>
               </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Karyawan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div> 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">NIK<span class="text-danger">*</span> </label> <input type="text" class="form-control nik" id="nik" onkeypress="return hanyaAngka(event)" name="nik" style="font-size: 12px;" /> </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nama<span class="text-danger">*</span> </label> <input type="text" class="form-control nama" id="nama" name="nama" style="font-size: 12px;" /> </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Tanggal Awal Mulai Kerja<span class="text-danger">*</span> </label> <input type="date" class="form-control tgl_awal" id="tgl_awal" name="tgl_awal" style="font-size: 12px;" /> </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Rekening<span class="text-danger">*</span> </label> <input type="text" class="form-control no_rekening" id="no_rekening" name="no_rekening" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok<span class="text-danger">*</span> </label> <input type="text" class="form-control gaji" id="gaji" name="gaji" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
-                                        <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;">
-                                            <option value="">-- Pilih Jabatan --</option>
-                                            <option value="1">Admin</option>
-                                            <option value="0">Karyawan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label> 
-                                        <select name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;">
-                                            <option value="">-- Pilih Status BPJS --</option>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3 alamat">
-                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
-                                <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;"></textarea>
-                            </div>
-                            <div class="modal-footer d-block">
-                                <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Submit</button>
-                            </div>
-                            <input class="notelp" hidden value="<?php echo $notelp ?>">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -248,11 +181,76 @@
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+		var ctx = document.getElementById("myChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				labels: ["Tepat Waktu", "Terlambat","Tidak Masuk"],
+				datasets: [{
+					label: '',
+					data: [
+					<?php
+					$date = date("d-m-Y");
+					$tepat_waktu = mysqli_query($con,"select * from absensi where status='Tepat Waktu' AND keterangan = 'Masuk Pagi' AND tanggal = '$date'");
+					$total_tepatwaktu =  mysqli_num_rows($tepat_waktu);
+					echo $total_tepatwaktu;
+					?>, 
+					<?php 
+					$date = date("d-m-Y");
+					$terlambat = mysqli_query($con,"select * from absensi where status='Terlambat' AND keterangan = 'Masuk Pagi' AND tanggal = '$date'");
+					$total_terlambat = mysqli_num_rows($terlambat);
+					echo $total_terlambat;
+					?>,
+					<?php
+						$jumlah_user = mysqli_query($con,"select * from users where status_kerja = 1");
+						$fixjumlah_user = mysqli_num_rows($jumlah_user);
+						$total_tidakmasuk = $fixjumlah_user - ($total_terlambat + $total_tepatwaktu);
+						echo $total_tidakmasuk;
+					?>
+					],
+					backgroundColor: [
+					'rgba(0, 255, 42, 0.2)',
+					'rgba(255, 136, 0, 0.2)',
+					'rgba(255, 0, 0, 0.2)'
+					],
+					borderColor: [
+					'rgba(0, 255, 42, 1)',
+					'rgba(255, 136, 0, 1)',
+					'rgba(255, 0, 0, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			options:{
+                animation: {
+                    rotation: true
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Daftar Presensi Masuk Pagi Karyawan Hari Ini',
+                        font: {
+                            size: 20
+                        },
+                        padding:{
+                            top: 20
+                        },
+                    }
+                }
+            }
+		});
+	</script>
+    <script>
+      AOS.init();
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
+            
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });

@@ -189,7 +189,7 @@
                 $("#modalForm2").modal('show');
             });
             $("#myBtn").click(function(){
-                location.href = "daftardatakaryawan.php";
+                location.href = "dashboard.php";
             });
         });
     </script>

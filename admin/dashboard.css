@@ -144,6 +144,14 @@ a:focus {
     margin-left: -250px;
     
 }
+#chartku{
+    width: 40%;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    background-color: rgba(32, 32, 32, 0.226);
+}
 
 #sidebar .sidebar-header {
     padding: 20px;

@@ -21,6 +21,10 @@
             }
         }
     }
+    else{
+        setcookie('notelp', '', time() + $time, '/');
+        header("location:../index.php");
+    }
 
 ?>
 
@@ -56,6 +60,9 @@
             </div>
 
             <ul class="list-unstyled components">
+                <li>
+                    <a href="dashboard.php" style="font-size: 16px;">Dashboard</a>
+                </li>
                 <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
                 </li>

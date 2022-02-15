@@ -176,6 +176,7 @@
                         var jabatan = $('#jabatan').val();
                         var bpjs = $('#bpjs').val();
                         var kerja = $('#kerja').val();
+                        var akses_kamera = $('#kamera').val();
                         var alamat_tinggal = $('#alamat_tinggal').val();
                         if(nik == "" || nama == "" || tgl_awal == "" || norek == "" || gaji == "" || notelp == "" || jabatan == "" || bpjs == ""|| alamat_tinggal == ""){
                             Swal.fire({
@@ -198,7 +199,8 @@
                                     jabatan: jabatan,
                                     bpjs: bpjs,
                                     alamat_tinggal: alamat_tinggal,
-                                    kerja: kerja
+                                    kerja: kerja,
+                                    akses_kamera: akses_kamera
                                 },
                                 success: function(data) {
                                     // $("#modalForm2").modal('hide');

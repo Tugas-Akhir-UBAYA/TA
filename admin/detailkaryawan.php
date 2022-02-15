@@ -29,6 +29,7 @@
                 $gaji_pokok = $data['gaji_pokok'];
                 $status_bpjs = $data['status_bpjs'];
                 $status_kerja = $data['status_kerja'];
+                $akses_kamera = $data['akses_kamera'];
                 if($status_bpjs == 1){
                     $fixbpjs = "Aktif";
                 }else if($status_bpjs == 0){
@@ -39,6 +40,12 @@
                     $fixkerja = "Aktif";
                 }else if($status_kerja == 0){
                     $fixkerja = "Tidak Aktif";
+                }
+
+                if($akses_kamera == 1){
+                    $fixkamera = "Aktif";
+                }else if($akses_kamera == 0){
+                    $fixkamera = "Tidak Aktif";
                 }
             }
             $hasil .= '<div>
@@ -81,9 +88,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3 kerja">
-                                <label class="form-label" style="font-size: 14px;">Status Kerja</label>
-                                <div class="form-control statuskerja" id="statuskerja" style="font-size: 12px;"readonly>' . $fixkerja . '</div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                    <label class="form-label" style="font-size: 14px;">Status Kerja</label>
+                                    <div class="form-control statuskerja" id="statuskerja" style="font-size: 12px;"readonly>' . $fixkerja . '</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">Akses Kamera</label>
+                                        <div name="kamera" id="kamera" class="form-control kamera" style="font-size: 12px;" readonly>' . $fixkamera . '</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-3 alamat">
                                 <label class="form-label" style="font-size: 14px;">Alamat Tinggal</label>

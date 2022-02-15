@@ -24,6 +24,7 @@
                 $gaji_pokok = $data['gaji_pokok'];
                 $status_bpjs = $data['status_bpjs'];
                 $status_kerja = $data['status_kerja'];
+                $akses_kamera = $data['akses_kamera'];
 
                 if($jabatan == 1){
                     $jabatantext = "Admin";
@@ -53,6 +54,16 @@
                     $status_kerjatext = "Tidak Aktif";
                     $status_kerjalain = 1;
                     $status_kerjalainetext = "Aktif"; 
+                }
+
+                if($akses_kamera == 1){
+                    $akses_kameratext = "Aktif";
+                    $akses_kameralain = 0;
+                    $akses_kameralaintext = "Tidak Aktif";
+                }else if($akses_kamera == 0){
+                    $akses_kameratext = "Tidak Aktif";
+                    $akses_kameralain = 1;
+                    $akses_kameralaintext = "Aktif"; 
                 }
 
             }
@@ -103,13 +114,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3 alamat">
-                                <div class="form-group"> 
-                                    <label class="form-label" style="font-size: 14px;">Status Kerja<span class="text-danger">*</span></label> 
-                                    <select name="kerja" id="kerja" class="form-control kerja" style="font-size: 12px;">
-                                        <option value="'.$status_kerja.'">'.$status_kerjatext.'</option>
-                                        <option value="'.$status_kerjalain.'">'.$status_kerjalainetext.'</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">Status Kerja<span class="text-danger">*</span></label> 
+                                        <select name="kerja" id="kerja" class="form-control kerja" style="font-size: 12px;">
+                                            <option value="'.$status_kerja.'">'.$status_kerjatext.'</option>
+                                            <option value="'.$status_kerjalain.'">'.$status_kerjalainetext.'</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">Akses kamera<span class="text-danger">*</span></label> 
+                                        <select name="kamera" id="kamera" class="form-control kamera" style="font-size: 12px;">
+                                            <option value="'.$akses_kamera.'">'.$akses_kameratext.'</option>
+                                            <option value="'.$akses_kameralain.'">'.$akses_kameralaintext.'</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3 alamat">

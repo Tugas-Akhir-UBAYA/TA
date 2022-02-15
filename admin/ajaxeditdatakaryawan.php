@@ -12,6 +12,7 @@
     $gaji = $_POST['gaji'];
     $bpjs = $_POST['bpjs'];
     $kerja = $_POST['kerja'];
+    $akses_kamera = $_POST['akses_kamera'];
     $fixgaji = preg_replace("/[^0-9]/", "", $gaji);
     
     $users = mysqli_query($con, "SELECT * FROM users WHERE id ='$id_users'");
@@ -53,7 +54,7 @@
                         $updatecookiesss = mysqli_query($con, "UPDATE cookies SET nomor_telepon = '', time = 0 WHERE id_users ='$id_users'");
                         $updatestatusss = mysqli_query($con, "UPDATE users SET status = 0 WHERE id ='$id_users'");
                     }
-                    $update = mysqli_query($con, "UPDATE users SET nama = '$nama', nomor_telp = '$notelp', nik = '$nik', jabatan = $jabatan, tgl_awalkerja = '$fixtanggal_awal', nomor_rekening = '$norek', alamat_tinggal = '$alamat_tinggal', status_bpjs = $bpjs, status_kerja = $kerja WHERE id ='$id_users'");
+                    $update = mysqli_query($con, "UPDATE users SET nama = '$nama', nomor_telp = '$notelp', nik = '$nik', jabatan = $jabatan, tgl_awalkerja = '$fixtanggal_awal', nomor_rekening = '$norek', alamat_tinggal = '$alamat_tinggal', status_bpjs = $bpjs, status_kerja = $kerja, akses_kamera = $akses_kamera WHERE id ='$id_users'");
                     $hasil = "Data Karyawan Berhasil di Ubah";
                 }
             }

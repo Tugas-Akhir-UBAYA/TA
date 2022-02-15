@@ -10,6 +10,7 @@
     if ($cekuser > 0) {
         $id_users = $cekuser['id'];
         $nama = $cekuser['nama'];
+        $akses_kamera = $cekuser['akses_kamera'];
         $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
         $cekcookies = mysqli_fetch_assoc($cookies);
         if($cekcookies > 0){
@@ -40,6 +41,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="home.css">
     <title>Karyawan PT. Aman Samudera Lines</title>
@@ -65,6 +69,22 @@
     <div >
         <center><h3 class="selamat">Selamat Datang <?php echo $nama ?></h3></center>
     </div>
+    <?php
+        if($akses_kamera == 1){
+            ?>
+                <div class="scan" id="myBtn5" >
+                    <div class="pengajuan">
+                        <div class="form-img">
+                            <img src="../images/icon-scanqr.png"  class="icon-form">
+                        </div>
+                        <div class="form-text">
+                            <div class="text">Scan QR Codes</div>
+                        </div>
+                    </div>
+                </div>
+            <?php
+        }
+    ?>
     <div class="absen" id="myBtn2" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
@@ -168,6 +188,26 @@
                             <button type="submit" class="btn float-end blues submit" style="font-size: 14px;">Submit</button>
                         </div>
                         <input class="notelp" hidden value="<?php echo $notelp ?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalForm5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Scan QR Codes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="mb-3">
+                            <label class="form-label">QR Codes </label>
+                            <input type="text" class="form-control text" id="text" placeholder="No. Telepon" name="text" />
+                            <video id="preview" width="100%" style="margin-top: 20px;"></video>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -298,6 +338,10 @@
                 $("#modalForm4").modal('show');
                 $('.tampilpengajuan').load("tampilhistoripengajuan.php");
             });
+
+            $("#myBtn5").click(function(){
+                $("#modalForm5").modal('show');
+            });
             
             $(".submit").click(function(){
                 var kategori = $('.kategori').val();
@@ -383,6 +427,85 @@
             });
             
         });
+    </script>
+
+<script>
+        let scanner = new Instascan.Scanner({video: document.getElementById('preview')});
+        Instascan.Camera.getCameras().then(function(cameras){
+            if(cameras.length > 0){
+                if(cameras.length > 1){
+                    scanner.start(cameras[1]);
+                }else{
+                    scanner.start(cameras[0]);
+                }
+                
+            }else{
+                alert("kamera tidak ditemukan");
+            }
+        }).catch(function(e){
+            console.error(e);
+        });
+
+        scanner.addListener('scan', function(c){
+            document.getElementById('text').value=c;
+            var notelp = $('#text').val();
+            var timenow = new Date();
+            var hari = ["", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Minggu"]
+            var date = hari[timenow.getDay()];
+            // alert(date);
+            $.ajax({
+				url: "../admin/ajaxscan.php",
+				method: "post",
+				data: {
+					notelp: notelp
+				},
+				success: function(data) {
+					if(data == "Absensi sukses")
+					{
+						Swal.fire({
+							title: 'Yeah',
+							html: 'Absensi sukses',
+							type: 'success',
+                            timer: 3000
+                            
+						}).then((result) => {
+                            document.getElementById('text').value = '';
+							if (result.value) {
+								document.getElementById('text').value = '';
+							}
+						})
+					}else if(data == "Absensi Melebihi Batas per Hari"){
+						Swal.fire({
+							title: 'Ups !!!',
+							html: 'Absensi Melebihi Batas per Hari',
+							type: 'error',
+                            timer: 3000
+						}).then((result) => {
+                            document.getElementById('text').value = '';
+							if (result.value) {
+								document.getElementById('text').value = '';
+							}
+						})
+					}else if(data == "Absensi gagal"){
+						Swal.fire({
+							title: 'Ups !!!',
+							html: 'Absensi gagal',
+							type: 'error'
+						})
+					}
+				}
+			})
+            // Swal.fire({
+			// 	title: 'Yeah',
+			// 	html: 'Absensi sukses',
+			// 	type: 'success'
+            //     // timer: 3000
+			// }).then((result) => {
+			// 	if (result.value) {
+					
+			// 	}
+			// })
+        })
     </script>
 
     <script>

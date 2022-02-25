@@ -1,12 +1,13 @@
 <table id="table" class="table table-striped table-bordered" style="width:100%">
     <thead style="font-size: 16px;">
         <tr style="text-align: center;">
+            <th>#</th>
             <th>NIK</th>
             <th>Nama</th>
             <th>Nomor Telepon</th>
             <th>Alamat Tinggal</th>
             <th>Status BPJS</th>
-            <th>Jabatan</th>
+            <!-- <th>Jabatan</th> -->
             <th>Detail</th>
             <th>Edit</th>
             <!-- <th>Hapus</th> -->
@@ -50,12 +51,13 @@
                     }
         ?>
         <tr style="<?php echo $color ?>" >
+            <td style="text-align: center;"><b><?php echo $row++ ?></b></td>
             <td><?php echo $nik ?></td>
             <td><?php echo $nama ?></td>
             <td><?php echo $no_telp ?></td>
             <td><?php echo $alamat_tinggal ?></td>
             <td><?php echo $status_bpjs ?></td>
-            <td><?php echo $jabatan ?></td>
+            <!-- <td><?php echo $jabatan ?></td> -->
             <td style="text-align: center;"><button class="btn btn-info detail" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="detail"><img style="width: 25px; height: 30px;" src="../images/icon-deatail.png"></button></td>
             <td style="text-align: center;"><button class="btn btn-primary edit" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="edit"><img style="width: 25px; height: 30px;" src="../images/icon-edit.png"></button></td>
             <!-- <td style="text-align: center;"><button class="btn btn-danger delete" id="<?php echo $no_telp ?>" value="<?php echo $no_telp ?>" name="delete"><img style="width: 25px; height: 30px;" src="../images/icon-delete2.png"></button></td> -->
@@ -174,11 +176,30 @@
                         var gaji = $('#gaji').val();
                         var notelp = $('#no_telp').val();
                         var jabatan = $('#jabatan').val();
-                        var bpjs = $('#bpjs').val();
-                        var kerja = $('#kerja').val();
-                        var akses_kamera = $('#kamera').val();
+                        var bpjs = document.getElementById("bpjs").checked;
+                        var kerja = document.getElementById("status_kerja").checked;
+                        var akses_kamera = document.getElementById("akses_kamera").checked;
+
+                        if(bpjs == true){
+                            bpjs = 1;
+                        }else if(bpjs == false){
+                            bpjs = 0;
+                        }
+
+                        if(kerja == true){
+                            kerja = 1;
+                        }else if(kerja == false){
+                            kerja = 0;
+                        }
+
+                        if(akses_kamera == true){
+                            akses_kamera = 1;
+                        }else if(akses_kamera == false){
+                            akses_kamera = 0;
+                        }
+                        
                         var alamat_tinggal = $('#alamat_tinggal').val();
-                        if(nik == "" || nama == "" || tgl_awal == "" || norek == "" || gaji == "" || notelp == "" || jabatan == "" || bpjs == ""|| alamat_tinggal == ""){
+                        if(nik == "" || nama == "" || tgl_awal == "" || norek == "" || gaji == "" || notelp == "" || jabatan == "" || alamat_tinggal == ""){
                             Swal.fire({
                                 title: 'Ups...',
                                 html: 'Semua Data Harus di Isi !!!',

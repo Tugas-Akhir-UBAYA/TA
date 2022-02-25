@@ -37,33 +37,22 @@
                 }
                 
                 if($status_bpjs == 1){
-                    $status_bpjstext = "Aktif";
-                    $status_bpjslain = 0;
-                    $status_bpjslainetext = "Tidak Aktif";
+                    $status_bpjs = "checked";
                 }else if($status_bpjs == 0){
-                    $status_bpjstext = "Tidak Aktif";
-                    $status_bpjslain = 1;
-                    $status_bpjslainetext = "Aktif"; 
+                    $status_bpjs = "";
+
                 }
 
                 if($status_kerja == 1){
-                    $status_kerjatext = "Aktif";
-                    $status_kerjalain = 0;
-                    $status_kerjalainetext = "Tidak Aktif";
+                    $status_kerja = "checked";
                 }else if($status_kerja == 0){
-                    $status_kerjatext = "Tidak Aktif";
-                    $status_kerjalain = 1;
-                    $status_kerjalainetext = "Aktif"; 
+                    $status_kerja = "";
                 }
 
                 if($akses_kamera == 1){
-                    $akses_kameratext = "Aktif";
-                    $akses_kameralain = 0;
-                    $akses_kameralaintext = "Tidak Aktif";
+                    $akses_kamera = "checked";
                 }else if($akses_kamera == 0){
-                    $akses_kameratext = "Tidak Aktif";
-                    $akses_kameralain = 1;
-                    $akses_kameralaintext = "Aktif"; 
+                    $akses_kamera = "";
                 }
 
             }
@@ -91,7 +80,27 @@
                                     <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok<span class="text-danger">*</span> </label> <input type="text" class="form-control gaji" id="gaji" name="gaji" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" value="'. rupiah($gaji_pokok).'" /> </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">Status Kerja<span class="text-danger">*</span></label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="status_kerja" id="status_kerja" '.$status_kerja.'>
+                                        </div>   
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" value="'. $nomor_telp.'" /> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjs" id="bpjs" '.$status_bpjs.'>
+                                        </div>  
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -106,31 +115,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label> 
-                                        <select name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;">
-                                            <option value="'.$status_bpjs.'">'.$status_bpjstext.'</option>
-                                            <option value="'.$status_bpjslain.'">'.$status_bpjslainetext.'</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status Kerja<span class="text-danger">*</span></label> 
-                                        <select name="kerja" id="kerja" class="form-control kerja" style="font-size: 12px;">
-                                            <option value="'.$status_kerja.'">'.$status_kerjatext.'</option>
-                                            <option value="'.$status_kerjalain.'">'.$status_kerjalainetext.'</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Akses kamera<span class="text-danger">*</span></label> 
-                                        <select name="kamera" id="kamera" class="form-control kamera" style="font-size: 12px;">
-                                            <option value="'.$akses_kamera.'">'.$akses_kameratext.'</option>
-                                            <option value="'.$akses_kameralain.'">'.$akses_kameralaintext.'</option>
-                                        </select>
+                                        <label class="form-label" style="font-size: 14px;">Akses kamera<span class="text-danger">*</span></label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="akses_kamera" id="akses_kamera" '.$akses_kamera.'>
+                                        </div>   
+                                        
                                     </div>
                                 </div>
                             </div>

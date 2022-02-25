@@ -211,6 +211,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group"> 
                                         <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
+                                        
                                         <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;">
                                             <option value="">-- Pilih Jabatan --</option>
                                             <option value="1">Admin</option>
@@ -220,12 +221,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label> 
-                                        <select name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;">
+                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjs" id="bpjs">
+                                        </div> 
+                                        <!-- <select name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;">
                                             <option value="">-- Pilih Status BPJS --</option>
                                             <option value="1">Aktif</option>
                                             <option value="0">Tidak Aktif</option>
-                                        </select>
+                                        </select> -->
                                     </div>
                                 </div>
                             </div>
@@ -266,9 +270,14 @@
                 var tgl_awal = $('.tgl_awal').val();
                 var norek = $('.no_rekening').val();
                 var gaji = $('.gaji').val();
-                var bpjs = $('.bpjs').val();
+                var bpjs = document.getElementById("bpjs").checked;
+                if(bpjs == true){
+                    bpjs = 1;
+                }else if(bpjs == false){
+                    bpjs = 0;
+                }
                 var date = Date.now();
-                if(jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == "" || bpjs == ""){
+                if(jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == ""){
                     Swal.fire({
 						title: 'Ups !!!',
 						html: 'Data harus di isi semua !!!',

@@ -131,7 +131,7 @@
                     <div>
                         <div class="mb-3">
                             <label class="form-label">QR Codes </label>
-                            <input type="text" class="form-control text" id="text" placeholder="No. Telepon" name="text" />
+                            <input type="text" class="form-control text" id="text" placeholder="No. Telepon - Nama" name="text" readonly disabled/>
                             <video id="preview" width="100%" style="margin-top: 20px;"></video>
                         </div>
                     </div>

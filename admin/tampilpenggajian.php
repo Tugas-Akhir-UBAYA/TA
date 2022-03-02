@@ -8,6 +8,7 @@
             <th>Pencatat</th>
             <th>Total Terlambat</th>
             <th>Detail</th>
+            <th>Buat Gaji</th>
         </tr>
     </thead>
     <tbody style="font-size: 12px;">
@@ -40,6 +41,7 @@
                         $keterangan = "Tetap";
                     }
                     $user = mysqli_query($con, "SELECT * FROM users WHERE id = $id_users");
+
                     if (mysqli_num_rows($user) > 0) {
                         while ($datas = $user->fetch_assoc()) {
                             $no_telp = $datas['nomor_telp'];
@@ -61,6 +63,7 @@
             <td><?php echo $fixtanggal_input ?></td>
             <td><?php echo rupiah($gaji_sebelumnya) ?></td>
             <td><?php echo rupiah($gaji_sekarang) ?></td>
+            <td><?php echo rupiah($selisih) ?></td>
             <td><?php echo rupiah($selisih) ?></td>
         </tr>
         <?php 

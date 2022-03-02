@@ -1,6 +1,7 @@
 <?php
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
     $id_users = $_POST['id_users'];
+    $idusers = $_POST['idusers'];
     $jabatan = $_POST['jabatan'];
     $nik = $_POST['nik'];
     $nama = $_POST['nama'];
@@ -14,11 +15,13 @@
     $kerja = $_POST['kerja'];
     $akses_kamera = $_POST['akses_kamera'];
     $fixgaji = preg_replace("/[^0-9]/", "", $gaji);
+    $datenow = date("d-m-Y");
     
     $users = mysqli_query($con, "SELECT * FROM users WHERE id ='$id_users'");
     $cekusers = mysqli_fetch_assoc($users);
     if ($cekusers > 0) {
         $jabatans = $cekusers['jabatan'];
+        $gajis = $cekusers['gaji_pokok'];
         $notelps = mysqli_query($con, "SELECT * FROM users WHERE id != '$id_users' AND  nomor_telp ='$notelp'");
         $ceknotelp = mysqli_fetch_assoc($notelps);
         if($ceknotelp > 0){
@@ -54,7 +57,20 @@
                         $updatecookiesss = mysqli_query($con, "UPDATE cookies SET nomor_telepon = '', time = 0 WHERE id_users ='$id_users'");
                         $updatestatusss = mysqli_query($con, "UPDATE users SET status = 0 WHERE id ='$id_users'");
                     }
-                    $update = mysqli_query($con, "UPDATE users SET nama = '$nama', nomor_telp = '$notelp', nik = '$nik', jabatan = $jabatan, tgl_awalkerja = '$fixtanggal_awal', nomor_rekening = '$norek', alamat_tinggal = '$alamat_tinggal', status_bpjs = $bpjs, status_kerja = $kerja, akses_kamera = $akses_kamera WHERE id ='$id_users'");
+
+                    if($fixgaji != $gajis){
+                        $gajipokokdetail = mysqli_query($con, "SELECT * FROM gaji_pokok_detail WHERE id_users = '$id_users' AND  tanggal_input = '$datenow'");
+                        $cekgajipokokdetail = mysqli_fetch_assoc($gajipokokdetail);
+                        if($cekgajipokokdetail > 0){
+                            $gaji_sebelumnya = $cekgajipokokdetail['gaji_sebelumnya'];
+                            $selisih = intval($fixgaji) - intval($gaji_sebelumnya);
+                            $updategajipokokdetail = mysqli_query($con, "UPDATE gaji_pokok_detail SET id_pengedit = $idusers, gaji_sekarang = '$fixgaji', selisih = '$selisih' WHERE id_users = '$id_users' AND  tanggal_input = '$datenow'");
+                        }else{
+                            $selisih = $fixgaji - $gajis;
+                            $addgajipokokdetail = mysqli_query($con, "INSERT INTO gaji_pokok_detail VALUES(null,$id_users,'$gajis','$selisih','$fixgaji','$idusers','$datenow')");
+                        }
+                    }
+                    $update = mysqli_query($con, "UPDATE users SET nama = '$nama', nomor_telp = '$notelp', nik = '$nik', jabatan = $jabatan, tgl_awalkerja = '$fixtanggal_awal', nomor_rekening = '$norek', alamat_tinggal = '$alamat_tinggal', status_bpjs = $bpjs, status_kerja = $kerja, akses_kamera = $akses_kamera, gaji_pokok = '$fixgaji' WHERE id ='$id_users'");
                     $hasil = "Data Karyawan Berhasil di Ubah";
                 }
             }

@@ -168,6 +168,7 @@
                         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
                     }
                     $('.ubah').click(function(){
+                        var idusers = $('.id_users').val();
                         var id_users = $('#id_users').val();
                         var nik = $('#nik').val();
                         var nama = $('#nama').val();
@@ -221,7 +222,8 @@
                                     bpjs: bpjs,
                                     alamat_tinggal: alamat_tinggal,
                                     kerja: kerja,
-                                    akses_kamera: akses_kamera
+                                    akses_kamera: akses_kamera,
+                                    idusers: idusers
                                 },
                                 success: function(data) {
                                     // $("#modalForm2").modal('hide');

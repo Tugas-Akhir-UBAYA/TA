@@ -95,6 +95,23 @@
                         </li> -->
                     </ul>
                 </li>
+                <li>
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li>
+                            <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
+                        </li>
+                        <li>
+                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
+                        </li>
+                        <li>
+                            <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
+                        </li>
+                        <!-- <li>
+                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
+                        </li> -->
+                    </ul>
+                </li>
                 <!-- <li>
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -160,6 +177,7 @@
                 </div>
             </nav>
             <input hidden class="notelp" value="<?php echo $notelp  ?>">
+            <input hidden class="id_users" value="<?php echo $id_users  ?>">
             
 
             <div>
@@ -270,6 +288,7 @@
                 var tgl_awal = $('.tgl_awal').val();
                 var norek = $('.no_rekening').val();
                 var gaji = $('.gaji').val();
+                var id_users = $('.id_users').val();
                 var bpjs = document.getElementById("bpjs").checked;
                 if(bpjs == true){
                     bpjs = 1;
@@ -296,7 +315,8 @@
                             tgl_awal: tgl_awal,
                             norek: norek,
                             gaji: gaji,
-                            bpjs: bpjs
+                            bpjs: bpjs,
+                            id_users: id_users
                         },
                     success: function(data) {
                         if(data == "Proses tambah data karyawan telah berhasil")

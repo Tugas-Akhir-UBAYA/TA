@@ -10,7 +10,9 @@
     $norek = $_POST['norek'];
     $gaji = $_POST['gaji'];
     $bpjs = $_POST['bpjs'];
+    $idusers = $_POST['id_users'];
     $fixgaji = preg_replace("/[^0-9]/", "", $gaji);
+    $datenow = date('d-m-Y');
     
     $notelps = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp='$notelp'");
     $ceknotelps = mysqli_fetch_assoc($notelps);
@@ -34,10 +36,11 @@
                     $id_users = $cekuser['id'];
                     $fix_idusers = $id_users;
                     $tambahcookies = mysqli_query($con, "INSERT INTO cookies VALUES(null,'$fix_idusers','',0)");
+                    $tambahgajipokokdetail = mysqli_query($con, "INSERT INTO gaji_pokok_detail VALUES(null,'$fix_idusers','0','$fixgaji','$fixgaji','$idusers','$datenow')");
                     $hasil = "Proses tambah data karyawan telah berhasil";
                 }else{
                     $fix_idusers = 1;
-                    $tambahcookies = mysqli_query($con, "INSERT INTO cookies VALUES(null,'$fix_idusers','',0)");
+                    $tambahgajipokokdetail = mysqli_query($con, "INSERT INTO gaji_pokok_detail VALUES(null,'$fix_idusers','0','$fixgaji','$fixgaji','$idusers','$datenow')");
                     $hasil = "Proses tambah data karyawan telah berhasil";
 
                 }

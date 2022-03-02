@@ -81,38 +81,49 @@
                         }
                     ?>
                 </li>
-                <li class="active">
+                <li>
                     <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
-                        <li style="color: white;">
+                        <li>
                             <a href="presensimasukpagi.php">Presensi Masuk Pagi</a>
                         </li>
-                        <li style="color: #02b0bd;">
+                        <li>
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
-                        </li>
-                        <!-- <li style="color: white;">
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
-                    </ul>
-                </li>
-                <li>
-                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
-                    <ul class="collapse list-unstyled" id="penggajianSubmenu">
-                        <li>
-                            <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
-                        </li>
-                        <li>
-                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
-                        </li>
-                        <li>
-                            <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
                         </li>
                         <!-- <li>
                             <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
                         </li> -->
                     </ul>
                 </li>
+                <li class="active">
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li style="color: #02b0bd;">
+                            <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
+                        </li>
+                        <li style="color: white;">
+                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
+                        </li>
+                        <li style="color: white;">
+                            <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
@@ -163,16 +174,16 @@
                 </div>
             </nav>
             <input hidden class="notelp" value="<?php echo $notelp  ?>">
+            <input hidden class="id_users" value="<?php echo $id_users  ?>">
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Keluar Masuk Istirahat</h1></center></div>
-              <div class="tablepresensikeluaristirahat">
+              <div style="margin-bottom: 100px;"><center><h1>Histori Perubahan Gaji Pokok Karyawan</h1></center></div>
+              <div class="tablehistoriperubahangaji">
                 
               </div>
             </div>
         </div>
-
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
@@ -182,16 +193,45 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tablepresensikeluaristirahat').load("tampildaftarpresensikeluarmasukistirahat.php");
+            $('.tablehistoriperubahangaji').load("tampilperubahangaji.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rupiah = document.getElementById('gaji');
+            rupiah.addEventListener('keyup', function(e){
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+    
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix){
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split   		= number_string.split(','),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+                if(ribuan){
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+    
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
         });
     </script>
 
     <script>
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {
+
+            $('.tambah').click(function(){
+                $("#modalForm").modal('show');
+            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -226,6 +266,15 @@
             })
         });
     </script>
+    <script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 </body>
 
 </html>

@@ -95,6 +95,23 @@
                         </li> -->
                     </ul>
                 </li>
+                <li>
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li>
+                            <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
+                        </li>
+                        <li>
+                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
+                        </li>
+                        <li>
+                            <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
+                        </li>
+                        <!-- <li>
+                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
+                        </li> -->
+                    </ul>
+                </li>
                 <!-- <li>
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">

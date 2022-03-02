@@ -102,7 +102,7 @@
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
                         <li style="color: white;">
-                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
+                            <a href="gajikaryawan.php">Gaji Karyawan</a>
                         </li>
                         <li style="color: white;">
                             <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>

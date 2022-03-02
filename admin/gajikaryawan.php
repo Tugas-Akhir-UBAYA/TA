@@ -66,7 +66,7 @@
                 <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
                 </li>
-                <li class="active">
+                <li>
                     <?php
                         $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
                         $cekpengajuan = mysqli_fetch_assoc($pengajuan);
@@ -95,21 +95,18 @@
                         </li> -->
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
-                        <li>
+                        <li style="color: #02b0bd;">
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
-                        <li>
-                            <a href="gajikaryawan.php">Gaji Karyawan</a>
+                        <li style="color: white;">
+                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
                         </li>
-                        <li>
+                        <li style="color: white;">
                             <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
                         </li>
-                        <!-- <li>
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <!-- <li>
@@ -177,16 +174,16 @@
                 </div>
             </nav>
             <input hidden class="notelp" value="<?php echo $notelp  ?>">
+            <input hidden class="id_users" value="<?php echo $id_users  ?>">
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Daftar Pengajuan Izin</h1></center></div>
-              <div class="tabledaftarpengajuanizin">
+              <div style="margin-bottom: 100px;"><center><h1>Penggajian Karyawan</h1></center></div>
+              <div class="tablepenggajian">
                 
               </div>
             </div>
         </div>
-
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
@@ -196,16 +193,45 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tabledaftarpengajuanizin').load("tampildaftarpengajuan.php");
+            $('.tablepenggajian').load("tampilpenggajian.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rupiah = document.getElementById('gaji');
+            rupiah.addEventListener('keyup', function(e){
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+    
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix){
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split   		= number_string.split(','),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+                if(ribuan){
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+    
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
         });
     </script>
 
     <script>
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {
+
+            $('.tambah').click(function(){
+                $("#modalForm").modal('show');
+            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -240,6 +266,15 @@
             })
         });
     </script>
+    <script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 </body>
 
 </html>

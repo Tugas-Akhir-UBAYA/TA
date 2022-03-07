@@ -1,5 +1,6 @@
 <?php
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+    date_default_timezone_set('Asia/Jakarta');
     $jabatan = $_POST['jabatan'];
     $nik = $_POST['nik'];
     $nama = $_POST['nama'];

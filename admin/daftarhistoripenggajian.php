@@ -98,13 +98,13 @@
                 <li class="active">
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
-                        <li style="color: #02b0bd;">
+                        <li style="color: white;">
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
                         <li style="color: white;">
                             <a href="gajikaryawan.php">Gaji Karyawan</a>
                         </li>
-                        <li style="color: white;">
+                        <li style="color: #02b0bd;">
                             <a href="daftarhistoripenggajian.php">Histori Penggajian Karyawan</a>
                         </li>
                     </ul>
@@ -178,12 +178,44 @@
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Histori Perubahan Gaji Pokok Karyawan</h1></center></div>
-              <div class="tablehistoriperubahangaji">
+              <div><center><h1>Histori Penggajian Karyawan</h1></center></div>
+              <button class="btn btn-primary pilih" style="margin-top: 50px; margin-bottom: 10px;">Export Data Penggajian Dalam Bentuk CSV</button>
+              <div class="tablehistoripenggajian">
                 
               </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Export Data Penggajian</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method='get' action='exportcsv.php' id="pilihbulan">
+                            <div class="mb-3 judulfile">
+                                <div class="form-group"> 
+                                    <label class="form-label" style="font-size: 14px;">Judul File<span class="text-danger">*</span> </label> 
+                                    <input type="text" class="form-control judul_file" id="judul_file" name="judul_file" style="font-size: 12px;" /> 
+                                </div>
+                            </div>
+                            <div class="mb-3 tglexport">
+                                <label class="form-label" style="font-size: 14px;">Bulan Input Penggajian<span class="text-danger">*</span> </label> 
+                                <input type="month" class="form-control tgl_export" id="tgl_export" name="tgl_export" style="font-size: 12px;" />
+                            </div>
+                            <div class="modal-footer d-block">
+                                <button type="button" class="btn float-right blues export" onclick="download()" style="font-size: 14px;">Export</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
@@ -193,43 +225,53 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tablehistoriperubahangaji').load("tampilperubahangaji.php");
+            $('.tablehistoripenggajian').load("tampildaftarhistoripenggajian.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
         });
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var rupiah = document.getElementById('gaji');
-            rupiah.addEventListener('keyup', function(e){
-                rupiah.value = formatRupiah(this.value, 'Rp. ');
-            });
-    
-            /* Fungsi formatRupiah */
-            function formatRupiah(angka, prefix){
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split   		= number_string.split(','),
-                sisa     		= split[0].length % 3,
-                rupiah     		= split[0].substr(0, sisa),
-                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
-
-                if(ribuan){
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-    
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-            }
-        });
-    </script>
 
     <script>
-        // onclick="window.location.href='../index.php'"
+        
+        function download(){
+            var tgl_export = $('.tgl_export').val();
+            var judul_file = $('.judul_file').val();
+            if(tgl_export == "" || judul_file == ""){
+                Swal.fire({
+					title: 'Gagal Export Data Penggajian',
+					html: 'Data Harus Terisi Semua',
+					type: 'error'
+				})
+            }else{
+                $.ajax({
+                    url: "ajaxexportcsv.php",
+                    method: "post",
+                    data: {
+                        tgl_export: tgl_export
+                    },
+                    success: function(data) {
+                        if(data == "Export Data Penggajian Berhasil"){
+                            $('#pilihbulan').submit();
+                            document.getElementById('tgl_export').value = '';
+                            document.getElementById('judul_file').value = '';
+                            $("#modalForm").modal('hide');
+                            
+                        }else if(data == "Data Penggajian Bulan Ini Belum Tersedia"){
+                            Swal.fire({
+                                title: 'Gagal Export Data Penggajian',
+                                html: 'Data Penggajian Bulan yang Anda Pilih Belum Tersedia',
+                                type: 'error'
+                            })
+                        }
+                    }
+                })
+            }
+        }
+
         $(document).ready(function() {
 
-            $('.tambah').click(function(){
+            $('.pilih').click(function(){
                 $("#modalForm").modal('show');
             });
 

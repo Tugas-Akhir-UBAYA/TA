@@ -1,5 +1,5 @@
 <table id="table" class="table table-striped table-bordered" style="width:100%">
-    <thead style="font-size: 16px;">
+    <thead style="font-size: 14px;">
         <tr style="text-align: center;">
             <th>#</th>
             <th>Nama</th>
@@ -23,6 +23,11 @@
                     $waktu = $data['keluar_masuk'];
                     $fixwaktu = explode(",", $waktu);
                     // $status = $data['status'];
+                    if(isset($fixwaktu[1])){
+                        $fixtime = $fixwaktu[1];
+                    }else{
+                        $fixtime = "-";
+                    }
                     $users = mysqli_query($con, "SELECT * FROM users WHERE id = $id_users");
                     if (mysqli_num_rows($users) > 0) {
                         while ($datas = $users->fetch_assoc()) {
@@ -36,7 +41,7 @@
             <td><?php echo $no_telp ?></td>
             <td><?php echo $fixtanggal ?></td>
             <td><?php echo $fixwaktu[0] ?></td>
-            <td><?php echo $fixwaktu[1] ?></td>
+            <td><?php echo $fixtime ?></td>
             <!-- <td><b><?php echo $status ?></b></td> -->
         </tr>
         <?php 

@@ -98,14 +98,14 @@
                 <li class="active">
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
-                        <li style="color: #02b0bd;">
+                        <li style="color: white;">
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
-                        <li style="color: white;">
-                            <a href="presensikeluaristirahat.php">Gaji Karyawan</a>
+                        <li style="color: #02b0bd;">
+                            <a href="gajikaryawan.php">Gaji Karyawan</a>
                         </li>
                         <li style="color: white;">
-                            <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
+                            <a href="daftarhistoripenggajian.php">Histori Penggajian Karyawan</a>
                         </li>
                     </ul>
                 </li>
@@ -178,7 +178,8 @@
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Penggajian Karyawan</h1></center></div>
+              <div><center><h1>Penggajian Karyawan</h1></center></div>
+              <button class="btn btn-primary submit" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Gaji Karyawan</button>
               <div class="tablepenggajian">
                 
               </div>
@@ -201,10 +202,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var rupiah = document.getElementById('gaji');
-            rupiah.addEventListener('keyup', function(e){
-                rupiah.value = formatRupiah(this.value, 'Rp. ');
-            });
     
             /* Fungsi formatRupiah */
             function formatRupiah(angka, prefix){
@@ -229,9 +226,6 @@
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {
 
-            $('.tambah').click(function(){
-                $("#modalForm").modal('show');
-            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -263,7 +257,50 @@
 						}
 					}
 				})
-            })
+            });
+
+            $('.submit').click(function(){
+                var pencatat = $(this).attr('id');
+                Swal.fire({
+                    title: 'Buat Gaji Karyawan',
+                    text: "Yakin anda ingin membuat gaji karyawan bulan ini?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: 'ajaxbuatgajikaryawan.php',
+                            method: 'post',
+                            data: {
+                                pencatat: pencatat
+                            },
+                            success: function(data) {
+                                if(data == "Data gaji berhasil dibuat"){
+                                    Swal.fire({
+                                        title: 'Berhasil',
+                                        html: 'Data gaji karyawan berhasil dibuat',
+                                        type: 'success'
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            
+                                        }
+                                    })
+                                }else if( data == "Data gaji bulan ini telah dibuat"){
+                                    Swal.fire({
+                                        title: 'Ups...',
+                                        html: 'Data gaji karyawan bulan ini sudah dibuat',
+                                        type: 'error'
+                                    })
+                                }
+                            },
+                        })
+                    }
+                })
+            });
         });
     </script>
     <script>

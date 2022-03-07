@@ -105,11 +105,8 @@
                             <a href="gajikaryawan.php">Gaji Karyawan</a>
                         </li>
                         <li>
-                            <a href="presensikeluaristirahat.php">Histori Penggajian Karyawan</a>
+                            <a href="daftarhistoripenggajian.php">Histori Penggajian Karyawan</a>
                         </li>
-                        <!-- <li>
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <!-- <li>

@@ -49,6 +49,8 @@
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -106,6 +108,20 @@
                         </li>
                         <li style="color: #02b0bd;">
                             <a href="daftarhistoripenggajian.php">Histori Penggajian Karyawan</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <ul class="collapse list-unstyled" id="pengaturanSubmenu">
+                        <li>
+                            <a href="bpjs.php">BPJS</a>
+                        </li>
+                        <li>
+                            <a href="rekening.php">Rekening Perusahaan</a>
+                        </li>
+                        <li>
+                            <a href="gajikaryawan.php">Denda Terlambat</a>
                         </li>
                     </ul>
                 </li>
@@ -207,6 +223,27 @@
                                 <label class="form-label" style="font-size: 14px;">Bulan Input Penggajian<span class="text-danger">*</span> </label> 
                                 <input type="month" class="form-control tgl_export" id="tgl_export" name="tgl_export" style="font-size: 12px;" />
                             </div>
+                            <div class="mb-3 rekening">
+                                <div class="form-group"> 
+                                    <label class="form-label" style="font-size: 14px; width: 100%;">Pilih Rekening<span class="text-danger">*</span> </label>
+                                    <select class="form-control rekenings" name="rekenings" id="rekenings" style="width: 100%; font-size: 12px;">
+                                    <option value="">-- Pilih Rekening --</option>
+                                        <?php
+                                            $rekening = mysqli_query($con, "SELECT * FROM rekening");
+                                            if (mysqli_num_rows($rekening) > 0) {
+                                                while ($data = mysqli_fetch_array($rekening)) {
+                                                    $nama_bank = $data['nama_bank'];
+                                                    $atas_nama = $data['atas_nama'];
+                                                    $no_rekening = $data['no_rekening'];
+                                                    $id_rekening = $data['id'];
+                                        ?>
+                                        <option value="<?php echo $id_rekening; ?>"><?php echo $nama_bank; ?> - <?php echo $atas_nama; ?> - <?php echo $no_rekening; ?></option>
+                                        <?php 
+                                            }}
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="modal-footer d-block">
                                 <button type="button" class="btn float-right blues export" onclick="download()" style="font-size: 14px;">Export</button>
                             </div>
@@ -237,7 +274,8 @@
         function download(){
             var tgl_export = $('.tgl_export').val();
             var judul_file = $('.judul_file').val();
-            if(tgl_export == "" || judul_file == ""){
+            var rekenings = $('.rekenings').val();
+            if(tgl_export == "" || judul_file == "" || rekenings == ""){
                 Swal.fire({
 					title: 'Gagal Export Data Penggajian',
 					html: 'Data Harus Terisi Semua',
@@ -255,6 +293,7 @@
                             $('#pilihbulan').submit();
                             document.getElementById('tgl_export').value = '';
                             document.getElementById('judul_file').value = '';
+                            document.getElementById('rekenings').value = '';
                             $("#modalForm").modal('hide');
                             
                         }else if(data == "Data Penggajian Bulan Ini Belum Tersedia"){
@@ -274,6 +313,8 @@
             $('.pilih').click(function(){
                 $("#modalForm").modal('show');
             });
+
+            $('.rekenings').select2();
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();

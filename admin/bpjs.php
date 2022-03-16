@@ -46,7 +46,9 @@
     <script defer src="assets/js/solid v5.0.13.js" crossorigin="anonymous"></script>
     <script defer src="assets/js/fontawesome v5.0.13.js" crossorigin="anonymous"></script>
     <script src="assets/js/jquery 3.5.1.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
+    <script src="assets/js/chart 3.7.1.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
 </head>
@@ -81,16 +83,16 @@
                         }
                     ?>
                 </li>
-                <li class="active">
+                <li>
                     <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
-                        <li style="color: white;">
+                        <li>
                             <a href="presensimasukpagi.php">Presensi Masuk Pagi</a>
                         </li>
-                        <li style="color: #02b0bd;">
+                        <li>
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <!-- <li style="color: white;">
+                        <!-- <li>
                             <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
                         </li> -->
                     </ul>
@@ -109,21 +111,35 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
                     <ul class="collapse list-unstyled" id="pengaturanSubmenu">
-                        <li>
+                        <li style="color: #02b0bd;">
                             <a href="bpjs.php">BPJS</a>
                         </li>
-                        <li>
+                        <li style="color: white;">
                             <a href="rekening.php">Rekening Perusahaan</a>
                         </li>
-                        <li>
+                        <li style="color: white;">
                             <a href="gajikaryawan.php">Denda Terlambat</a>
                         </li>
                     </ul>
                 </li>
                 <!-- <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
@@ -173,12 +189,12 @@
                     </div>
                 </div>
             </nav>
-            <input hidden class="notelp" value="<?php echo $notelp  ?>">
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Keluar Masuk Istirahat</h1></center></div>
-              <div class="tablepresensikeluaristirahat">
+              <div style="margin-bottom: 100px;"><center><h1>Pengaturan BPJS</h1></center></div>
+              <!-- <button class="btn btn-primary pilih" style="margin-top: 50px; margin-bottom: 10px;">Tambah BPJS</button> -->
+              <div class="tablebpjs">
                 
               </div>
             </div>
@@ -189,20 +205,28 @@
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tablepresensikeluaristirahat').load("tampildaftarpresensikeluarmasukistirahat.php");
+            
+            $('.tablebpjs').load("tampildaftarbpjs.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
         });
     </script>
-
     <script>
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {
+
+            $('.tambah').click(function(){
+                $("#modalForm").modal('show');
+            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -237,6 +261,15 @@
             })
         });
     </script>
+    <script>
+		function hanyaAngka(evt) {
+		  var charCode = (evt.which) ? evt.which : event.keyCode
+		   if (charCode > 31 && (charCode < 48 || charCode > 57))
+ 
+		    return false;
+		  return true;
+		}
+	</script>
 </body>
 
 </html>

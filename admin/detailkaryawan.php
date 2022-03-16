@@ -27,14 +27,8 @@
                 $nomor_rekening = $data['nomor_rekening'];
                 $alamat_tinggal = $data['alamat_tinggal'];
                 $gaji_pokok = $data['gaji_pokok'];
-                $status_bpjs = $data['status_bpjs'];
                 $status_kerja = $data['status_kerja'];
                 $akses_kamera = $data['akses_kamera'];
-                if($status_bpjs == 1){
-                    $fixbpjs = "Aktif";
-                }else if($status_bpjs == 0){
-                    $fixbpjs = "Tidak Aktif";
-                }
 
                 if($status_kerja == 1){
                     $fixkerja = "Aktif";
@@ -47,6 +41,21 @@
                 }else if($akses_kamera == 0){
                     $fixkamera = "Tidak Aktif";
                 }
+                $bpjsketenagakerjaan = "Tidak Aktif";
+                $bpjskesehatan = "Tidak Aktif";
+                $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id'");
+                if (mysqli_num_rows($detail_bpjs) > 0) {
+                    while ($datas = mysqli_fetch_array($detail_bpjs)) {
+                        $id_bpjs = $datas['id_bpjs'];
+                        $nama_bpjs = $datas['nama_bpjs'];
+                        if($nama_bpjs == 'BPJS Ketenagakerjaan'){
+                            $bpjsketenagakerjaan = "Aktif";
+                        }else if($nama_bpjs == 'BPJS Kesehatan'){
+                            $bpjskesehatan = "Aktif";
+                        }
+                    }
+                }
+
             }
             $hasil .= '<div>
                             <input type="text" class="form-control id_users" id="id_users" hidden name="id_users" style="font-size: 12px;" value="'. $id.'" />
@@ -77,14 +86,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Jabatan</label>
-                                        <div name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;" readonly>' . $fixjabatan . '</div>
+                                        <label class="form-label" style="font-size: 14px;">BPJS Ketenagakerjaan</label>
+                                        <div name="bpjsketenagakerjaan" id="bpjsketenagakerjaan" class="form-control bpjsketenagakerjaan" style="font-size: 12px;" readonly>' . $bpjsketenagakerjaan . '</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS</label>
-                                        <div name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;" readonly>' . $fixbpjs . '</div>
+                                        <label class="form-label" style="font-size: 14px;">BPJS Kesehatan</label>
+                                        <div name="bpjskesehatan" id="bpjskesehatan" class="form-control bpjskesehatan" style="font-size: 12px;" readonly>' . $bpjskesehatan . '</div>
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +110,10 @@
                                         <div name="kamera" id="kamera" class="form-control kamera" style="font-size: 12px;" readonly>' . $fixkamera . '</div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="mb-3 jabatans">
+                            <label class="form-label" style="font-size: 14px;">Jabatan</label>
+                            <div name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;" readonly>' . $fixjabatan . '</div>
                             </div>
                             <div class="mb-3 alamat">
                                 <label class="form-label" style="font-size: 14px;">Alamat Tinggal</label>

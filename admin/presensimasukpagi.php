@@ -109,6 +109,20 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <ul class="collapse list-unstyled" id="pengaturanSubmenu">
+                        <li>
+                            <a href="bpjs.php">BPJS</a>
+                        </li>
+                        <li>
+                            <a href="rekening.php">Rekening Perusahaan</a>
+                        </li>
+                        <li>
+                            <a href="gajikaryawan.php">Denda Terlambat</a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">

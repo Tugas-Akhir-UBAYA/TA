@@ -109,6 +109,20 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <ul class="collapse list-unstyled" id="pengaturanSubmenu">
+                        <li>
+                            <a href="bpjs.php">BPJS</a>
+                        </li>
+                        <li>
+                            <a href="rekening.php">Rekening Perusahaan</a>
+                        </li>
+                        <li>
+                            <a href="gajikaryawan.php">Denda Terlambat</a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- <li>
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -222,35 +236,35 @@
                                     <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
-                                        
-                                        <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;">
-                                            <option value="">-- Pilih Jabatan --</option>
-                                            <option value="1">Admin</option>
-                                            <option value="0">Karyawan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label>
-                                        <div class="toggle">
-                                            <input type="checkbox" class="bpjs" id="bpjs">
-                                        </div> 
-                                        <!-- <select name="bpjs" id="bpjs" class="form-control bpjs" style="font-size: 12px;">
-                                            <option value="">-- Pilih Status BPJS --</option>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
-                                        </select> -->
-                                    </div>
-                                </div>
+                            <div class="mb-3 jabatans">
+                                <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
+                                <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;">
+                                    <option value="">-- Pilih Jabatan --</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">Karyawan</option>
+                                </select>
                             </div>
                             <div class="mb-3 alamat">
                                 <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
                                 <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">BPJS Ketenagakerjaan</label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjsketenagakerjaan" id="bpjsketenagakerjaan">
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">BPJS Kesehatan</label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjskesehatan" id="bpjskesehatan">
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer d-block">
                                 <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Submit</button>
@@ -286,11 +300,17 @@
                 var norek = $('.no_rekening').val();
                 var gaji = $('.gaji').val();
                 var id_users = $('.id_users').val();
-                var bpjs = document.getElementById("bpjs").checked;
-                if(bpjs == true){
-                    bpjs = 1;
-                }else if(bpjs == false){
-                    bpjs = 0;
+                var bpjsketenagakerjaan = document.getElementById("bpjsketenagakerjaan").checked;
+                if(bpjsketenagakerjaan == true){
+                    bpjsketenagakerjaan = 1;
+                }else if(bpjsketenagakerjaan == false){
+                    bpjsketenagakerjaan = 0;
+                }
+                var bpjskesehatan = document.getElementById("bpjskesehatan").checked;
+                if(bpjskesehatan == true){
+                    bpjskesehatan = 1;
+                }else if(bpjskesehatan == false){
+                    bpjskesehatan = 0;
                 }
                 var date = Date.now();
                 if(jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == ""){
@@ -312,7 +332,8 @@
                             tgl_awal: tgl_awal,
                             norek: norek,
                             gaji: gaji,
-                            bpjs: bpjs,
+                            bpjsketenagakerjaan: bpjsketenagakerjaan,
+                            bpjskesehatan: bpjskesehatan,
                             id_users: id_users
                         },
                     success: function(data) {
@@ -334,7 +355,8 @@
                                     document.getElementById('tgl_awal').value = '';
                                     document.getElementById('no_rekening').value = '';
                                     document.getElementById('gaji').value = '';
-                                    document.getElementById('bpjs').value = '';
+                                    document.getElementById('bpjsketenagakerjaan').value = '';
+                                    document.getElementById('bpjsketenagakesehatan').value = '';
                                     
                                 }
                             })

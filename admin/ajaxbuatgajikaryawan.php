@@ -15,6 +15,23 @@
             while ($data = $users->fetch_assoc()) {
                 $id_users = $data['id'];
 
+                $bpjsketenagakerjaan = 0;
+                $bpjskesehatan = 0;
+                $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id_users'");
+                if (mysqli_num_rows($detail_bpjs) > 0) {
+                    while ($datas = mysqli_fetch_array($detail_bpjs)) {
+                        $id_bpjs = $datas['id_bpjs'];
+                        $nama_bpjs = $datas['nama_bpjs'];
+                        $nominal = $datas['nominal'];
+                        if($nama_bpjs == 'BPJS Ketenagakerjaan'){
+                            $bpjsketenagakerjaan = $nominal;
+                        }else if($nama_bpjs == 'BPJS Kesehatan'){
+                            $bpjskesehatan = $nominal;
+                        }
+                    }
+                }
+                $totalbpjs = intval($bpjskesehatan) + intval($bpjsketenagakerjaan);
+
                 $absensi = mysqli_query($con, "SELECT COUNT(*) AS jumlah FROM absensi WHERE id_users = $id_users AND status = 'Terlambat' AND keterangan = 'Masuk Pagi' AND tanggal LIKE '%$bulansekarang%'");
                 $cekabsensi = mysqli_fetch_assoc($absensi);
                 if($cekabsensi > 0){
@@ -34,9 +51,9 @@
                 }
 
                 $gaji_pokok = $data['gaji_pokok'];
-                $totalgaji = intval($gaji_pokok) - intval($denda);
+                $totalgaji = intval($gaji_pokok) - intval($denda) - $totalbpjs;
 
-                $buatgaji = mysqli_query($con, "INSERT INTO histori_penggajian VALUES(null,'$id_users','$pencatat','$jumlah','$datenow','$totalgaji','$denda')");
+                $buatgaji = mysqli_query($con, "INSERT INTO histori_penggajian VALUES(null,'$id_users','$pencatat','$jumlah','$datenow','$totalgaji','$denda','$totalbpjs')");
                 $hasil = "Data gaji berhasil dibuat";
 
             }

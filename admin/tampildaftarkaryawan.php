@@ -177,14 +177,21 @@
                         var gaji = $('#gaji').val();
                         var notelp = $('#no_telp').val();
                         var jabatan = $('#jabatan').val();
-                        var bpjs = document.getElementById("bpjs").checked;
+                        var bpjsketenagakerjaan = document.getElementById("bpjsketenagakerjaan").checked;
+                        var bpjskesehatan = document.getElementById("bpjskesehatan").checked;
                         var kerja = document.getElementById("status_kerja").checked;
                         var akses_kamera = document.getElementById("akses_kamera").checked;
 
-                        if(bpjs == true){
-                            bpjs = 1;
-                        }else if(bpjs == false){
-                            bpjs = 0;
+                        if(bpjsketenagakerjaan == true){
+                            bpjsketenagakerjaan = 1;
+                        }else if(bpjsketenagakerjaan == false){
+                            bpjsketenagakerjaan = 0;
+                        }
+
+                        if(bpjskesehatan == true){
+                            bpjskesehatan = 1;
+                        }else if(bpjskesehatan == false){
+                            bpjskesehatan = 0;
                         }
 
                         if(kerja == true){
@@ -219,7 +226,8 @@
                                     gaji: gaji,
                                     notelp: notelp,
                                     jabatan: jabatan,
-                                    bpjs: bpjs,
+                                    bpjsketenagakerjaan: bpjsketenagakerjaan,
+                                    bpjskesehatan: bpjskesehatan,
                                     alamat_tinggal: alamat_tinggal,
                                     kerja: kerja,
                                     akses_kamera: akses_kamera,

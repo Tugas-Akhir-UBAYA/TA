@@ -2,6 +2,7 @@
     $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
     $tgl_export = strtotime($_GET['tgl_export']);
     $judul_file = $_GET['judul_file'];
+    $rekenings = $_GET['rekenings'];
     $fixtgl_export = date("m-Y", $tgl_export);
     date_default_timezone_set('Asia/Jakarta');
     $bulan = date("F Y");
@@ -20,6 +21,14 @@
         $jumlahorang = 0;
     }
 
+    $rekening = mysqli_query($con, "SELECT * FROM rekening WHERE id = '$rekenings'");
+    $cekrekening = mysqli_fetch_assoc($rekening);
+    if($cekrekening > 0){
+        $no_rekening = $cekrekening['no_rekening'];
+    }else{
+        $no_rekening = 0;
+    }
+
     $jumlahgaji = mysqli_query($con, "SELECT SUM(total_gaji) AS Total FROM histori_penggajian WHERE tanggal_input LIKE '%$fixtgl_export%'");
     $cekjumlahgaji = mysqli_fetch_assoc($jumlahgaji);
     if($cekjumlahgaji > 0){
@@ -30,7 +39,7 @@
     $totaljumlahbaris = 2 + $jumlahorang;
     $penggajian = array($datenow.','.$totaljumlahbaris.','.$judul_file.',,,,,,,,,,,,,,,,,');
     fputcsv($file,$penggajian);
-    $penggajian = array('P,'.$tanggalsekarang.',35826695,'.$jumlahorang.','.$total.',,,,,,,,,,,,,,,,');
+    $penggajian = array('P,'.$tanggalsekarang.','.$no_rekening.','.$jumlahorang.','.$total.',,,,,,,,,,,,,,,,');
     fputcsv($file,$penggajian);
     
     $histori_penggajian = mysqli_query($con, "SELECT * FROM histori_penggajian AS h INNER JOIN users AS u ON h.id_users = u.id WHERE h.tanggal_input LIKE '%$fixtgl_export%'");

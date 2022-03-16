@@ -6,7 +6,7 @@
             <th>Nomor Telepon</th>
             <th>Total Gaji</th>
             <th>Total Denda</th>
-            <th>Jumlah Terlambat</th>
+            <th>Total Biaya BPJS</th>
             <th>Tanggal Input</th>
             <th>Pencatat</th>
         </tr>
@@ -42,6 +42,24 @@
                     if ($cekpencatat > 0) {
                         $namapencatat = $cekpencatat['nama'];
                     }
+
+                    $bpjsketenagakerjaan = 0;
+                    $bpjskesehatan = 0;
+                    $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id_users'");
+                    if (mysqli_num_rows($detail_bpjs) > 0) {
+                        while ($datas = mysqli_fetch_array($detail_bpjs)) {
+                            $id_bpjs = $datas['id_bpjs'];
+                            $nama_bpjs = $datas['nama_bpjs'];
+                            $nominal = $datas['nominal'];
+                            if($nama_bpjs == 'BPJS Ketenagakerjaan'){
+                                $bpjsketenagakerjaan = $nominal;
+                            }else if($nama_bpjs == 'BPJS Kesehatan'){
+                                $bpjskesehatan = $nominal;
+                            }
+                        }
+                    }
+
+                    $totalbpjs = intval($bpjskesehatan) + intval($bpjsketenagakerjaan);
         ?>
         <tr>
             <td style="text-align: center;"><b><?php echo $row++ ?></b></td>
@@ -49,7 +67,7 @@
             <td><?php echo $notelp ?></td>
             <td><?php echo rupiah($total_gaji) ?></td>
             <td><?php echo rupiah($total_denda) ?></td>
-            <td><?php echo $jumlah_terlambat ?> Hari</td>
+            <td><?php echo rupiah($totalbpjs) ?></td>
             <td><?php echo $fixtanggal_input ?></td>
             <td><?php echo $namapencatat ?></td>
         </tr>

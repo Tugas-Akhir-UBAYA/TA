@@ -11,11 +11,17 @@
     $fixtanggal_awal = date("d-m-Y", $tgl_awal);
     $norek = $_POST['norek'];
     $gaji = $_POST['gaji'];
-    $bpjs = $_POST['bpjs'];
     $kerja = $_POST['kerja'];
     $akses_kamera = $_POST['akses_kamera'];
     $fixgaji = preg_replace("/[^0-9]/", "", $gaji);
     $datenow = date("d-m-Y");
+    $bpjsketenagakerjaan = $_POST['bpjsketenagakerjaan'];
+    $bpjskesehatan = $_POST['bpjskesehatan'];
+    if($bpjskesehatan != 0 || $bpjsketenagakerjaan != 0){
+        $bpjs = 1;
+    }else{
+        $bpjs = 0;
+    }
     
     $users = mysqli_query($con, "SELECT * FROM users WHERE id ='$id_users'");
     $cekusers = mysqli_fetch_assoc($users);
@@ -45,6 +51,59 @@
                             $updatecookies = mysqli_query($con, "UPDATE cookies SET nomor_telepon = '', time = 0 WHERE id_users ='$id_users'");
                             $updatestatus = mysqli_query($con, "UPDATE users SET status = 0 WHERE id ='$id_users'");
 
+                        }
+                    }
+
+                    if($bpjskesehatan != 0){
+                        $bpjskesehatans  = mysqli_query($con, "SELECT * FROM bpjs WHERE nama_bpjs = 'BPJS Kesehatan'");
+                        $cekbpjskesehatans = mysqli_fetch_assoc($bpjskesehatans );
+                        if($cekbpjskesehatans > 0){
+                            $id_bpjskesehatan = $cekbpjskesehatans['id'];
+                            $detail_bpjskesehatan  = mysqli_query($con, "SELECT * FROM detail_bpjs WHERE id_bpjs = '$id_bpjskesehatan' AND id_users = '$id_users'");
+                            $cekdetail_bpjskesehatan = mysqli_fetch_assoc($detail_bpjskesehatan );
+                            if($cekdetail_bpjskesehatan > 0){
+                                $updatebpjskesehatan = "";
+                            }else{
+                                $tambahbpjskesehatan = mysqli_query($con, "INSERT INTO detail_bpjs VALUES(null,'$id_bpjskesehatan','$id_users')");
+                            }
+                        }
+                    }else{
+                        $bpjskesehatans  = mysqli_query($con, "SELECT * FROM bpjs WHERE nama_bpjs = 'BPJS Kesehatan'");
+                        $cekbpjskesehatans = mysqli_fetch_assoc($bpjskesehatans );
+                        if($cekbpjskesehatans > 0){
+                            $id_bpjskesehatan = $cekbpjskesehatans['id'];
+                            $detail_bpjskesehatan  = mysqli_query($con, "SELECT * FROM detail_bpjs WHERE id_bpjs = '$id_bpjskesehatan' AND id_users = '$id_users'");
+                            $cekdetail_bpjskesehatan = mysqli_fetch_assoc($detail_bpjskesehatan );
+                            if($cekdetail_bpjskesehatan > 0){
+                                $hapusbpjskesehatan = mysqli_query($con, "DELETE FROM detail_bpjs WHERE id_bpjs = '$id_bpjskesehatan' AND id_users = '$id_users'");
+                            }
+                        }
+                    }
+
+                    if($bpjsketenagakerjaan != 0){
+                        $bpjsketenagakerjaans  = mysqli_query($con, "SELECT * FROM bpjs WHERE nama_bpjs = 'BPJS Ketenagakerjaan'");
+                        $cekbpjsketenagakerjaans = mysqli_fetch_assoc($bpjsketenagakerjaans );
+                        if($cekbpjsketenagakerjaans > 0){
+                            $id_bpjsketenagakerjaan = $cekbpjsketenagakerjaans['id'];
+                            $detail_bpjsketenagakerjaan  = mysqli_query($con, "SELECT * FROM detail_bpjs WHERE id_bpjs = '$id_bpjsketenagakerjaan' AND id_users = '$id_users'");
+                            $cekdetail_bpjsketenagakerjaan = mysqli_fetch_assoc($detail_bpjsketenagakerjaan );
+                            if($cekdetail_bpjsketenagakerjaan > 0){
+                                $updatebpjsketenagakerjaan = "";
+                            }else{
+                                $tambahbpjsketenagakerjaan = mysqli_query($con, "INSERT INTO detail_bpjs VALUES(null,'$id_bpjsketenagakerjaan','$id_users')");
+                            }
+                            
+                        }
+                    }else{
+                        $bpjsketenagakerjaans  = mysqli_query($con, "SELECT * FROM bpjs WHERE nama_bpjs = 'BPJS Ketenagakerjaan'");
+                        $cekbpjsketenagakerjaans = mysqli_fetch_assoc($bpjsketenagakerjaans );
+                        if($cekbpjsketenagakerjaans > 0){
+                            $id_bpjsketenagakerjaan = $cekbpjsketenagakerjaans['id'];
+                            $detail_bpjsketenagakerjaan  = mysqli_query($con, "SELECT * FROM detail_bpjs WHERE id_bpjs = '$id_bpjsketenagakerjaan' AND id_users = '$id_users'");
+                            $cekdetail_bpjsketenagakerjaan = mysqli_fetch_assoc($detail_bpjsketenagakerjaan );
+                            if($cekdetail_bpjsketenagakerjaan > 0){
+                                $hapusbpjskesehatan = mysqli_query($con, "DELETE FROM detail_bpjs WHERE id_bpjs = '$id_bpjsketenagakerjaan' AND id_users = '$id_users'");
+                            }
                         }
                     }
 

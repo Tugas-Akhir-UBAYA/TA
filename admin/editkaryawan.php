@@ -36,11 +36,19 @@
                     $jabatanlaintext = "Admin";
                 }
                 
-                if($status_bpjs == 1){
-                    $status_bpjs = "checked";
-                }else if($status_bpjs == 0){
-                    $status_bpjs = "";
-
+                $bpjsketenagakerjaan = "";
+                $bpjskesehatan = "";
+                $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id'");
+                if (mysqli_num_rows($detail_bpjs) > 0) {
+                    while ($datas = mysqli_fetch_array($detail_bpjs)) {
+                        $id_bpjs = $datas['id_bpjs'];
+                        $nama_bpjs = $datas['nama_bpjs'];
+                        if($nama_bpjs == 'BPJS Ketenagakerjaan'){
+                            $bpjsketenagakerjaan = "checked";
+                        }else if($nama_bpjs == 'BPJS Kesehatan'){
+                            $bpjskesehatan = "checked";
+                        }
+                    }
                 }
 
                 if($status_kerja == 1){
@@ -80,37 +88,27 @@
                                     <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok<span class="text-danger">*</span> </label> <input type="text" class="form-control gaji" id="gaji" name="gaji" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" value="'. rupiah($gaji_pokok).'" /> </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" value="'. $nomor_telp.'" /> </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 jabatans">
+                                <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
+                                <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;" >
+                                    <option value="'.$jabatan.'">'.$jabatantext.'</option>
+                                    <option value="'.$jabatanlain.'">'.$jabatanlaintext.'</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 alamat">
+                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
+                                <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;">'. $alamat_tinggal.'</textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group"> 
                                         <label class="form-label" style="font-size: 14px;">Status Kerja<span class="text-danger">*</span></label>
                                         <div class="toggle">
                                             <input type="checkbox" class="status_kerja" id="status_kerja" '.$status_kerja.'>
                                         </div>   
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" value="'. $nomor_telp.'" /> </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Status BPJS<span class="text-danger">*</span></label>
-                                        <div class="toggle">
-                                            <input type="checkbox" class="bpjs" id="bpjs" '.$status_bpjs.'>
-                                        </div>  
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
-                                        <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;" >
-                                            <option value="'.$jabatan.'">'.$jabatantext.'</option>
-                                            <option value="'.$jabatanlain.'">'.$jabatanlaintext.'</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -119,13 +117,26 @@
                                         <div class="toggle">
                                             <input type="checkbox" class="akses_kamera" id="akses_kamera" '.$akses_kamera.'>
                                         </div>   
-                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3 alamat">
-                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
-                                <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;">'. $alamat_tinggal.'</textarea>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">BPJS Ketenagakerjaan</label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjsketenagakerjaan" id="bpjsketenagakerjaan" '.$bpjsketenagakerjaan.'>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">BPJS Kesehatan</label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjskesehatan" id="bpjskesehatan" '.$bpjskesehatan.'>
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer d-block">
                                 <button type="submit" class="btn float-right blues ubah" style="font-size: 14px;">Edit</button>

@@ -54,7 +54,7 @@
             $absensi = mysqli_query($con, "INSERT INTO absensi VALUES(null,'$id_users','$date','$time','-','$keterangan')");
             $hasil = "Absensi sukses";
         }else if($jumlahabsen == 0){
-            $keterangan = "Masuk Pagi"; 
+            $keterangan = "Presensi Datang"; 
             $absensi = mysqli_query($con, "INSERT INTO absensi VALUES(null,'$id_users','$date','$time','$status','$keterangan')");
 
             $absensis = mysqli_query($con, "SELECT id FROM absensi ORDER BY id DESC LIMIT 1");
@@ -75,6 +75,10 @@
             }
             $hasil = "Absensi sukses";
         }else if($jumlahabsen == 3){
+            $keterangan = "Presensi Pulang";
+            $absensi = mysqli_query($con, "INSERT INTO absensi VALUES(null,'$id_users','$date','$time','-','$keterangan')");
+            $hasil = "Absensi sukses";
+        }else if($jumlahabsen == 4){
             $hasil = "Absensi Melebihi Batas per Hari";
         }
     }else{

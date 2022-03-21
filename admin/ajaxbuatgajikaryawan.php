@@ -32,7 +32,7 @@
                 }
                 $totalbpjs = intval($bpjskesehatan) + intval($bpjsketenagakerjaan);
 
-                $absensi = mysqli_query($con, "SELECT COUNT(*) AS jumlah FROM absensi WHERE id_users = $id_users AND status = 'Terlambat' AND keterangan = 'Masuk Pagi' AND tanggal LIKE '%$bulansekarang%'");
+                $absensi = mysqli_query($con, "SELECT COUNT(*) AS jumlah FROM absensi WHERE id_users = $id_users AND status = 'Terlambat' AND keterangan = 'Presensi Datang' AND tanggal LIKE '%$bulansekarang%'");
                 $cekabsensi = mysqli_fetch_assoc($absensi);
                 if($cekabsensi > 0){
                     $jumlah = $cekabsensi['jumlah'];

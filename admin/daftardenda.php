@@ -46,9 +46,7 @@
     <script defer src="assets/js/solid v5.0.13.js" crossorigin="anonymous"></script>
     <script defer src="assets/js/fontawesome v5.0.13.js" crossorigin="anonymous"></script>
     <script src="assets/js/jquery 3.5.1.js" crossorigin="anonymous"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
-    <script src="assets/js/chart 3.7.1.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
 </head>
@@ -117,10 +115,10 @@
                         <li style="color: white;">
                             <a href="bpjs.php">BPJS</a>
                         </li>
-                        <li style="color: #02b0bd;">
+                        <li style="color: white;">
                             <a href="rekening.php">Rekening Perusahaan</a>
                         </li>
-                        <li style="color: white;">
+                        <li style="color: #02b0bd;">
                             <a href="daftardenda.php">Denda Terlambat</a>
                         </li>
                     </ul>
@@ -189,23 +187,24 @@
                     </div>
                 </div>
             </nav>
+            <input hidden class="notelp" value="<?php echo $notelp  ?>">
+            <input hidden class="id_users" value="<?php echo $id_users  ?>">
             
 
             <div>
-              <div><center><h1>Pengaturan Rekening Perusahaan</h1></center></div>
-              <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Rekening Perusahaan</button>
-              <div class="tablerekening">
+              <div style="margin-bottom: 100px;"><center><h1>Daftar Denda Terlambat</h1></center></div>
+              <!-- <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Karyawan</button> -->
+              <div class="tabledaftarkaryawan">
                 
               </div>
             </div>
         </div>
 
-
         <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Rekening Perusahaan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Karyawan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -214,30 +213,61 @@
                         <div> 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Nama Bank<span class="text-danger">*</span></label> 
-                                        <input type="text" class="form-control nama_bank" id="nama_bank" name="nama_bank" style="font-size: 12px;" value="BNI" readonly disabled /> 
-                                    </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">NIK<span class="text-danger">*</span> </label> <input type="text" class="form-control nik" id="nik" onkeypress="return hanyaAngka(event)" name="nik" style="font-size: 12px;" /> </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Atas Nama<span class="text-danger">*</span> </label> 
-                                        <input type="text" class="form-control atas_nama" id="atas_nama" name="atas_nama" style="font-size: 12px;" /> 
-                                    </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nama<span class="text-danger">*</span> </label> <input type="text" class="form-control nama" id="nama" name="nama" style="font-size: 12px;" /> </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6">
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Tanggal Awal Mulai Kerja<span class="text-danger">*</span> </label> <input type="date" class="form-control tgl_awal" id="tgl_awal" name="tgl_awal" style="font-size: 12px;" /> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Rekening<span class="text-danger">*</span> </label> <input type="text" class="form-control no_rekening" id="no_rekening" name="no_rekening" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok<span class="text-danger">*</span> </label> <input type="text" class="form-control gaji" id="gaji" name="gaji" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 jabatans">
+                                <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
+                                <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;">
+                                    <option value="">-- Pilih Jabatan --</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">Karyawan</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 alamat">
+                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
+                                <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Nomor Rekening<span class="text-danger">*</span> </label> 
-                                        <input type="text" class="form-control no_rekening" id="no_rekening" name="no_rekening" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> 
+                                        <label class="form-label" style="font-size: 14px;">BPJS Ketenagakerjaan</label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjsketenagakerjaan" id="bpjsketenagakerjaan">
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <label class="form-label" style="font-size: 14px;">BPJS Kesehatan</label>
+                                        <div class="toggle">
+                                            <input type="checkbox" class="bpjskesehatan" id="bpjskesehatan">
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" class="form-control id_users" id="id_users" hidden name="id_users" style="font-size: 12px;" value="<?php echo $id_users;  ?>" />
                             <div class="modal-footer d-block">
-                                <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Simpan</button>
+                                <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Submit</button>
                             </div>
                             <input class="notelp" hidden value="<?php echo $notelp ?>">
                         </div>
@@ -251,26 +281,49 @@
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-      AOS.init();
-    </script>
+	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tablerekening').load("tampildaftarrekening.php");
+            Swal.fire({
+                title: 'Coming Soon !!!',
+                html: 'Menu sedang proses development',
+                type: 'info',
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+                    window.location = "dashboard.php";
+                }
+            });
+            // $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
 
             $('.submit').click(function(){
-                var nama_bank = $('.nama_bank').val();
-                var atas_nama = $('.atas_nama').val();
-                var no_rekening = $('.no_rekening').val();
+                var jabatan = $('.jabatan').val();
+                var nik = $('.nik').val();
+                var nama = $('.nama').val();
+                var notelp = $('.no_telp').val();
+                var alamat_tinggal = $('.alamat_tinggal').val();
+                var tgl_awal = $('.tgl_awal').val();
+                var norek = $('.no_rekening').val();
+                var gaji = $('.gaji').val();
                 var id_users = $('.id_users').val();
-                if(nama_bank == "" || atas_nama == "" || no_rekening == ""){
+                var bpjsketenagakerjaan = document.getElementById("bpjsketenagakerjaan").checked;
+                if(bpjsketenagakerjaan == true){
+                    bpjsketenagakerjaan = 1;
+                }else if(bpjsketenagakerjaan == false){
+                    bpjsketenagakerjaan = 0;
+                }
+                var bpjskesehatan = document.getElementById("bpjskesehatan").checked;
+                if(bpjskesehatan == true){
+                    bpjskesehatan = 1;
+                }else if(bpjskesehatan == false){
+                    bpjskesehatan = 0;
+                }
+                var date = Date.now();
+                if(jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == ""){
                     Swal.fire({
 						title: 'Ups !!!',
 						html: 'Data harus di isi semua !!!',
@@ -278,31 +331,61 @@
 					})
                 }else{
                     $.ajax({
-                        url: "ajaxtambahrekening.php",
+                        url: "ajaxtambahdatakaryawan.php",
                         method: "post",
                         data: {
-                            nama_bank: nama_bank,
-                            atas_nama: atas_nama,
-                            no_rekening: no_rekening,
+                            jabatan: jabatan,
+                            nik: nik,
+                            nama: nama,
+                            notelp: notelp,
+                            alamat_tinggal: alamat_tinggal,
+                            tgl_awal: tgl_awal,
+                            norek: norek,
+                            gaji: gaji,
+                            bpjsketenagakerjaan: bpjsketenagakerjaan,
+                            bpjskesehatan: bpjskesehatan,
                             id_users: id_users
                         },
-                        success: function(data) {
-                            if(data == "Data Rekening Berhasil Di Simpan")
-                            {
-                                Swal.fire({
-                                    title: 'Yeah',
-                                    html: 'Data Rekening Berhasil Di Simpan',
-                                    type: 'success'
-                                }).then((result) => {
-                                    if (result.value) {
-                                        $('.tablerekening').load("tampildaftarrekening.php");
-                                        $('#modalForm').modal('hide');
-                                    }
-                                })
-                            }else if(data == "Rekening sudah ditambahkan sebelumnya"){
+                    success: function(data) {
+                        if(data == "Proses tambah data karyawan telah berhasil")
+                        {
+                            Swal.fire({
+                                title: 'Yeah',
+                                html: 'Proses tambah data karyawan telah berhasil',
+                                type: 'success'
+                            }).then((result) => {
+                                if (result.value) {
+                                    $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
+                                    $('#modalForm').modal('hide');
+                                    document.getElementById('jabatan').value = '';
+                                    document.getElementById('nik').value = '';
+                                    document.getElementById('nama').value = '';
+                                    document.getElementById('no_telp').value = '';
+                                    document.getElementById('alamat_tinggal').value = '';
+                                    document.getElementById('tgl_awal').value = '';
+                                    document.getElementById('no_rekening').value = '';
+                                    document.getElementById('gaji').value = '';
+                                    document.getElementById('bpjsketenagakerjaan').value = '';
+                                    document.getElementById('bpjsketenagakesehatan').value = '';
+                                    
+                                }
+                            })
+                        }else if(data == "Nomor telepon sudah digunakan"){
+                            Swal.fire({
+                                title: 'Ups...',
+                                html: 'Nomor telepon sudah digunakan',
+                                type: 'error'
+                            })
+                        }else if(data == "NIK sudah digunakan"){
+                            Swal.fire({
+                                title: 'Ups...',
+                                html: 'NIK sudah digunakan',
+                                type: 'error'
+                            })
+                        }else if(data == "No. Rekening sudah digunakan"){
                                 Swal.fire({
                                     title: 'Ups...',
-                                    html: 'Rekening sudah ditambahkan sebelumnya',
+                                    html: 'No. Rekening sudah digunakan',
                                     type: 'error'
                                 })
                             }
@@ -310,6 +393,31 @@
                     })
                 }
             });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rupiah = document.getElementById('gaji');
+            rupiah.addEventListener('keyup', function(e){
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+    
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix){
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split   		= number_string.split(','),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+                if(ribuan){
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+    
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
         });
     </script>
 

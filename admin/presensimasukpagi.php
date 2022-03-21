@@ -85,7 +85,7 @@
                     <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
                         <li style="color: #02b0bd;">
-                            <a href="presensimasukpagi.php">Presensi Masuk Pagi</a>
+                            <a href="presensimasukpagi.php">Presensi Datang dan Pulang</a>
                         </li>
                         <li style="color: white;">
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
@@ -119,7 +119,7 @@
                             <a href="rekening.php">Rekening Perusahaan</a>
                         </li>
                         <li>
-                            <a href="gajikaryawan.php">Denda Terlambat</a>
+                            <a href="daftardenda.php">Denda Terlambat</a>
                         </li>
                     </ul>
                 </li>
@@ -177,7 +177,7 @@
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Masuk Pagi</h1></center></div>
+              <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Datang dan Pulang</h1></center></div>
               <div class="tablepresensimasukpagi">
                 
               </div>

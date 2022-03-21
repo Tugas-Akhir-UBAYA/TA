@@ -26,7 +26,7 @@
                     $id_users = $data['id'];
                     date_default_timezone_set('Asia/Jakarta');
                     $datenow = date("m-Y");
-                    $absensi = mysqli_query($con, "SELECT COUNT(*) AS jumlah FROM absensi WHERE id_users = $id_users AND status = 'Terlambat' AND keterangan = 'Masuk Pagi' AND tanggal LIKE '%$datenow%'");
+                    $absensi = mysqli_query($con, "SELECT COUNT(*) AS jumlah FROM absensi WHERE id_users = $id_users AND status = 'Terlambat' AND keterangan = 'Presensi Datang' AND tanggal LIKE '%$datenow%'");
                     $cekabsensi = mysqli_fetch_assoc($absensi);
 
                     if($cekabsensi > 0){

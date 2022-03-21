@@ -46,11 +46,11 @@
     <script defer src="assets/js/solid v5.0.13.js" crossorigin="anonymous"></script>
     <script defer src="assets/js/fontawesome v5.0.13.js" crossorigin="anonymous"></script>
     <script src="assets/js/jquery 3.5.1.js" crossorigin="anonymous"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
-    <script src="assets/js/chart 3.7.1.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -97,30 +97,33 @@
                         </li> -->
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
-                        <li>
+                        <li style="color: #02b0bd;">
+                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                        </li>
+                        <li style="color: white;">
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
-                        <li>
+                        <li style="color: white;">
                             <a href="gajikaryawan.php">Gaji Karyawan</a>
                         </li>
-                        <li>
+                        <li style="color: white;">
                             <a href="daftarhistoripenggajian.php">Histori Penggajian Karyawan</a>
                         </li>
                     </ul>
                 </li>
-                <li class="active">
+                <li>
                     <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
                     <ul class="collapse list-unstyled" id="pengaturanSubmenu">
-                        <li style="color: white;">
+                        <li>
                             <a href="bpjs.php">BPJS</a>
                         </li>
-                        <li style="color: #02b0bd;">
+                        <li>
                             <a href="rekening.php">Rekening Perusahaan</a>
                         </li>
-                        <li style="color: white;">
+                        <li>
                             <a href="daftardenda.php">Denda Terlambat</a>
                         </li>
                     </ul>
@@ -189,55 +192,63 @@
                     </div>
                 </div>
             </nav>
+            <input hidden class="notelp" value="<?php echo $notelp  ?>">
+            <input hidden class="id_users" value="<?php echo $id_users  ?>">
             
 
             <div>
-              <div><center><h1>Pengaturan Rekening Perusahaan</h1></center></div>
-              <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Rekening Perusahaan</button>
-              <div class="tablerekening">
+              <div><center><h1>Histori Data Denda Lain - Lain</h1></center></div>
+              <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Data Denda Lain - Lain</button>
+              <div class="tablehistoridendalain">
                 
               </div>
             </div>
         </div>
+    </div>
 
-
-        <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Rekening Perusahaan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Denda Lain - Lain</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div> 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Nama Bank<span class="text-danger">*</span></label> 
-                                        <input type="text" class="form-control nama_bank" id="nama_bank" name="nama_bank" style="font-size: 12px;" value="BNI" readonly disabled /> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Atas Nama<span class="text-danger">*</span> </label> 
-                                        <input type="text" class="form-control atas_nama" id="atas_nama" name="atas_nama" style="font-size: 12px;" /> 
-                                    </div>
+                            <div class="mb-3 users">
+                                <label class="form-label" style="font-size: 14px; width: 100%;">Karyawan<span class="text-danger">*</span></label>
+                                <select name="karyawan" id="karyawan" class="form-control karyawan" style="width: 100%; font-size: 12px;">
+                                    <option value="">-- Pilih Karyawan --</option>
+                                    <?php
+                                        $users = mysqli_query($con, "SELECT * FROM users WHERE jabatan = 0 AND status_kerja = 1");
+                                        if (mysqli_num_rows($users) > 0) {
+                                            while ($data = $users->fetch_assoc()) {
+                                                $id_users = $data['id'];
+                                                $nama = $data['nama'];
+                                                $nomor_telp = $data['nomor_telp'];
+                                                ?>
+                                                    <option value="<?php echo $id_users ?>"><?php echo $nomor_telp ?> - <?php echo $nama ?></option>
+                                                <?php
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="mb-3 nominals">
+                                <div class="form-group"> 
+                                    <label class="form-label" style="font-size: 14px;">Nominal Denda<span class="text-danger">*</span> </label> 
+                                    <input type="text" class="form-control nominal" id="nominal" name="nominal" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> 
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">Nomor Rekening<span class="text-danger">*</span> </label> 
-                                        <input type="text" class="form-control no_rekening" id="no_rekening" name="no_rekening" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> 
-                                    </div>
-                                </div>
+                            <div class="mb-3 keterangan">
+                                <label class="form-label" style="font-size: 14px;">Keterangan<span class="text-danger">*</span></label>
+                                <textarea class="form-control keterangans" id="keterangans" style="font-size: 12px;"></textarea>
                             </div>
-                            <input type="text" class="form-control id_users" id="id_users" hidden name="id_users" style="font-size: 12px;" value="<?php echo $id_users;  ?>" />
+                            
                             <div class="modal-footer d-block">
-                                <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Simpan</button>
+                                <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Submit</button>
                             </div>
                             <input class="notelp" hidden value="<?php echo $notelp ?>">
                         </div>
@@ -245,32 +256,62 @@
                 </div>
             </div>
         </div>
-
-    </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-      AOS.init();
-    </script>
+	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.tablerekening').load("tampildaftarrekening.php");
+            $('.tambah').click(function(){
+                $("#modalForm").modal('show');
+            });
+            $('.karyawan').select2();
+            $('.tablehistoridendalain').load("tampildatadendalain.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rupiah = document.getElementById('nominal');
+            rupiah.addEventListener('keyup', function(e){
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+    
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix){
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split   		= number_string.split(','),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+                if(ribuan){
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+    
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.tambah').click(function(){
+                $("#modalForm").modal('show');
+            });
 
             $('.submit').click(function(){
-                var nama_bank = $('.nama_bank').val();
-                var atas_nama = $('.atas_nama').val();
-                var no_rekening = $('.no_rekening').val();
-                var id_users = $('.id_users').val();
-                if(nama_bank == "" || atas_nama == "" || no_rekening == ""){
+                var nominal = $('.nominal').val();
+                var id_karyawan = $('.karyawan').val();
+                var keterangan = $('.keterangans').val();
+                if(nominal == "" || id_karyawan == "" || keterangan == ""){
                     Swal.fire({
 						title: 'Ups !!!',
 						html: 'Data harus di isi semua !!!',
@@ -278,47 +319,40 @@
 					})
                 }else{
                     $.ajax({
-                        url: "ajaxtambahrekening.php",
+                        url: "ajaxtambahdatadendalain.php",
                         method: "post",
                         data: {
-                            nama_bank: nama_bank,
-                            atas_nama: atas_nama,
-                            no_rekening: no_rekening,
-                            id_users: id_users
+                            nominal: nominal,
+                            id_karyawan: id_karyawan,
+                            keterangan: keterangan
                         },
                         success: function(data) {
-                            if(data == "Data Rekening Berhasil Di Simpan")
+                            if(data == "Data denda lain berhasil dibuat")
                             {
                                 Swal.fire({
                                     title: 'Yeah',
-                                    html: 'Data Rekening Berhasil Di Simpan',
+                                    html: 'Data denda lain - lain berhasil dibuat',
                                     type: 'success'
                                 }).then((result) => {
                                     if (result.value) {
-                                        $('.tablerekening').load("tampildaftarrekening.php");
+                                        $('.tablehistoridendalain').load("tampildatadendalain.php");
                                         $('#modalForm').modal('hide');
+                                        document.getElementById('nominal').value = '';
+                                        document.getElementById('karyawan').value = '';
+                                        document.getElementById('keterangans').value = '';
+                                        
                                     }
                                 })
-                            }else if(data == "Rekening sudah ditambahkan sebelumnya"){
+                            }else if(data == "Data karyawan tidak ditemukan"){
                                 Swal.fire({
                                     title: 'Ups...',
-                                    html: 'Rekening sudah ditambahkan sebelumnya',
+                                    html: 'Data karyawan tidak ditemukan',
                                     type: 'error'
                                 })
                             }
                         }
                     })
                 }
-            });
-        });
-    </script>
-
-    <script>
-        // onclick="window.location.href='../index.php'"
-        $(document).ready(function() {
-
-            $('.tambah').click(function(){
-                $("#modalForm").modal('show');
             });
 
             $('.logout').click(function() {

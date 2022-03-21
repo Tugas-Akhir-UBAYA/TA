@@ -5,22 +5,27 @@
             <th>Nama</th>
             <th>Nomor Telepon</th>
             <th>Tanggal</th>
-            <th>Waktu</th>
-            <th>Status</th>
+            <th>Waktu Datang</th>
+            <th>Waktu Pulang</th>
         </tr>
     </thead>
     <tbody style="font-size: 12px;">
         <?php
             $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-            $absensi = mysqli_query($con, "SELECT * FROM absensi WHERE keterangan = 'Masuk Pagi' ORDER BY id DESC");
+            $absensi = mysqli_query($con, "SELECT id_users,  tanggal, GROUP_CONCAT(waktu SEPARATOR',') datang_pulang, GROUP_CONCAT(status SEPARATOR',') status_absensi FROM absensi WHERE keterangan != 'Keluar Istirahat' AND keterangan != 'Masuk Setelah Istirahat' GROUP BY id_users, tanggal ORDER BY tanggal");
             if (mysqli_num_rows($absensi) > 0) {
                 $row = 1;
                 while ($data = $absensi->fetch_assoc()) {
                     $id_users = $data['id_users'];
                     $tanggal = strtotime($data['tanggal']);
                     $fixtanggal = date("d M Y", $tanggal);
-                    $waktu = $data['waktu'];
-                    $status = $data['status'];
+                    $waktu = $data['datang_pulang'];
+                    $fixwaktu = explode(",", $waktu);
+                    if(isset($fixwaktu[1])){
+                        $fixtime = $fixwaktu[1];
+                    }else{
+                        $fixtime = "-";
+                    }
                     $users = mysqli_query($con, "SELECT * FROM users WHERE id = $id_users");
                     if (mysqli_num_rows($users) > 0) {
                         while ($datas = $users->fetch_assoc()) {
@@ -33,8 +38,8 @@
             <td><?php echo $nama ?></td>
             <td><?php echo $no_telp ?></td>
             <td><?php echo $fixtanggal ?></td>
-            <td><?php echo $waktu ?></td>
-            <td style="text-align: center;"><b><?php echo $status ?></b></td>
+            <td><?php echo $fixwaktu[0] ?></td>
+            <td><?php echo $fixtime ?></td>
         </tr>
         <?php 
             }} 

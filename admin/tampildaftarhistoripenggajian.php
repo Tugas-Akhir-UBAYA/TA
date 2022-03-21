@@ -28,6 +28,7 @@
                     $total_gaji = $data['total_gaji'];
                     $total_denda = $data['total_denda'];
                     $jumlah_terlambat = $data['jumlah_terlambat'];
+                    $totalbiaya_bpjs = $data['totalbiaya_bpjs'];
                     $tanggal_input = strtotime($data['tanggal_input']);
                     $fixtanggal_input = date("d M Y", $tanggal_input);
                     $users = mysqli_query($con, "SELECT * FROM users WHERE id = '$id_users'");
@@ -43,23 +44,23 @@
                         $namapencatat = $cekpencatat['nama'];
                     }
 
-                    $bpjsketenagakerjaan = 0;
-                    $bpjskesehatan = 0;
-                    $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id_users'");
-                    if (mysqli_num_rows($detail_bpjs) > 0) {
-                        while ($datas = mysqli_fetch_array($detail_bpjs)) {
-                            $id_bpjs = $datas['id_bpjs'];
-                            $nama_bpjs = $datas['nama_bpjs'];
-                            $nominal = $datas['nominal'];
-                            if($nama_bpjs == 'BPJS Ketenagakerjaan'){
-                                $bpjsketenagakerjaan = $nominal;
-                            }else if($nama_bpjs == 'BPJS Kesehatan'){
-                                $bpjskesehatan = $nominal;
-                            }
-                        }
-                    }
+                    // $bpjsketenagakerjaan = 0;
+                    // $bpjskesehatan = 0;
+                    // $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id_users'");
+                    // if (mysqli_num_rows($detail_bpjs) > 0) {
+                    //     while ($datas = mysqli_fetch_array($detail_bpjs)) {
+                    //         $id_bpjs = $datas['id_bpjs'];
+                    //         $nama_bpjs = $datas['nama_bpjs'];
+                    //         $nominal = $datas['nominal'];
+                    //         if($nama_bpjs == 'BPJS Ketenagakerjaan'){
+                    //             $bpjsketenagakerjaan = $nominal;
+                    //         }else if($nama_bpjs == 'BPJS Kesehatan'){
+                    //             $bpjskesehatan = $nominal;
+                    //         }
+                    //     }
+                    // }
 
-                    $totalbpjs = intval($bpjskesehatan) + intval($bpjsketenagakerjaan);
+                    // $totalbpjs = intval($bpjskesehatan) + intval($bpjsketenagakerjaan);
         ?>
         <tr>
             <td style="text-align: center;"><b><?php echo $row++ ?></b></td>
@@ -67,7 +68,7 @@
             <td><?php echo $notelp ?></td>
             <td><?php echo rupiah($total_gaji) ?></td>
             <td><?php echo rupiah($total_denda) ?></td>
-            <td><?php echo rupiah($totalbpjs) ?></td>
+            <td><?php echo rupiah($totalbiaya_bpjs) ?></td>
             <td><?php echo $fixtanggal_input ?></td>
             <td><?php echo $namapencatat ?></td>
         </tr>

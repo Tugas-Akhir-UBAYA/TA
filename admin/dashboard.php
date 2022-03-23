@@ -25,6 +25,14 @@
         setcookie('notelp', '', time() + $time, '/');
         header("location:../index.php");
     }
+    date_default_timezone_set('Asia/Jakarta');
+    $datenow = date('d-m-Y');
+    $bpjs = mysqli_query($con, "SELECT * FROM bpjs");
+    $cekbpjs = mysqli_fetch_assoc($bpjs);
+    if ($cekbpjs == 0) {
+        $buatbpjsketenagakerjaan = mysqli_query($con, "INSERT INTO bpjs VALUES(null,'$id_users','BPJS Ketenagakerjaan','$datenow',0)");
+        $buatbpjskesehatan = mysqli_query($con, "INSERT INTO bpjs VALUES(null,'$id_users','BPJS Kesehatan','$datenow',0)");
+    }
 
 ?>
 
@@ -36,7 +44,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Karyawan PT. Aman Samudera Lines</title>
+    <title>Kelola Karyawan</title>
 
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
@@ -54,6 +62,7 @@
 </head>
 
 <body>
+    
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -92,9 +101,6 @@
                         <li>
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <!-- <li>
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <li>
@@ -128,37 +134,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -195,15 +170,20 @@
             
 
             <div>
-              <div style="margin-bottom: 50px;"><center><h1>Dashboard</h1></center></div>
-              <div class="chartku" id="chartku" data-aos="flip-up">
-                <canvas id="myChart"></canvas>
-                <center style="margin-top: 20px;"><h5>Total Karyawan Aktif : <?php 
-                $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
-                $total_users = mysqli_num_rows($user); 
-                echo $total_users ?></h5>
-                </center>
-              </div>
+                <div class="preloader">
+                    <div class="loading">
+                        <img src="../images/loading2.gif" width="100%">
+                    </div>
+                </div>
+                <div style="margin-bottom: 50px;"><center><h1>Dashboard</h1></center></div>
+                <div class="chartku" id="chartku" data-aos="flip-up">
+                    <canvas id="myChart"></canvas>
+                    <center style="margin-top: 20px;"><h5>Total Karyawan Aktif : <?php 
+                    $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
+                    $total_users = mysqli_num_rows($user); 
+                    echo $total_users ?></h5>
+                    </center>
+                </div>
             </div>
         </div>
 
@@ -281,7 +261,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            
+            $(".preloader").fadeOut();
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });

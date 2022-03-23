@@ -64,13 +64,19 @@
             }
             if($status == "Terlambat"){
                 $selisih = ($totalnow - $totalmax) / 60;
-                if($selisih <= 5){
-                    $denda = "25000";
-                }else if($selisih > 5 && $selisih <= 30){
-                    $denda = "50000";
-                }else if($selisih > 30){
-                    $denda = "100000";
+                $denda_terlambat = mysqli_query($con, "SELECT * FROM denda_terlambat ORDER BY durasi DESC");
+                if (mysqli_num_rows($denda_terlambat) > 0) {
+                    $row = 1;
+                    while ($datas = $denda_terlambat->fetch_assoc()) {
+                        $durasis = $datas['durasi'];
+                        $dendas = $datas['denda'];
+                        if($selisih > $durasis){
+                            $denda = $dendas;
+                            break;
+                        }
+                    }
                 }
+                
                 $absensi_detail = mysqli_query($con, "INSERT INTO detail_absensi_terlambat VALUES(null,'$id_users','$id_absensis','$date','$selisih','$denda')");
             }
             $hasil = "Absensi sukses";

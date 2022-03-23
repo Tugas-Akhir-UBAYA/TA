@@ -50,8 +50,22 @@
                     $denda = 0;
                 }
 
+                $datadendalain = mysqli_query($con, "SELECT SUM(nominal) AS denda_lain FROM datadenda_lainlain WHERE id_users = $id_users AND tanggal_input LIKE '%$bulansekarang%'");
+                $cekdatadendalain = mysqli_fetch_assoc($datadendalain);
+                if($cekdatadendalain > 0){
+                    $dendalainlain = $cekdatadendalain['denda_lain'];
+                    if($dendalainlain == ""){
+                        $dendalainlain = 0;
+                    }
+                    $updatedatadendalain = mysqli_query($con, "UPDATE datadenda_lainlain SET status = 1  WHERE id_users ='$id_users' AND tanggal_input LIKE '%$bulansekarang%'");
+                }else{
+                    $dendalainlain = 0;
+                }
+
+
+
                 $gaji_pokok = $data['gaji_pokok'];
-                $totalgaji = intval($gaji_pokok) - intval($denda) - $totalbpjs;
+                $totalgaji = intval($gaji_pokok) - intval($denda) - $totalbpjs - intval($dendalainlain);
 
                 $buatgaji = mysqli_query($con, "INSERT INTO histori_penggajian VALUES(null,'$id_users','$pencatat','$jumlah','$datenow','$totalgaji','$denda','$totalbpjs')");
                 $hasil = "Data gaji berhasil dibuat";

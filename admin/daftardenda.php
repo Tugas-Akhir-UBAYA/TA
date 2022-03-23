@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Karyawan PT. Aman Samudera Lines</title>
+    <title>Kelola Karyawan</title>
 
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
@@ -90,14 +90,14 @@
                         <li>
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <!-- <li>
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <li>
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li>
+                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                        </li>
                         <li>
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
@@ -123,37 +123,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -187,16 +156,18 @@
                     </div>
                 </div>
             </nav>
-            <input hidden class="notelp" value="<?php echo $notelp  ?>">
-            <input hidden class="id_users" value="<?php echo $id_users  ?>">
-            
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Daftar Denda Terlambat</h1></center></div>
-              <!-- <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Karyawan</button> -->
-              <div class="tabledaftarkaryawan">
-                
-              </div>
+                <div class="preloader">
+                    <div class="loading">
+                        <img src="../images/loading2.gif" width="100%">
+                    </div>
+                </div>
+                <div><center><h1>Daftar Denda Terlambat</h1></center></div>
+                <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Denda Terlambat</button>
+                <div class="tabledaftardendaterlambat">
+                    
+                </div>
             </div>
         </div>
 
@@ -204,7 +175,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Karyawan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Denda Terlambat</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -213,57 +184,10 @@
                         <div> 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">NIK<span class="text-danger">*</span> </label> <input type="text" class="form-control nik" id="nik" onkeypress="return hanyaAngka(event)" name="nik" style="font-size: 12px;" /> </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Durasi Terlambat (menit)<span class="text-danger">*</span> </label> <input type="text" class="form-control durasi" id="durasi" name="durasi" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nama<span class="text-danger">*</span> </label> <input type="text" class="form-control nama" id="nama" name="nama" style="font-size: 12px;" /> </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Tanggal Awal Mulai Kerja<span class="text-danger">*</span> </label> <input type="date" class="form-control tgl_awal" id="tgl_awal" name="tgl_awal" style="font-size: 12px;" /> </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Rekening<span class="text-danger">*</span> </label> <input type="text" class="form-control no_rekening" id="no_rekening" name="no_rekening" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Gaji Pokok<span class="text-danger">*</span> </label> <input type="text" class="form-control gaji" id="gaji" name="gaji" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nomor Telepon<span class="text-danger">*</span> </label> <input type="text" class="form-control no_telp" id="no_telp" name="no_telp" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
-                                </div>
-                            </div>
-                            <div class="mb-3 jabatans">
-                                <label class="form-label" style="font-size: 14px;">Jabatan<span class="text-danger">*</span></label>
-                                <select name="jabatan" id="jabatan" class="form-control jabatan" style="font-size: 12px;">
-                                    <option value="">-- Pilih Jabatan --</option>
-                                    <option value="1">Admin</option>
-                                    <option value="0">Karyawan</option>
-                                </select>
-                            </div>
-                            <div class="mb-3 alamat">
-                                <label class="form-label" style="font-size: 14px;">Alamat Tinggal<span class="text-danger">*</span></label>
-                                <textarea class="form-control alamat_tinggal" id="alamat_tinggal" style="font-size: 12px;"></textarea>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">BPJS Ketenagakerjaan</label>
-                                        <div class="toggle">
-                                            <input type="checkbox" class="bpjsketenagakerjaan" id="bpjsketenagakerjaan">
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group"> 
-                                        <label class="form-label" style="font-size: 14px;">BPJS Kesehatan</label>
-                                        <div class="toggle">
-                                            <input type="checkbox" class="bpjskesehatan" id="bpjskesehatan">
-                                        </div> 
-                                    </div>
+                                    <div class="form-group"> <label class="form-label" style="font-size: 14px;">Nominal Denda<span class="text-danger">*</span> </label> <input type="text" class="form-control nominal" id="nominal" name="nominal" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
                                 </div>
                             </div>
                             <div class="modal-footer d-block">
@@ -285,45 +209,17 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Swal.fire({
-                title: 'Coming Soon !!!',
-                html: 'Menu sedang proses development',
-                type: 'info',
-                allowOutsideClick: false,
-            }).then((result) => {
-                if (result.value) {
-                    window.location = "dashboard.php";
-                }
-            });
-            // $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
+            $('.tabledaftardendaterlambat').load("tampildaftardendaterlambat.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
 
             $('.submit').click(function(){
-                var jabatan = $('.jabatan').val();
-                var nik = $('.nik').val();
-                var nama = $('.nama').val();
-                var notelp = $('.no_telp').val();
-                var alamat_tinggal = $('.alamat_tinggal').val();
-                var tgl_awal = $('.tgl_awal').val();
-                var norek = $('.no_rekening').val();
-                var gaji = $('.gaji').val();
-                var id_users = $('.id_users').val();
-                var bpjsketenagakerjaan = document.getElementById("bpjsketenagakerjaan").checked;
-                if(bpjsketenagakerjaan == true){
-                    bpjsketenagakerjaan = 1;
-                }else if(bpjsketenagakerjaan == false){
-                    bpjsketenagakerjaan = 0;
-                }
-                var bpjskesehatan = document.getElementById("bpjskesehatan").checked;
-                if(bpjskesehatan == true){
-                    bpjskesehatan = 1;
-                }else if(bpjskesehatan == false){
-                    bpjskesehatan = 0;
-                }
-                var date = Date.now();
-                if(jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == ""){
+                var nominal = $('.nominal').val();
+                var durasi = $('.durasi').val();
+                var notelp = $('.notelp').val();
+                
+                if(durasi == "" || nominal == ""){
                     Swal.fire({
 						title: 'Ups !!!',
 						html: 'Data harus di isi semua !!!',
@@ -331,61 +227,39 @@
 					})
                 }else{
                     $.ajax({
-                        url: "ajaxtambahdatakaryawan.php",
+                        url: "ajaxtambahdatadendaterlambat.php",
                         method: "post",
                         data: {
-                            jabatan: jabatan,
-                            nik: nik,
-                            nama: nama,
+                            nominal: nominal,
+                            durasi: durasi,
                             notelp: notelp,
-                            alamat_tinggal: alamat_tinggal,
-                            tgl_awal: tgl_awal,
-                            norek: norek,
-                            gaji: gaji,
-                            bpjsketenagakerjaan: bpjsketenagakerjaan,
-                            bpjskesehatan: bpjskesehatan,
-                            id_users: id_users
                         },
-                    success: function(data) {
-                        if(data == "Proses tambah data karyawan telah berhasil")
-                        {
-                            Swal.fire({
-                                title: 'Yeah',
-                                html: 'Proses tambah data karyawan telah berhasil',
-                                type: 'success'
-                            }).then((result) => {
-                                if (result.value) {
-                                    $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
-                                    $('#modalForm').modal('hide');
-                                    document.getElementById('jabatan').value = '';
-                                    document.getElementById('nik').value = '';
-                                    document.getElementById('nama').value = '';
-                                    document.getElementById('no_telp').value = '';
-                                    document.getElementById('alamat_tinggal').value = '';
-                                    document.getElementById('tgl_awal').value = '';
-                                    document.getElementById('no_rekening').value = '';
-                                    document.getElementById('gaji').value = '';
-                                    document.getElementById('bpjsketenagakerjaan').value = '';
-                                    document.getElementById('bpjsketenagakesehatan').value = '';
-                                    
-                                }
-                            })
-                        }else if(data == "Nomor telepon sudah digunakan"){
-                            Swal.fire({
-                                title: 'Ups...',
-                                html: 'Nomor telepon sudah digunakan',
-                                type: 'error'
-                            })
-                        }else if(data == "NIK sudah digunakan"){
-                            Swal.fire({
-                                title: 'Ups...',
-                                html: 'NIK sudah digunakan',
-                                type: 'error'
-                            })
-                        }else if(data == "No. Rekening sudah digunakan"){
+                        success: function(data) {
+                            if(data == "Data denda terlambat berhasil di simpan")
+                            {
+                                Swal.fire({
+                                    title: 'Yeah',
+                                    html: 'Data denda terlambat berhasil disimpan',
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $('.tabledaftardendaterlambat').load("tampildaftardendaterlambat.php");
+                                        $('#modalForm').modal('hide');
+                                        document.getElementById('nominal').value = '';
+                                        document.getElementById('durasi').value = '';
+                                        
+                                    }
+                                })
+                            }else if(data == "Durasi terlambat sudah ada"){
                                 Swal.fire({
                                     title: 'Ups...',
-                                    html: 'No. Rekening sudah digunakan',
+                                    html: 'Durasi terlambat sudah ada',
+                                    type: 'error'
+                                })
+                            }else if(data == "Data pencatat tidak ditemukan"){
+                                Swal.fire({
+                                    title: 'Ups...',
+                                    html: 'Data pencatat tidak ditemukan',
                                     type: 'error'
                                 })
                             }
@@ -397,7 +271,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var rupiah = document.getElementById('gaji');
+            var rupiah = document.getElementById('nominal');
             rupiah.addEventListener('keyup', function(e){
                 rupiah.value = formatRupiah(this.value, 'Rp. ');
             });
@@ -424,7 +298,7 @@
     <script>
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {
-
+            $(".preloader").fadeOut();
             $('.tambah').click(function(){
                 $("#modalForm").modal('show');
             });

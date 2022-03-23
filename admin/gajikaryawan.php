@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Karyawan PT. Aman Samudera Lines</title>
+    <title>Kelola Karyawan</title>
 
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
@@ -90,14 +90,14 @@
                         <li>
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <!-- <li>
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <li class="active">
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li style="color: white;">
+                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                        </li>
                         <li style="color: white;">
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
@@ -123,37 +123,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -192,11 +161,16 @@
             
 
             <div>
-              <div><center><h1>Penggajian Karyawan</h1></center></div>
-              <button class="btn btn-primary submit" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Gaji Karyawan</button>
-              <div class="tablepenggajian">
-                
-              </div>
+                <div class="preloader">
+                    <div class="loading">
+                        <img src="../images/loading2.gif" width="100%">
+                    </div>
+                </div>
+                <div><center><h1>Penggajian Karyawan</h1></center></div>
+                <button class="btn btn-primary submit" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Gaji Karyawan</button>
+                <div class="tablepenggajian">
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -208,6 +182,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".preloader").fadeOut();
             $('.tablepenggajian').load("tampilpenggajian.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');

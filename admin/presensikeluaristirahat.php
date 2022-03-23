@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Karyawan PT. Aman Samudera Lines</title>
+    <title>Kelola Karyawan</title>
 
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
@@ -90,14 +90,14 @@
                         <li style="color: #02b0bd;">
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <!-- <li style="color: white;">
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <li>
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li>
+                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                        </li>
                         <li>
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
@@ -123,23 +123,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -177,10 +160,15 @@
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Keluar Masuk Istirahat</h1></center></div>
-              <div class="tablepresensikeluaristirahat">
-                
-              </div>
+                <div class="preloader">
+                    <div class="loading">
+                        <img src="../images/loading2.gif" width="100%">
+                    </div>
+                </div>
+                <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Keluar Masuk Istirahat</h1></center></div>
+                <div class="tablepresensikeluaristirahat">
+                    
+                </div>
             </div>
         </div>
 
@@ -193,6 +181,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".preloader").fadeOut();
             $('.tablepresensikeluaristirahat').load("tampildaftarpresensikeluarmasukistirahat.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');

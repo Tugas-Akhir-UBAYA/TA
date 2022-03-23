@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Karyawan PT. Aman Samudera Lines</title>
+    <title>Kelola Karyawan</title>
 
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
@@ -92,14 +92,14 @@
                         <li>
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
                         </li>
-                        <!-- <li>
-                            <a href="presensimasuksetelahistirahat.php">Presensi Masuk Setelah Istirahat</a>
-                        </li> -->
                     </ul>
                 </li>
                 <li>
                     <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
+                        <li>
+                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                        </li>
                         <li>
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
                         </li>
@@ -125,37 +125,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -165,7 +134,6 @@
             </ul>
         </nav>
 
-        <!-- Page Content  -->
         <div id="content">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -192,11 +160,15 @@
             
 
             <div>
-              <div style="margin-bottom: 100px;"><center><h1>Pengaturan BPJS</h1></center></div>
-              <!-- <button class="btn btn-primary pilih" style="margin-top: 50px; margin-bottom: 10px;">Tambah BPJS</button> -->
-              <div class="tablebpjs">
-                
-              </div>
+                <div class="preloader">
+                    <div class="loading">
+                        <img src="../images/loading2.gif" width="100%">
+                    </div>
+                </div>
+                <div style="margin-bottom: 100px;"><center><h1>Pengaturan BPJS</h1></center></div>
+                <div class="tablebpjs">
+                    
+                </div>
             </div>
         </div>
 
@@ -213,7 +185,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            
+            $(".preloader").fadeOut();
             $('.tablebpjs').load("tampildaftarbpjs.php");
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');

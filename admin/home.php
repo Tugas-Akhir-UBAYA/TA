@@ -25,6 +25,15 @@
         setcookie('notelp', '', time() + $time, '/');
         header("location:../index.php");
     }
+
+
+    date_default_timezone_set('Asia/Jakarta');
+    $datenow = date('d-m-Y');
+    $dendaterlambat = mysqli_query($con, "SELECT * FROM denda_terlambat");
+    $cekdendaterlambat = mysqli_fetch_assoc($dendaterlambat);
+    if ($cekdendaterlambat == 0) {
+        $buatdendaterlambat = mysqli_query($con, "INSERT INTO denda_terlambat VALUES(null,0,0,'$id_users','$datenow')");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -44,9 +53,14 @@
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../admin/home.css">
-    <title>Karyawan PT. Aman Samudera Lines</title>
+    <title>Kelola Karyawan</title>
 </head>
 <body>
+    <div class="preloader">
+        <div class="loading">
+            <img src="../images/loading2.gif" width="100%">
+        </div>
+    </div>
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
             <a class="navbar-brand white" href="home.php">PT. AMAN SAMUDERA LINES</a>
@@ -63,6 +77,7 @@
             </div>
         </div>
     </nav>
+    
     <div >
         <center><h1 class="selamat">Selamat Datang <?php echo $nama ?></h1></center>
     </div>
@@ -181,7 +196,7 @@
     </script>
     <script>
         $(document).ready(function(){
-            
+            $(".preloader").fadeOut();
             $("#myBtn3").click(function(){
                 $("#modalForm").modal('show');
             });

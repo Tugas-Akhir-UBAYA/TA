@@ -54,7 +54,7 @@
     <script defer src="assets/js/solid v5.0.13.js" crossorigin="anonymous"></script>
     <script defer src="assets/js/fontawesome v5.0.13.js" crossorigin="anonymous"></script>
     <script src="assets/js/jquery 3.5.1.js" crossorigin="anonymous"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="assets/css/aos 2.3.1.css" rel="stylesheet">
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
     <script src="assets/js/chart 3.7.1.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
@@ -193,7 +193,7 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
 	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/aos 2.3.1.js"></script>
 
     <script>
 		var ctx = document.getElementById("myChart").getContext('2d');
@@ -344,31 +344,6 @@
                     })
                 }
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var rupiah = document.getElementById('gaji');
-            rupiah.addEventListener('keyup', function(e){
-                rupiah.value = formatRupiah(this.value, 'Rp. ');
-            });
-    
-            /* Fungsi formatRupiah */
-            function formatRupiah(angka, prefix){
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split   		= number_string.split(','),
-                sisa     		= split[0].length % 3,
-                rupiah     		= split[0].substr(0, sisa),
-                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
-
-                if(ribuan){
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-    
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-            }
         });
     </script>
 

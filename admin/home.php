@@ -42,15 +42,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js" crossorigin="anonymous"></script>
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" crossorigin="anonymous"></script>
+    <link href="assets/css/bootstrap 5.0.2.min.css" rel="stylesheet">
+    <script src="assets/js/bootstrap 5.0.2.min.js"></script>
+    <link href="assets/css/all v5.7.2.css" rel="stylesheet">
+    <script src="assets/js/jquery 3.5.1.js"></script>
+    <link href="assets/css/aos 2.3.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
+    <script src="assets/js/webrtc-adapter 3.3.3.min.js" crossorigin="anonymous"></script>
+    <script src="assets/js/vue 2.1.10.min.js" crossorigin="anonymous"></script>
+    <script src="assets/js/instanscan.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../admin/home.css">
     <title>Kelola Karyawan</title>
@@ -154,10 +154,10 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+    <script src="assets/js/popper 2.9.2.min.js"></script>
+    <script src="assets/js/bootstrap 5.0.2.min.js"></script>
+    <script src="assets/js/aos 2.3.1.js"></script>
+	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
     <script>
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {

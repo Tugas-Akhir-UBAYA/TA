@@ -137,14 +137,13 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light navbar1">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
                     </button>
                     <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
-
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
@@ -167,9 +166,11 @@
                     </div>
                 </div>
                 <div><center><h1>Pengaturan Rekening Perusahaan</h1></center></div>
-                <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Rekening Perusahaan</button>
-                <div class="tablerekening">
+                <button class="btn tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Rekening Perusahaan</button>
+                <div class="wadahtampil">
+                    <div class="tablerekening tampiltabel">
                     
+                    </div>
                 </div>
             </div>
         </div>

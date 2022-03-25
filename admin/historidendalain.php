@@ -137,7 +137,7 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light navbar1">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -169,9 +169,11 @@
                     </div>
                 </div>
                 <div><center><h1>Histori Data Denda Lain - Lain</h1></center></div>
-                <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Data Denda Lain - Lain</button>
-                <div class="tablehistoridendalain">
+                <button class="btn tambah" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Data Denda Lain - Lain</button>
+                <div class="wadahtampil">
+                    <div class="tablehistoridendalain tampiltabel">
                     
+                    </div>
                 </div>
             </div>
         </div>

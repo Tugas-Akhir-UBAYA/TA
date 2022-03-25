@@ -135,7 +135,7 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light navbar1">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -166,8 +166,10 @@
                     </div>
                 </div>
                 <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Keluar Masuk Istirahat</h1></center></div>
-                <div class="tablepresensikeluaristirahat">
+                <div class="wadahtampil">
+                    <div class="tablepresensikeluaristirahat tampiltabel">
                     
+                    </div>
                 </div>
             </div>
         </div>

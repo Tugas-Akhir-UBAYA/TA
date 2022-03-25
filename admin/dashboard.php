@@ -146,7 +146,7 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light navbar1">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -184,6 +184,7 @@
                     echo $total_users ?></h5>
                     </center>
                 </div>
+                <input class="notelp" hidden value="<?php echo $notelp ?>">
             </div>
         </div>
 
@@ -197,12 +198,13 @@
 
     <script>
 		var ctx = document.getElementById("myChart").getContext('2d');
+        Chart.defaults.scale.ticks.beginAtZero = true;
 		var myChart = new Chart(ctx, {
 			type: 'pie',
 			data: {
 				labels: ["Tepat Waktu", "Terlambat","Tidak Masuk"],
 				datasets: [{
-					label: '',
+					label: 'Points',
 					data: [
 					<?php
 					$date = date("d-m-Y");
@@ -237,8 +239,9 @@
 				}]
 			},
 			options:{
-                animation: {
-                    rotation: true
+                rotation: 0,
+                animation:{
+                    animateScale: true
                 },
                 plugins: {
                     title: {

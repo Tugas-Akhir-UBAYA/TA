@@ -135,7 +135,7 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light navbar1">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -165,8 +165,10 @@
                 </div>
                 <div><center><h1>Daftar Denda Terlambat</h1></center></div>
                 <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Denda Terlambat</button>
-                <div class="tabledaftardendaterlambat">
+                <div class="wadahtampil">
+                    <div class="tabledaftardendaterlambat tampiltabel">
                     
+                    </div>
                 </div>
             </div>
         </div>

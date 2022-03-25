@@ -135,7 +135,7 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light navbar1">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -167,9 +167,11 @@
                     </div>
                 </div>
                 <div><center><h1>Daftar Data Karyawan</h1></center></div>
-                <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Karyawan</button>
-                <div class="tabledaftarkaryawan">
-                
+                <button class="btn tambah tambahkaryawan" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Karyawan</button>
+                <div class="wadahtampil">
+                    <div class="tabledaftarkaryawan tampiltabel">
+                    
+                    </div>
                 </div>
             </div>
         </div>

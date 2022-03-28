@@ -63,22 +63,17 @@
     </div>
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
-            <a class="navbar-brand white" href="home.php">PT. AMAN SAMUDERA LINES</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                
-            </ul>
-            <form class="d-flex">
+            <div>
+                <img class="logo_perusahaan" src="../images/Logo PT. ASL.png">
+                <a class="navbar-brand judulheader" href="home.php">PT. AMAN SAMUDERA LINES</a>
+            </div>
+            <form class="wadahlogout">
                 <button class="btn red logout" type="button" >Logout</button>
             </form>
-            </div>
         </div>
     </nav>
     
-    <div >
+    <div class="typewriter">
         <center><h1 class="selamat">Selamat Datang <?php echo $nama ?></h1></center>
     </div>
     <div class="izin" id="myBtn" >
@@ -109,6 +104,16 @@
             </div>
             <div class="form-text">
                 <div class="text">Hapus Cookies</div>
+            </div>
+        </div>
+    </div>
+    <div class="logouts" id="logouts" >
+        <div class="pengajuan">
+            <div class="form-img">
+                <img src="../images/icon-exit.png"  class="icon-form">
+            </div>
+            <div class="form-text">
+                <div class="text" style="color: white;">Log Out</div>
             </div>
         </div>
     </div>
@@ -162,6 +167,37 @@
         // onclick="window.location.href='../index.php'"
         $(document).ready(function() {
             $('.logout').click(function() {
+                var notelp = $('.notelp').val();
+                $.ajax({
+                    url: "ajaxlogout.php",
+                    method: "post",
+                    data: {
+                        notelp: notelp
+                    },
+                success: function(data) {
+                    if(data == "Akun berhasil di logout")
+                    {
+                        Swal.fire({
+                            title: 'Yeah',
+                            html: 'Akun berhasil di logout',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                                document.location.href='../index.php';
+							}
+						})
+					}else if(data == "Akun gagal logout"){
+							Swal.fire({
+								title: 'Login Gagal',
+								html: 'Akun gagal logout',
+								type: 'error'
+							})
+						}
+					}
+				})
+            }),
+            $('.logouts').click(function() {
                 var notelp = $('.notelp').val();
                 $.ajax({
                     url: "ajaxlogout.php",

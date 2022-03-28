@@ -150,7 +150,7 @@
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
+                        <i class="fas fa-align-justify"></i>
                     </button>
                     <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
 

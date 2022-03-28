@@ -50,19 +50,16 @@
 
 </head>
 <body >
+    <div class="preloader">
+        <div class="loading">
+            <img src="../images/loading2.gif" width="100%">
+        </div>
+    </div>
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
-            <a class="navbar-brand white" href="index.php">PT. AMAN SAMUDERA LINES</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mynavbar">
-            <!-- <ul class="navbar-nav me-auto">
-                
-            </ul>
-            <form class="d-flex">
-                <button class="btn red" type="button" onclick="window.location.href='../index.php'">Logout</button>
-            </form> -->
+            <div>
+                <img class="logo_perusahaan" src="../images/Logo PT. ASL.png">
+                <a class="navbar-brand judulheader" href="home.php">PT. AMAN SAMUDERA LINES</a>
             </div>
         </div>
     </nav>
@@ -323,7 +320,7 @@
     
     <script>
         $(document).ready(function(){
-            
+            $(".preloader").fadeOut();
             $("#myBtn").click(function(){
                 $("#modalForm").modal('show');
             });

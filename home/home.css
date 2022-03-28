@@ -173,3 +173,124 @@ table{
     border: 1px solid; 
     background:#ccc; 
 }
+
+.logo_perusahaan{
+    width: 100px;
+}
+
+.judulheader {
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(0, 102, 170);
+    
+    --x-offset: -0.0625em;
+    --y-offset: 0.0625em;
+    --stroke: 0.025em;
+    --background-color: white;
+    --stroke-color: lightblue;
+    
+    text-shadow: 
+      
+      var(--x-offset)
+      var(--y-offset)
+      0px
+      var(--background-color), 
+      
+      calc( var(--x-offset) - var(--stroke) )
+      calc( var(--y-offset) + var(--stroke) )
+      0px
+      var(--stroke-color);
+    
+  }
+  /* for browsers that support spread, added in
+  https://drafts.csswg.org/css-text-decor-4/#text-shadow-property
+  currently: none browsers! none of them!
+  I can't even find a test: 
+  https://wpt.fyi/results/css/css-text-decor */
+  @supports ( text-shadow: 1px 1px 1px 1px black ) {
+    .judulheader {
+      text-shadow:
+        
+        var(--x-offset)
+        var(--y-offset)
+        0px
+        0px
+        var(--background-color), 
+        
+        var(--x-offset) 
+        var(--y-offset)
+        var(--stroke)
+        0px
+        var(--stroke-color);
+      
+    }
+  }
+
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+  }
+  .preloader .loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font: 14px arial;
+  }  
+
+  @media only screen and (max-width: 575.6px) {
+    .judulheader {
+        margin-left: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        color: rgb(0, 102, 170);
+        
+        --x-offset: -0.0625em;
+        --y-offset: 0.0625em;
+        --stroke: 0.025em;
+        --background-color: white;
+        --stroke-color: lightblue;
+        
+        text-shadow: 
+          
+          var(--x-offset)
+          var(--y-offset)
+          0px
+          var(--background-color), 
+          
+          calc( var(--x-offset) - var(--stroke) )
+          calc( var(--y-offset) + var(--stroke) )
+          0px
+          var(--stroke-color);
+        
+      }
+      /* for browsers that support spread, added in
+      https://drafts.csswg.org/css-text-decor-4/#text-shadow-property
+      currently: none browsers! none of them!
+      I can't even find a test: 
+      https://wpt.fyi/results/css/css-text-decor */
+      @supports ( text-shadow: 1px 1px 1px 1px black ) {
+        .judulheader {
+          text-shadow:
+            
+            var(--x-offset)
+            var(--y-offset)
+            0px
+            0px
+            var(--background-color), 
+            
+            var(--x-offset) 
+            var(--y-offset)
+            var(--stroke)
+            0px
+            var(--stroke-color);
+          
+        }
+      }
+  }

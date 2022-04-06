@@ -206,6 +206,26 @@ input[type="checkbox"] {
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 3px 10px -3px black;
     border-radius: 10px;
+    margin-left: 20px;
+    animation: movedown 0.3s linear 1;
+    animation-delay: 0s;
+    visibility: hidden;
+    animation-fill-mode: forwards;
+}
+
+@keyframes movedown{
+    0%{
+        transform: translateY(-100px);
+        visibility: visible;
+    }
+    100%{
+        transform: translateY(0);
+        visibility: visible;
+    }
+}
+
+.isi{
+    margin-left: 20px;
 }
 
 h1 {
@@ -266,16 +286,31 @@ h1 {
     text-shadow: 2px 1px 1px grey;
 }
 
+/* #sidebar {
+    font-size: 14px;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: #4d4f4f;
+    color: #fff;
+    transition: all 0.3s;
+} */
+
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    position: fixed;
+    height: 100vh;
+    z-index: 999;
+    width: 300px;
     background: #383838;
     color: #fff;
     transition: all 0.3s;
 }
 
 #sidebar.active {
-    margin-left: -250px;
+    margin-left: -300px;
     
 }
 #chartku{
@@ -287,9 +322,17 @@ h1 {
     background-color: rgba(32, 32, 32, 0.226);
 }
 
+.logo{
+    width: 80%;
+}
+
+
+
 #sidebar .sidebar-header {
     padding: 20px;
     background: #383838;
+    display: flex;
+    justify-content: center;
 }
 
 #sidebar ul.components {
@@ -316,7 +359,7 @@ h1 {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #7c7c7c;
+    background: #545050;
 }
 
 a[data-toggle="collapse"] {
@@ -328,13 +371,15 @@ a[data-toggle="collapse"] {
     position: absolute;
     top: 50%;
     right: 20px;
-    transform: translateY(-50%);
+    
 }
+
+
 
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #1d1d1d;
+    background: #727272;
 }
 
 ul.CTAs {
@@ -360,15 +405,64 @@ a.article:hover {
     color: #fff !important;
 }
 
+.menus:hover .arrows{
+    transform: rotate(90deg);
+}
+
+#sidebarCollapse {
+    width: 40px;
+    height: 40px;
+    background: #02b0bd;
+}
+
+#sidebarCollapse span {
+    width: 80%;
+    height: 2px;
+    margin: 0 auto;
+    display: block;
+    background: rgb(224, 224, 224);
+    transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+}
+
+#sidebarCollapse span:first-of-type {
+    /* rotate first one */
+    transform: rotate(45deg) translate(2px, 2px);
+}
+#sidebarCollapse span:nth-of-type(2) {
+    /* second one is not visible */
+    opacity: 0;
+}
+#sidebarCollapse span:last-of-type {
+    /* rotate third one */
+    transform: rotate(-45deg) translate(1px, -1px);
+}
+
+#sidebarCollapse.active span {
+    /* no rotation */
+    transform: none;
+    /* all bars are visible */
+    opacity: 1;
+    margin: 5px auto;
+}
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 
 #content {
-    width: 100%;
-    padding: 20px;
+    width: calc(100% - 300px);
+    background-color: white;
     min-height: 100vh;
     transition: all 0.3s;
+    position: absolute;
+    /* top: 0; */
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#content.active {
+    width: 100%;
 }
 
 /* ---------------------------------------------------

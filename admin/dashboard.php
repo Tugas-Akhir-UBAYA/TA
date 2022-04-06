@@ -1,38 +1,37 @@
 <?php
-    session_start();
-    $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-    // $notelp = $_SESSION['notelp'];
-    if (isset($_COOKIE['notelp'])) {
-        $notelp = $_COOKIE['notelp'];
-    }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
-    $cekuser = mysqli_fetch_assoc($user);
-    if ($cekuser > 0) {
-        $id_users = $cekuser['id'];
-        $nama = $cekuser['nama'];
-        $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
-        $cekcookies = mysqli_fetch_assoc($cookies);
-        if($cekcookies > 0){
-            $nomor_telepon = $cekcookies['nomor_telepon'];
-            $time = $cekcookies['time'];
-            setcookie('notelp', $nomor_telepon, time() + $time, '/');
-            if($nomor_telepon == ""){
-                header("location:../index.php");
-            }
+session_start();
+$con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+// $notelp = $_SESSION['notelp'];
+if (isset($_COOKIE['notelp'])) {
+    $notelp = $_COOKIE['notelp'];
+}
+$user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
+$cekuser = mysqli_fetch_assoc($user);
+if ($cekuser > 0) {
+    $id_users = $cekuser['id'];
+    $nama = $cekuser['nama'];
+    $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
+    $cekcookies = mysqli_fetch_assoc($cookies);
+    if ($cekcookies > 0) {
+        $nomor_telepon = $cekcookies['nomor_telepon'];
+        $time = $cekcookies['time'];
+        setcookie('notelp', $nomor_telepon, time() + $time, '/');
+        if ($nomor_telepon == "") {
+            header("location:../index.php");
         }
     }
-    else{
-        setcookie('notelp', '', time() + $time, '/');
-        header("location:../index.php");
-    }
-    date_default_timezone_set('Asia/Jakarta');
-    $datenow = date('d-m-Y');
-    $bpjs = mysqli_query($con, "SELECT * FROM bpjs");
-    $cekbpjs = mysqli_fetch_assoc($bpjs);
-    if ($cekbpjs == 0) {
-        $buatbpjsketenagakerjaan = mysqli_query($con, "INSERT INTO bpjs VALUES(null,'$id_users','BPJS Ketenagakerjaan','$datenow',0)");
-        $buatbpjskesehatan = mysqli_query($con, "INSERT INTO bpjs VALUES(null,'$id_users','BPJS Kesehatan','$datenow',0)");
-    }
+} else {
+    setcookie('notelp', '', time() + $time, '/');
+    header("location:../index.php");
+}
+date_default_timezone_set('Asia/Jakarta');
+$datenow = date('d-m-Y');
+$bpjs = mysqli_query($con, "SELECT * FROM bpjs");
+$cekbpjs = mysqli_fetch_assoc($bpjs);
+if ($cekbpjs == 0) {
+    $buatbpjsketenagakerjaan = mysqli_query($con, "INSERT INTO bpjs VALUES(null,'$id_users','BPJS Ketenagakerjaan','$datenow',0)");
+    $buatbpjskesehatan = mysqli_query($con, "INSERT INTO bpjs VALUES(null,'$id_users','BPJS Kesehatan','$datenow',0)");
+}
 
 ?>
 
@@ -59,15 +58,19 @@
     <script src="assets/js/chart 3.7.1.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
+    <script src="assets/js/jquery.mCustomScrollbar.js" crossorigin="anonymous"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body>
-    
+
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <img src="../images/Logo PT. ASL.png" width="180px">
+                <img src="../images/Logo PT. ASL.png" class="logo">
             </div>
 
             <ul class="list-unstyled components">
@@ -79,21 +82,21 @@
                 </li>
                 <li>
                     <?php
-                        $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
-                        $cekpengajuan = mysqli_fetch_assoc($pengajuan);
-                        if($cekpengajuan > 0){
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
-                            <?php
-                        }else{
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
-                            <?php
-                        }
+                    $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
+                    $cekpengajuan = mysqli_fetch_assoc($pengajuan);
+                    if ($cekpengajuan > 0) {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
+                    <?php
+                    }
                     ?>
                 </li>
                 <li>
-                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
+                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
                         <li>
                             <a href="presensimasukpagi.php">Presensi Datang dan Pulang</a>
@@ -104,10 +107,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Penggajian Karyawan</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
                         <li>
-                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                            <a href="historidendalain.php">Data Denda Lain - Lain</a>
                         </li>
                         <li>
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
@@ -121,7 +124,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Pengaturan Perusahaan</a>
                     <ul class="collapse list-unstyled" id="pengaturanSubmenu">
                         <li>
                             <a href="bpjs.php">BPJS</a>
@@ -142,6 +145,9 @@
                 </li>
             </ul>
         </nav>
+        
+
+        </div>
 
         <!-- Page Content  -->
         <div id="content">
@@ -150,7 +156,11 @@
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-justify"></i>
+                        <!-- <i class="fas fa-align-justify"></i> -->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <div class="abcde" >
                     </button>
                     <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
 
@@ -167,21 +177,26 @@
                     </div>
                 </div>
             </nav>
-            
 
-            <div>
+
+            <div class="isi">
                 <div class="preloader">
                     <div class="loading">
                         <img src="../images/loading2.gif" width="100%">
                     </div>
                 </div>
-                <div style="margin-bottom: 50px;"><center><h1>Dashboard</h1></center></div>
+                <div style="margin-bottom: 50px;">
+                    <center>
+                        <h1>Dashboard</h1>
+                    </center>
+                </div>
                 <div class="chartku" id="chartku" data-aos="flip-up">
                     <canvas id="myChart"></canvas>
-                    <center style="margin-top: 20px;"><h5>Total Karyawan Aktif : <?php 
-                    $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
-                    $total_users = mysqli_num_rows($user); 
-                    echo $total_users ?></h5>
+                    <center style="margin-top: 20px;">
+                        <h5>Total Karyawan Aktif : <?php
+                                                    $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
+                                                    $total_users = mysqli_num_rows($user);
+                                                    echo $total_users ?></h5>
                     </center>
                 </div>
                 <input class="notelp" hidden value="<?php echo $notelp ?>">
@@ -193,54 +208,54 @@
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	<script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+    <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
     <script src="assets/js/aos 2.3.1.js"></script>
 
     <script>
-		var ctx = document.getElementById("myChart").getContext('2d');
+        var ctx = document.getElementById("myChart").getContext('2d');
         Chart.defaults.scale.ticks.beginAtZero = true;
-		var myChart = new Chart(ctx, {
-			type: 'pie',
-			data: {
-				labels: ["Tepat Waktu", "Terlambat","Tidak Masuk"],
-				datasets: [{
-					label: 'Points',
-					data: [
-					<?php
-					$date = date("d-m-Y");
-					$tepat_waktu = mysqli_query($con,"select * from absensi where status='Tepat Waktu' AND keterangan = 'Presensi Datang' AND tanggal = '$date'");
-					$total_tepatwaktu =  mysqli_num_rows($tepat_waktu);
-					echo $total_tepatwaktu;
-					?>, 
-					<?php 
-					$date = date("d-m-Y");
-					$terlambat = mysqli_query($con,"select * from absensi where status='Terlambat' AND keterangan = 'Presensi Datang' AND tanggal = '$date'");
-					$total_terlambat = mysqli_num_rows($terlambat);
-					echo $total_terlambat;
-					?>,
-					<?php
-						$jumlah_user = mysqli_query($con,"select * from users where status_kerja = 1");
-						$fixjumlah_user = mysqli_num_rows($jumlah_user);
-						$total_tidakmasuk = $fixjumlah_user - ($total_terlambat + $total_tepatwaktu);
-						echo $total_tidakmasuk;
-					?>
-					],
-					backgroundColor: [
-					'rgba(0, 255, 42, 0.2)',
-					'rgba(255, 136, 0, 0.2)',
-					'rgba(255, 0, 0, 0.2)'
-					],
-					borderColor: [
-					'rgba(0, 255, 42, 1)',
-					'rgba(255, 136, 0, 1)',
-					'rgba(255, 0, 0, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options:{
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Tepat Waktu", "Terlambat", "Tidak Masuk"],
+                datasets: [{
+                    label: 'Points',
+                    data: [
+                        <?php
+                        $date = date("d-m-Y");
+                        $tepat_waktu = mysqli_query($con, "select * from absensi where status='Tepat Waktu' AND keterangan = 'Presensi Datang' AND tanggal = '$date'");
+                        $total_tepatwaktu =  mysqli_num_rows($tepat_waktu);
+                        echo $total_tepatwaktu;
+                        ?>,
+                        <?php
+                        $date = date("d-m-Y");
+                        $terlambat = mysqli_query($con, "select * from absensi where status='Terlambat' AND keterangan = 'Presensi Datang' AND tanggal = '$date'");
+                        $total_terlambat = mysqli_num_rows($terlambat);
+                        echo $total_terlambat;
+                        ?>,
+                        <?php
+                        $jumlah_user = mysqli_query($con, "select * from users where status_kerja = 1");
+                        $fixjumlah_user = mysqli_num_rows($jumlah_user);
+                        $total_tidakmasuk = $fixjumlah_user - ($total_terlambat + $total_tepatwaktu);
+                        echo $total_tidakmasuk;
+                        ?>
+                    ],
+                    backgroundColor: [
+                        'rgba(0, 255, 42, 0.2)',
+                        'rgba(255, 136, 0, 0.2)',
+                        'rgba(255, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 255, 42, 1)',
+                        'rgba(255, 136, 0, 1)',
+                        'rgba(255, 0, 0, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
                 rotation: 0,
-                animation:{
+                animation: {
                     animateScale: true
                 },
                 plugins: {
@@ -250,26 +265,41 @@
                         font: {
                             size: 20
                         },
-                        padding:{
+                        padding: {
                             top: 20
                         },
                     }
                 }
             }
-		});
-	</script>
+        });
+    </script>
     <script>
-      AOS.init();
+        AOS.init();
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $(".preloader").fadeOut();
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+            $("#sidebar").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "minimal",
+                scrollInertia: 500,
+                scrollEasing: "easeInOut"
+            });
+            $('#sidebarCollapse').on('click', function() {
+                $(this).toggleClass('active');
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
 
-            $('.submit').click(function(){
+            $('.tambah').click(function() {
+                $("#modalForm").modal('show');
+            });
+
+            $('.submit').click(function() {
                 var jabatan = $('.jabatan').val();
                 var nik = $('.nik').val();
                 var nama = $('.nama').val();
@@ -280,13 +310,13 @@
                 var gaji = $('.gaji').val();
                 var bpjs = $('.bpjs').val();
                 var date = Date.now();
-                if(jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == "" || bpjs == ""){
+                if (jabatan == "" || nik == "" || nama == "" || notelp == "" || alamat_tinggal == "" || tgl_awal == "" || norek == "" || gaji == "" || bpjs == "") {
                     Swal.fire({
-						title: 'Ups !!!',
-						html: 'Data harus di isi semua !!!',
-						type: 'error'
-					})
-                }else{
+                        title: 'Ups !!!',
+                        html: 'Data harus di isi semua !!!',
+                        type: 'error'
+                    })
+                } else {
                     $.ajax({
                         url: "ajaxtambahdatakaryawan.php",
                         method: "post",
@@ -301,42 +331,41 @@
                             gaji: gaji,
                             bpjs: bpjs
                         },
-                    success: function(data) {
-                        if(data == "Proses tambah data karyawan telah berhasil")
-                        {
-                            Swal.fire({
-                                title: 'Yeah',
-                                html: 'Proses tambah data karyawan telah berhasil',
-                                type: 'success'
-                            }).then((result) => {
-                                if (result.value) {
-                                    $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
-                                    $('#modalForm').modal('hide');
-                                    document.getElementById('jabatan').value = '';
-                                    document.getElementById('nik').value = '';
-                                    document.getElementById('nama').value = '';
-                                    document.getElementById('no_telp').value = '';
-                                    document.getElementById('alamat_tinggal').value = '';
-                                    document.getElementById('tgl_awal').value = '';
-                                    document.getElementById('no_rekening').value = '';
-                                    document.getElementById('gaji').value = '';
-                                    document.getElementById('bpjs').value = '';
-                                    
-                                }
-                            })
-                        }else if(data == "Nomor telepon sudah digunakan"){
-                            Swal.fire({
-                                title: 'Ups...',
-                                html: 'Nomor telepon sudah digunakan',
-                                type: 'error'
-                            })
-                        }else if(data == "NIK sudah digunakan"){
-                            Swal.fire({
-                                title: 'Ups...',
-                                html: 'NIK sudah digunakan',
-                                type: 'error'
-                            })
-                        }else if(data == "No. Rekening sudah digunakan"){
+                        success: function(data) {
+                            if (data == "Proses tambah data karyawan telah berhasil") {
+                                Swal.fire({
+                                    title: 'Yeah',
+                                    html: 'Proses tambah data karyawan telah berhasil',
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $('.tabledaftarkaryawan').load("tampildaftarkaryawan.php");
+                                        $('#modalForm').modal('hide');
+                                        document.getElementById('jabatan').value = '';
+                                        document.getElementById('nik').value = '';
+                                        document.getElementById('nama').value = '';
+                                        document.getElementById('no_telp').value = '';
+                                        document.getElementById('alamat_tinggal').value = '';
+                                        document.getElementById('tgl_awal').value = '';
+                                        document.getElementById('no_rekening').value = '';
+                                        document.getElementById('gaji').value = '';
+                                        document.getElementById('bpjs').value = '';
+
+                                    }
+                                })
+                            } else if (data == "Nomor telepon sudah digunakan") {
+                                Swal.fire({
+                                    title: 'Ups...',
+                                    html: 'Nomor telepon sudah digunakan',
+                                    type: 'error'
+                                })
+                            } else if (data == "NIK sudah digunakan") {
+                                Swal.fire({
+                                    title: 'Ups...',
+                                    html: 'NIK sudah digunakan',
+                                    type: 'error'
+                                })
+                            } else if (data == "No. Rekening sudah digunakan") {
                                 Swal.fire({
                                     title: 'Ups...',
                                     html: 'No. Rekening sudah digunakan',
@@ -347,16 +376,6 @@
                     })
                 }
             });
-        });
-    </script>
-
-    <script>
-        // onclick="window.location.href='../index.php'"
-        $(document).ready(function() {
-
-            $('.tambah').click(function(){
-                $("#modalForm").modal('show');
-            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -366,40 +385,30 @@
                     data: {
                         notelp: notelp
                     },
-                success: function(data) {
-                    if(data == "Akun berhasil di logout")
-                    {
-                        Swal.fire({
-                            title: 'Yeah',
-                            html: 'Akun berhasil di logout',
-                            type: 'success'
-                        }).then((result) => {
-                            if (result.value) {
-								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                                document.location.href='../index.php';
-							}
-						})
-					}else if(data == "Akun gagal logout"){
-							Swal.fire({
-								title: 'Login Gagal',
-								html: 'Akun gagal logout',
-								type: 'error'
-							})
-						}
-					}
-				})
-            })
+                    success: function(data) {
+                        if (data == "Akun berhasil di logout") {
+                            Swal.fire({
+                                title: 'Yeah',
+                                html: 'Akun berhasil di logout',
+                                type: 'success'
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                                    document.location.href = '../index.php';
+                                }
+                            })
+                        } else if (data == "Akun gagal logout") {
+                            Swal.fire({
+                                title: 'Login Gagal',
+                                html: 'Akun gagal logout',
+                                type: 'error'
+                            })
+                        }
+                    }
+                })
+            });
         });
     </script>
-    <script>
-		function hanyaAngka(evt) {
-		  var charCode = (evt.which) ? evt.which : event.keyCode
-		   if (charCode > 31 && (charCode < 48 || charCode > 57))
- 
-		    return false;
-		  return true;
-		}
-	</script>
 </body>
 
 </html>

@@ -1,30 +1,29 @@
 <?php
-    session_start();
-    $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-    // $notelp = $_SESSION['notelp'];
-    if (isset($_COOKIE['notelp'])) {
-        $notelp = $_COOKIE['notelp'];
-    }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
-    $cekuser = mysqli_fetch_assoc($user);
-    if ($cekuser > 0) {
-        $id_users = $cekuser['id'];
-        $nama = $cekuser['nama'];
-        $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
-        $cekcookies = mysqli_fetch_assoc($cookies);
-        if($cekcookies > 0){
-            $nomor_telepon = $cekcookies['nomor_telepon'];
-            $time = $cekcookies['time'];
-            setcookie('notelp', $nomor_telepon, time() + $time, '/');
-            if($nomor_telepon == ""){
-                header("location:../index.php");
-            }
+session_start();
+$con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+// $notelp = $_SESSION['notelp'];
+if (isset($_COOKIE['notelp'])) {
+    $notelp = $_COOKIE['notelp'];
+}
+$user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
+$cekuser = mysqli_fetch_assoc($user);
+if ($cekuser > 0) {
+    $id_users = $cekuser['id'];
+    $nama = $cekuser['nama'];
+    $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
+    $cekcookies = mysqli_fetch_assoc($cookies);
+    if ($cekcookies > 0) {
+        $nomor_telepon = $cekcookies['nomor_telepon'];
+        $time = $cekcookies['time'];
+        setcookie('notelp', $nomor_telepon, time() + $time, '/');
+        if ($nomor_telepon == "") {
+            header("location:../index.php");
         }
     }
-    else{
-        setcookie('notelp', '', time() + $time, '/');
-        header("location:../index.php");
-    }
+} else {
+    setcookie('notelp', '', time() + $time, '/');
+    header("location:../index.php");
+}
 
 ?>
 
@@ -49,6 +48,8 @@
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body>
@@ -68,21 +69,21 @@
                 </li>
                 <li>
                     <?php
-                        $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
-                        $cekpengajuan = mysqli_fetch_assoc($pengajuan);
-                        if($cekpengajuan > 0){
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
-                            <?php
-                        }else{
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
-                            <?php
-                        }
+                    $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
+                    $cekpengajuan = mysqli_fetch_assoc($pengajuan);
+                    if ($cekpengajuan > 0) {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
+                    <?php
+                    }
                     ?>
                 </li>
                 <li>
-                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
+                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
                         <li>
                             <a href="presensimasukpagi.php">Presensi Datang dan Pulang</a>
@@ -93,10 +94,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Penggajian Karyawan</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
                         <li>
-                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                            <a href="historidendalain.php">Data Denda Lain - Lain</a>
                         </li>
                         <li>
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
@@ -110,7 +111,7 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Pengaturan Perusahaan</a>
                     <ul class="collapse list-unstyled" id="pengaturanSubmenu">
                         <li style="color: white;">
                             <a href="bpjs.php">BPJS</a>
@@ -119,7 +120,7 @@
                             <a href="rekening.php">Rekening Perusahaan</a>
                         </li>
                         <li style="color: #02b0bd;">
-                            <a href="daftardenda.php">Denda Terlambat</a>
+                            <a href="daftardenda.php"><b>Denda Terlambat</b></a>
                         </li>
                     </ul>
                 </li>
@@ -139,7 +140,10 @@
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
+                        <!-- <i class="fas fa-align-justify"></i> -->
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                     <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
 
@@ -157,17 +161,21 @@
                 </div>
             </nav>
 
-            <div>
+            <div class="isi">
                 <div class="preloader">
                     <div class="loading">
                         <img src="../images/loading2.gif" width="100%">
                     </div>
                 </div>
-                <div><center><h1>Daftar Denda Terlambat</h1></center></div>
-                <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;">Tambah Data Denda Terlambat</button>
+                <div>
+                    <center>
+                        <h1>Daftar Denda Terlambat</h1>
+                    </center>
+                </div>
+                <button class="btn btn-primary tambah" style="margin-top: 50px; margin-bottom: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Tambah Data Denda Terlambat</button>
                 <div class="wadahtampil">
                     <div class="tabledaftardendaterlambat tampiltabel">
-                    
+
                     </div>
                 </div>
             </div>
@@ -178,12 +186,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Tambah Data Denda Terlambat</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div> 
+                        <div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="form-label" style="font-size: 14px;">Durasi Terlambat (menit)<span class="text-danger">*</span> </label> <input type="text" class="form-control durasi" id="durasi" name="durasi" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> </div>
@@ -207,27 +214,65 @@
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+    <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
+            $(".preloader").fadeOut();
             $('.tabledaftardendaterlambat').load("tampildaftardendaterlambat.php");
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+            $("#sidebar").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "minimal",
+                scrollInertia: 500,
+                scrollEasing: "easeInOut"
+            });
+            $('#sidebarCollapse').on('click', function() {
+                $(this).toggleClass('active');
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
 
-            $('.submit').click(function(){
+            var rupiah = document.getElementById('nominal');
+            rupiah.addEventListener('keyup', function(e) {
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+
+            $('.tambah').click(function() {
+                $("#modalForm").modal('show');
+            });
+
+            $('.submit').click(function() {
                 var nominal = $('.nominal').val();
                 var durasi = $('.durasi').val();
                 var notelp = $('.notelp').val();
-                
-                if(durasi == "" || nominal == ""){
+
+                if (durasi == "" || nominal == "") {
                     Swal.fire({
-						title: 'Ups !!!',
-						html: 'Data harus di isi semua !!!',
-						type: 'error'
-					})
-                }else{
+                        title: 'Ups !!!',
+                        html: 'Data harus di isi semua !!!',
+                        type: 'error'
+                    })
+                } else {
                     $.ajax({
                         url: "ajaxtambahdatadendaterlambat.php",
                         method: "post",
@@ -237,8 +282,7 @@
                             notelp: notelp,
                         },
                         success: function(data) {
-                            if(data == "Data denda terlambat berhasil di simpan")
-                            {
+                            if (data == "Data denda terlambat berhasil di simpan") {
                                 Swal.fire({
                                     title: 'Yeah',
                                     html: 'Data denda terlambat berhasil disimpan',
@@ -249,16 +293,16 @@
                                         $('#modalForm').modal('hide');
                                         document.getElementById('nominal').value = '';
                                         document.getElementById('durasi').value = '';
-                                        
+
                                     }
                                 })
-                            }else if(data == "Durasi terlambat sudah ada"){
+                            } else if (data == "Durasi terlambat sudah ada") {
                                 Swal.fire({
                                     title: 'Ups...',
                                     html: 'Durasi terlambat sudah ada',
                                     type: 'error'
                                 })
-                            }else if(data == "Data pencatat tidak ditemukan"){
+                            } else if (data == "Data pencatat tidak ditemukan") {
                                 Swal.fire({
                                     title: 'Ups...',
                                     html: 'Data pencatat tidak ditemukan',
@@ -269,41 +313,6 @@
                     })
                 }
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var rupiah = document.getElementById('nominal');
-            rupiah.addEventListener('keyup', function(e){
-                rupiah.value = formatRupiah(this.value, 'Rp. ');
-            });
-    
-            /* Fungsi formatRupiah */
-            function formatRupiah(angka, prefix){
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split   		= number_string.split(','),
-                sisa     		= split[0].length % 3,
-                rupiah     		= split[0].substr(0, sisa),
-                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
-
-                if(ribuan){
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-    
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-            }
-        });
-    </script>
-
-    <script>
-        // onclick="window.location.href='../index.php'"
-        $(document).ready(function() {
-            $(".preloader").fadeOut();
-            $('.tambah').click(function(){
-                $("#modalForm").modal('show');
-            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -313,40 +322,39 @@
                     data: {
                         notelp: notelp
                     },
-                success: function(data) {
-                    if(data == "Akun berhasil di logout")
-                    {
-                        Swal.fire({
-                            title: 'Yeah',
-                            html: 'Akun berhasil di logout',
-                            type: 'success'
-                        }).then((result) => {
-                            if (result.value) {
-								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                                document.location.href='../index.php';
-							}
-						})
-					}else if(data == "Akun gagal logout"){
-							Swal.fire({
-								title: 'Login Gagal',
-								html: 'Akun gagal logout',
-								type: 'error'
-							})
-						}
-					}
-				})
+                    success: function(data) {
+                        if (data == "Akun berhasil di logout") {
+                            Swal.fire({
+                                title: 'Yeah',
+                                html: 'Akun berhasil di logout',
+                                type: 'success'
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                                    document.location.href = '../index.php';
+                                }
+                            })
+                        } else if (data == "Akun gagal logout") {
+                            Swal.fire({
+                                title: 'Login Gagal',
+                                html: 'Akun gagal logout',
+                                type: 'error'
+                            })
+                        }
+                    }
+                })
             })
         });
     </script>
     <script>
-		function hanyaAngka(evt) {
-		  var charCode = (evt.which) ? evt.which : event.keyCode
-		   if (charCode > 31 && (charCode < 48 || charCode > 57))
- 
-		    return false;
-		  return true;
-		}
-	</script>
+        function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
+    </script>
 </body>
 
 </html>

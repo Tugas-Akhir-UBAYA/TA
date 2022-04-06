@@ -1,30 +1,29 @@
 <?php
-    session_start();
-    $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-    // $notelp = $_SESSION['notelp'];
-    if (isset($_COOKIE['notelp'])) {
-        $notelp = $_COOKIE['notelp'];
-    }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
-    $cekuser = mysqli_fetch_assoc($user);
-    if ($cekuser > 0) {
-        $id_users = $cekuser['id'];
-        $nama = $cekuser['nama'];
-        $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
-        $cekcookies = mysqli_fetch_assoc($cookies);
-        if($cekcookies > 0){
-            $nomor_telepon = $cekcookies['nomor_telepon'];
-            $time = $cekcookies['time'];
-            setcookie('notelp', $nomor_telepon, time() + $time, '/');
-            if($nomor_telepon == ""){
-                header("location:../index.php");
-            }
+session_start();
+$con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+// $notelp = $_SESSION['notelp'];
+if (isset($_COOKIE['notelp'])) {
+    $notelp = $_COOKIE['notelp'];
+}
+$user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
+$cekuser = mysqli_fetch_assoc($user);
+if ($cekuser > 0) {
+    $id_users = $cekuser['id'];
+    $nama = $cekuser['nama'];
+    $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
+    $cekcookies = mysqli_fetch_assoc($cookies);
+    if ($cekcookies > 0) {
+        $nomor_telepon = $cekcookies['nomor_telepon'];
+        $time = $cekcookies['time'];
+        setcookie('notelp', $nomor_telepon, time() + $time, '/');
+        if ($nomor_telepon == "") {
+            header("location:../index.php");
         }
     }
-    else{
-        setcookie('notelp', '', time() + $time, '/');
-        header("location:../index.php");
-    }
+} else {
+    setcookie('notelp', '', time() + $time, '/');
+    header("location:../index.php");
+}
 
 ?>
 
@@ -49,6 +48,8 @@
     <script src="assets/js/jquery dataTables 1.11.4 .min.js" crossorigin="anonymous"></script>
     <script src="assets/js/dataTables 1.11.4 bootstrap 4 min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body>
@@ -68,24 +69,24 @@
                 </li>
                 <li>
                     <?php
-                        $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
-                        $cekpengajuan = mysqli_fetch_assoc($pengajuan);
-                        if($cekpengajuan > 0){
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
-                            <?php
-                        }else{
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
-                            <?php
-                        }
+                    $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
+                    $cekpengajuan = mysqli_fetch_assoc($pengajuan);
+                    if ($cekpengajuan > 0) {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
+                    <?php
+                    }
                     ?>
                 </li>
                 <li class="active">
-                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
+                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
                         <li style="color: #02b0bd;">
-                            <a href="presensimasukpagi.php">Presensi Datang dan Pulang</a>
+                            <a href="presensimasukpagi.php"><b>Presensi Datang dan Pulang</b></a>
                         </li>
                         <li style="color: white;">
                             <a href="presensikeluaristirahat.php">Presensi Keluar Masuk Istirahat</a>
@@ -93,10 +94,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Penggajian Karyawan</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
                         <li>
-                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                            <a href="historidendalain.php">Data Denda Lain - Lain</a>
                         </li>
                         <li>
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
@@ -110,7 +111,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Pengaturan Perusahaan</a>
                     <ul class="collapse list-unstyled" id="pengaturanSubmenu">
                         <li>
                             <a href="bpjs.php">BPJS</a>
@@ -139,7 +140,10 @@
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
+                        <!-- <i class="fas fa-align-justify"></i> -->
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                     <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
 
@@ -157,18 +161,22 @@
                 </div>
             </nav>
             <input hidden class="notelp" value="<?php echo $notelp  ?>">
-            
 
-            <div>
+
+            <div class="isi">
                 <div class="preloader">
                     <div class="loading">
                         <img src="../images/loading2.gif" width="100%">
                     </div>
                 </div>
-                <div style="margin-bottom: 100px;"><center><h1>Daftar Presensi Datang dan Pulang</h1></center></div>
+                <div style="margin-bottom: 100px;">
+                    <center>
+                        <h1>Daftar Presensi Datang dan Pulang</h1>
+                    </center>
+                </div>
                 <div class="wadahtampil">
                     <div class="tablepresensimasukpagi tampiltabel">
-                    
+
                     </div>
                 </div>
             </div>
@@ -179,21 +187,26 @@
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+    <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $(".preloader").fadeOut();
             $('.tablepresensimasukpagi').load("tampildaftarpresensimasukpagi.php");
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+            $("#sidebar").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "minimal",
+                scrollInertia: 500,
+                scrollEasing: "easeInOut"
             });
-        });
-    </script>
-
-    <script>
-        // onclick="window.location.href='../index.php'"
-        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $(this).toggleClass('active');
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -203,29 +216,28 @@
                     data: {
                         notelp: notelp
                     },
-                success: function(data) {
-                    if(data == "Akun berhasil di logout")
-                    {
-                        Swal.fire({
-                            title: 'Yeah',
-                            html: 'Akun berhasil di logout',
-                            type: 'success'
-                        }).then((result) => {
-                            if (result.value) {
-								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                                document.location.href='../index.php';
-							}
-						})
-					}else if(data == "Akun gagal logout"){
-							Swal.fire({
-								title: 'Login Gagal',
-								html: 'Akun gagal logout',
-								type: 'error'
-							})
-						}
-					}
-				})
-            })
+                    success: function(data) {
+                        if (data == "Akun berhasil di logout") {
+                            Swal.fire({
+                                title: 'Yeah',
+                                html: 'Akun berhasil di logout',
+                                type: 'success'
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                                    document.location.href = '../index.php';
+                                }
+                            })
+                        } else if (data == "Akun gagal logout") {
+                            Swal.fire({
+                                title: 'Login Gagal',
+                                html: 'Akun gagal logout',
+                                type: 'error'
+                            })
+                        }
+                    }
+                })
+            });
         });
     </script>
 </body>

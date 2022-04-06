@@ -1,30 +1,29 @@
 <?php
-    session_start();
-    $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-    // $notelp = $_SESSION['notelp'];
-    if (isset($_COOKIE['notelp'])) {
-        $notelp = $_COOKIE['notelp'];
-    }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
-    $cekuser = mysqli_fetch_assoc($user);
-    if ($cekuser > 0) {
-        $id_users = $cekuser['id'];
-        $nama = $cekuser['nama'];
-        $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
-        $cekcookies = mysqli_fetch_assoc($cookies);
-        if($cekcookies > 0){
-            $nomor_telepon = $cekcookies['nomor_telepon'];
-            $time = $cekcookies['time'];
-            setcookie('notelp', $nomor_telepon, time() + $time, '/');
-            if($nomor_telepon == ""){
-                header("location:../index.php");
-            }
+session_start();
+$con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+// $notelp = $_SESSION['notelp'];
+if (isset($_COOKIE['notelp'])) {
+    $notelp = $_COOKIE['notelp'];
+}
+$user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 1");
+$cekuser = mysqli_fetch_assoc($user);
+if ($cekuser > 0) {
+    $id_users = $cekuser['id'];
+    $nama = $cekuser['nama'];
+    $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
+    $cekcookies = mysqli_fetch_assoc($cookies);
+    if ($cekcookies > 0) {
+        $nomor_telepon = $cekcookies['nomor_telepon'];
+        $time = $cekcookies['time'];
+        setcookie('notelp', $nomor_telepon, time() + $time, '/');
+        if ($nomor_telepon == "") {
+            header("location:../index.php");
         }
     }
-    else{
-        setcookie('notelp', '', time() + $time, '/');
-        header("location:../index.php");
-    }
+} else {
+    setcookie('notelp', '', time() + $time, '/');
+    header("location:../index.php");
+}
 
 ?>
 
@@ -51,6 +50,8 @@
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
     <link href="assets/css/select2 4.1.0 min.css" rel="stylesheet" />
     <script src="assets/js/select2 4.1.0 min.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body>
@@ -70,21 +71,21 @@
                 </li>
                 <li>
                     <?php
-                        $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
-                        $cekpengajuan = mysqli_fetch_assoc($pengajuan);
-                        if($cekpengajuan > 0){
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
-                            <?php
-                        }else{
-                            ?>
-                                <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
-                            <?php
-                        }
+                    $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
+                    $cekpengajuan = mysqli_fetch_assoc($pengajuan);
+                    if ($cekpengajuan > 0) {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;"><span style="width: 5px; height: 5px; margin-right: 10px; border-radius: 10px;" class="notif" id="notif">&nbsp;&nbsp;</span>Daftar Pengajuan Izin</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="daftarpengajuanizin.php" style="font-size: 16px;">Daftar Pengajuan Izin</a>
+                    <?php
+                    }
                     ?>
                 </li>
                 <li>
-                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Presensi Karyawan</a>
+                    <a href="#presensiSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Presensi Karyawan</a>
                     <ul class="collapse list-unstyled" id="presensiSubmenu">
                         <li>
                             <a href="presensimasukpagi.php">Presensi Datang dan Pulang</a>
@@ -95,10 +96,10 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Daftar Penggajian</a>
+                    <a href="#penggajianSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Penggajian Karyawan</a>
                     <ul class="collapse list-unstyled" id="penggajianSubmenu">
                         <li style="color: #02b0bd;">
-                            <a href="historidendalain.php">Histori Denda Lain - Lain</a>
+                            <a href="historidendalain.php"><b>Data Denda Lain - Lain</b></a>
                         </li>
                         <li style="color: white;">
                             <a href="historiperubahangaji.php">Histori Perubahan Gaji Pokok</a>
@@ -112,7 +113,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;">Pengaturan Perusahaan</a>
+                    <a href="#pengaturanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="font-size: 16px;"><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Pengaturan Perusahaan</a>
                     <ul class="collapse list-unstyled" id="pengaturanSubmenu">
                         <li>
                             <a href="bpjs.php">BPJS</a>
@@ -141,7 +142,10 @@
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
+                        <!-- <i class="fas fa-align-justify"></i> -->
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                     <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
 
@@ -160,19 +164,23 @@
             </nav>
             <input hidden class="notelp" value="<?php echo $notelp  ?>">
             <input hidden class="id_users" value="<?php echo $id_users  ?>">
-            
 
-            <div>
+
+            <div class="isi">
                 <div class="preloader">
                     <div class="loading">
                         <img src="../images/loading2.gif" width="100%">
                     </div>
                 </div>
-                <div><center><h1>Histori Data Denda Lain - Lain</h1></center></div>
-                <button class="btn tambah" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>">Buat Data Denda Lain - Lain</button>
+                <div>
+                    <center>
+                        <h1>Daftar Data Denda Lain - Lain</h1>
+                    </center>
+                </div>
+                <button class="btn tambah" style="margin-top: 50px; margin-bottom: 10px;" id="<?php echo $id_users ?>"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Tambah Data Denda Lain - Lain</button>
                 <div class="wadahtampil">
                     <div class="tablehistoridendalain tampiltabel">
-                    
+
                     </div>
                 </div>
             </div>
@@ -180,118 +188,120 @@
     </div>
 
     <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Denda Lain - Lain</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div> 
-                            <div class="mb-3 users">
-                                <label class="form-label" style="font-size: 14px; width: 100%;">Karyawan<span class="text-danger">*</span></label>
-                                <select name="karyawan" id="karyawan" class="form-control karyawan" style="width: 100%; font-size: 12px;">
-                                    <option value="">-- Pilih Karyawan --</option>
-                                    <?php
-                                        $users = mysqli_query($con, "SELECT * FROM users WHERE jabatan = 0 AND status_kerja = 1");
-                                        if (mysqli_num_rows($users) > 0) {
-                                            while ($data = $users->fetch_assoc()) {
-                                                $id_users = $data['id'];
-                                                $nama = $data['nama'];
-                                                $nomor_telp = $data['nomor_telp'];
-                                                ?>
-                                                    <option value="<?php echo $id_users ?>"><?php echo $nomor_telp ?> - <?php echo $nama ?></option>
-                                                <?php
-                                            }
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="mb-3 nominals">
-                                <div class="form-group"> 
-                                    <label class="form-label" style="font-size: 14px;">Nominal Denda<span class="text-danger">*</span> </label> 
-                                    <input type="text" class="form-control nominal" id="nominal" name="nominal" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" /> 
-                                </div>
-                            </div>
-                            <div class="mb-3 keterangan">
-                                <label class="form-label" style="font-size: 14px;">Keterangan<span class="text-danger">*</span></label>
-                                <textarea class="form-control keterangans" id="keterangans" style="font-size: 12px;"></textarea>
-                            </div>
-                            
-                            <div class="modal-footer d-block">
-                                <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Submit</button>
-                            </div>
-                            <input class="notelp" hidden value="<?php echo $notelp ?>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data Denda Lain - Lain</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="mb-3 users">
+                            <label class="form-label" style="font-size: 14px; width: 100%;">Karyawan<span class="text-danger">*</span></label>
+                            <select name="karyawan" id="karyawan" class="form-control karyawan" style="width: 100%; font-size: 12px;">
+                                <option value="">-- Pilih Karyawan --</option>
+                                <?php
+                                $users = mysqli_query($con, "SELECT * FROM users WHERE jabatan = 0 AND status_kerja = 1");
+                                if (mysqli_num_rows($users) > 0) {
+                                    while ($data = $users->fetch_assoc()) {
+                                        $id_users = $data['id'];
+                                        $nama = $data['nama'];
+                                        $nomor_telp = $data['nomor_telp'];
+                                ?>
+                                        <option value="<?php echo $id_users ?>"><?php echo $nomor_telp ?> - <?php echo $nama ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
+                        <div class="mb-3 nominals">
+                            <div class="form-group">
+                                <label class="form-label" style="font-size: 14px;">Nominal Denda<span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control nominal" id="nominal" name="nominal" onkeypress="return hanyaAngka(event)" style="font-size: 12px;" />
+                            </div>
+                        </div>
+                        <div class="mb-3 keterangan">
+                            <label class="form-label" style="font-size: 14px;">Keterangan<span class="text-danger">*</span></label>
+                            <textarea class="form-control keterangans" id="keterangans" style="font-size: 12px;"></textarea>
+                        </div>
+
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn float-right blues submit" style="font-size: 14px;">Submit</button>
+                        </div>
+                        <input class="notelp" hidden value="<?php echo $notelp ?>">
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
     <script src="assets/js/popper 1.14.0 min.js" crossorigin="anonymous"></script>
-	  <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
+    <script src="assets/js/sweetalert2 7.33.1 min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $(".preloader").fadeOut();
-            $('.tambah').click(function(){
+            $('.tambah').click(function() {
                 $("#modalForm").modal('show');
             });
             $('.karyawan').select2();
             $('.tablehistoridendalain').load("tampildatadendalain.php");
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+            $("#sidebar").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "minimal",
+                scrollInertia: 500,
+                scrollEasing: "easeInOut"
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function() {
+                $(this).toggleClass('active');
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+
             var rupiah = document.getElementById('nominal');
-            rupiah.addEventListener('keyup', function(e){
+            rupiah.addEventListener('keyup', function(e) {
                 rupiah.value = formatRupiah(this.value, 'Rp. ');
             });
-    
-            /* Fungsi formatRupiah */
-            function formatRupiah(angka, prefix){
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split   		= number_string.split(','),
-                sisa     		= split[0].length % 3,
-                rupiah     		= split[0].substr(0, sisa),
-                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
 
-                if(ribuan){
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
                     separator = sisa ? '.' : '';
                     rupiah += separator + ribuan.join('.');
                 }
-    
+
                 rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
                 return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-            }
-        });
-    </script>
+            };
 
-    <script>
-        $(document).ready(function() {
-
-            $('.tambah').click(function(){
+            $('.tambah').click(function() {
                 $("#modalForm").modal('show');
             });
 
-            $('.submit').click(function(){
+            $('.submit').click(function() {
                 var nominal = $('.nominal').val();
                 var id_karyawan = $('.karyawan').val();
                 var keterangan = $('.keterangans').val();
-                if(nominal == "" || id_karyawan == "" || keterangan == ""){
+                if (nominal == "" || id_karyawan == "" || keterangan == "") {
                     Swal.fire({
-						title: 'Ups !!!',
-						html: 'Data harus di isi semua !!!',
-						type: 'error'
-					})
-                }else{
+                        title: 'Ups !!!',
+                        html: 'Data harus di isi semua !!!',
+                        type: 'error'
+                    })
+                } else {
                     $.ajax({
                         url: "ajaxtambahdatadendalain.php",
                         method: "post",
@@ -301,8 +311,7 @@
                             keterangan: keterangan
                         },
                         success: function(data) {
-                            if(data == "Data denda lain berhasil dibuat")
-                            {
+                            if (data == "Data denda lain berhasil dibuat") {
                                 Swal.fire({
                                     title: 'Yeah',
                                     html: 'Data denda lain - lain berhasil dibuat',
@@ -314,10 +323,10 @@
                                         document.getElementById('nominal').value = '';
                                         document.getElementById('karyawan').value = '';
                                         document.getElementById('keterangans').value = '';
-                                        
+
                                     }
                                 })
-                            }else if(data == "Data karyawan tidak ditemukan"){
+                            } else if (data == "Data karyawan tidak ditemukan") {
                                 Swal.fire({
                                     title: 'Ups...',
                                     html: 'Data karyawan tidak ditemukan',
@@ -337,40 +346,40 @@
                     data: {
                         notelp: notelp
                     },
-                success: function(data) {
-                    if(data == "Akun berhasil di logout")
-                    {
-                        Swal.fire({
-                            title: 'Yeah',
-                            html: 'Akun berhasil di logout',
-                            type: 'success'
-                        }).then((result) => {
-                            if (result.value) {
-								document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                                document.location.href='../index.php';
-							}
-						})
-					}else if(data == "Akun gagal logout"){
-							Swal.fire({
-								title: 'Login Gagal',
-								html: 'Akun gagal logout',
-								type: 'error'
-							})
-						}
-					}
-				})
-            })
+                    success: function(data) {
+                        if (data == "Akun berhasil di logout") {
+                            Swal.fire({
+                                title: 'Yeah',
+                                html: 'Akun berhasil di logout',
+                                type: 'success'
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.cookie = "notelp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                                    document.location.href = '../index.php';
+                                }
+                            })
+                        } else if (data == "Akun gagal logout") {
+                            Swal.fire({
+                                title: 'Login Gagal',
+                                html: 'Akun gagal logout',
+                                type: 'error'
+                            })
+                        }
+                    }
+                })
+            });
         });
     </script>
+
     <script>
-		function hanyaAngka(evt) {
-		  var charCode = (evt.which) ? evt.which : event.keyCode
-		   if (charCode > 31 && (charCode < 48 || charCode > 57))
- 
-		    return false;
-		  return true;
-		}
-	</script>
+        function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
+    </script>
 </body>
 
 </html>

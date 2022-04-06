@@ -58,8 +58,8 @@
     <nav class="navbar navbar-expand-sm blue">
         <div class="container-fluid">
             <div>
-                <img class="logo_perusahaan" src="../images/Logo PT. ASL.png">
-                <a class="navbar-brand judulheader" href="home.php">PT. AMAN SAMUDERA LINES</a>
+                <img style="float: left; margin: auto 0; margin-right: 10px;" class="logo_perusahaan" src="../images/Logo PT. ASL.png">
+                <div style="float: left; margin: auto 0;"><marquee direction="left" behavior="slide"><a class="navbar-brand judulheader" href="home.php">PT. AMAN SAMUDERA LINES</a></marquee></div>
             </div>
         </div>
     </nav>

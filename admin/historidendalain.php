@@ -200,7 +200,7 @@ if ($cekuser > 0) {
                         <div class="mb-3 users">
                             <label class="form-label" style="font-size: 14px; width: 100%;">Karyawan<span class="text-danger">*</span></label>
                             <select name="karyawan" id="karyawan" class="form-control karyawan" style="width: 100%; font-size: 12px;">
-                                <option value="">-- Pilih Karyawan --</option>
+                                <option value="0">-- Pilih Karyawan --</option>
                                 <?php
                                 $users = mysqli_query($con, "SELECT * FROM users WHERE jabatan = 0 AND status_kerja = 1");
                                 if (mysqli_num_rows($users) > 0) {
@@ -244,11 +244,11 @@ if ($cekuser > 0) {
 
     <script type="text/javascript">
         $(document).ready(function() {
+            // document.getElementById('karyawan').value = '';
             $(".preloader").fadeOut();
             $('.tambah').click(function() {
                 $("#modalForm").modal('show');
             });
-            $('.karyawan').select2();
             $('.tablehistoridendalain').load("tampildatadendalain.php");
             $("#sidebar").mCustomScrollbar({
                 scrollButtons: {
@@ -264,12 +264,13 @@ if ($cekuser > 0) {
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
-
+            $('.karyawan').select2();
+            
             var rupiah = document.getElementById('nominal');
             rupiah.addEventListener('keyup', function(e) {
                 rupiah.value = formatRupiah(this.value, 'Rp. ');
             });
-
+            
             /* Fungsi formatRupiah */
             function formatRupiah(angka, prefix) {
                 var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -295,7 +296,7 @@ if ($cekuser > 0) {
                 var nominal = $('.nominal').val();
                 var id_karyawan = $('.karyawan').val();
                 var keterangan = $('.keterangans').val();
-                if (nominal == "" || id_karyawan == "" || keterangan == "") {
+                if (nominal == "" || id_karyawan == "" || id_karyawan == "0" || keterangan == "") {
                     Swal.fire({
                         title: 'Ups !!!',
                         html: 'Data harus di isi semua !!!',
@@ -320,10 +321,10 @@ if ($cekuser > 0) {
                                     if (result.value) {
                                         $('.tablehistoridendalain').load("tampildatadendalain.php");
                                         $('#modalForm').modal('hide');
+                                        $("#karyawan").select2("val", "0");
                                         document.getElementById('nominal').value = '';
-                                        document.getElementById('karyawan').value = '';
                                         document.getElementById('keterangans').value = '';
-
+                                        
                                     }
                                 })
                             } else if (data == "Data karyawan tidak ditemukan") {
@@ -337,7 +338,7 @@ if ($cekuser > 0) {
                     })
                 }
             });
-
+            
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
                 $.ajax({

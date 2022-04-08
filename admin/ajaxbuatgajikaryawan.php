@@ -61,13 +61,13 @@
                 }else{
                     $dendalainlain = 0;
                 }
-
-
+                
+                $totaldenda = intval($denda) + intval($dendalainlain);
 
                 $gaji_pokok = $data['gaji_pokok'];
                 $totalgaji = intval($gaji_pokok) - intval($denda) - $totalbpjs - intval($dendalainlain);
 
-                $buatgaji = mysqli_query($con, "INSERT INTO histori_penggajian VALUES(null,'$id_users','$pencatat','$jumlah','$datenow','$totalgaji','$denda','$totalbpjs')");
+                $buatgaji = mysqli_query($con, "INSERT INTO histori_penggajian VALUES(null,'$id_users','$pencatat','$jumlah','$datenow','$totalgaji','$totaldenda','$totalbpjs')");
                 $hasil = "Data gaji berhasil dibuat";
 
             }

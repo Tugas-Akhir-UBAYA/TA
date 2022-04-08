@@ -1,35 +1,38 @@
 <?php
-    session_start();
-    $con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
-    // $notelp = $_SESSION['notelp'];
-    if (isset($_COOKIE['notelp'])) {
-        $notelp = $_COOKIE['notelp'];
-    }
-    $user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 0");
-    $cekuser = mysqli_fetch_assoc($user);
-    if ($cekuser > 0) {
-        $id_users = $cekuser['id'];
-        $nama = $cekuser['nama'];
-        $akses_kamera = $cekuser['akses_kamera'];
-        $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
-        $cekcookies = mysqli_fetch_assoc($cookies);
-        if($cekcookies > 0){
-            $nomor_telepon = $cekcookies['nomor_telepon'];
-            $time = $cekcookies['time'];
-            setcookie('notelp', $nomor_telepon, time() + $time, '/');
-            if($nomor_telepon == ""){
-                header("location:../index.php");
-            }
+session_start();
+$con =  mysqli_connect("localhost", "root", "", "kelola_karyawan");
+// $notelp = $_SESSION['notelp'];
+if (isset($_COOKIE['notelp'])) {
+    $notelp = $_COOKIE['notelp'];
+}
+$user = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 0");
+$cekuser = mysqli_fetch_assoc($user);
+if ($cekuser > 0) {
+    $id_users = $cekuser['id'];
+    $nama = $cekuser['nama'];
+    $akses_kamera = $cekuser['akses_kamera'];
+    $cookies = mysqli_query($con, "SELECT * FROM cookies WHERE id_users=$id_users");
+    $cekcookies = mysqli_fetch_assoc($cookies);
+    if ($cekcookies > 0) {
+        $nomor_telepon = $cekcookies['nomor_telepon'];
+        $time = $cekcookies['time'];
+        setcookie('notelp', $nomor_telepon, time() + $time, '/');
+        if ($nomor_telepon == "") {
+            header("location:../index.php");
         }
-    }else{
-        setcookie('notelp', '', time() + $time, '/');
-        header("location:../index.php");
     }
+} else {
+    setcookie('notelp', '', time() + $time, '/');
+    header("location:../index.php");
+}
+
+$bulansekarang = date("F");
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,7 +52,8 @@
     <title>Karyawan PT. Aman Samudera Lines</title>
 
 </head>
-<body >
+
+<body>
     <div class="preloader">
         <div class="loading">
             <img src="../images/loading2.gif" width="100%">
@@ -59,33 +63,37 @@
         <div class="container-fluid">
             <div>
                 <img style="float: left; margin: auto 0; margin-right: 10px;" class="logo_perusahaan" src="../images/Logo PT. ASL.png">
-                <div style="float: left; margin: auto 0;"><marquee direction="left" behavior="slide"><a class="navbar-brand judulheader" href="home.php">PT. AMAN SAMUDERA LINES</a></marquee></div>
+                <div style="float: left; margin: auto 0;">
+                    <marquee direction="left" behavior="slide"><a class="navbar-brand judulheader" href="home.php">PT. AMAN SAMUDERA LINES</a></marquee>
+                </div>
             </div>
         </div>
     </nav>
-    <div >
-        <center><h3 class="selamat">Selamat Datang <?php echo $nama ?></h3></center>
+    <div>
+        <center>
+            <h3 class="selamat">Selamat Datang <?php echo $nama ?></h3>
+        </center>
     </div>
     <?php
-        if($akses_kamera == 1){
-            ?>
-                <div class="scan" id="myBtn5" >
-                    <div class="pengajuan">
-                        <div class="form-img">
-                            <img src="../images/icon-scanqr.png"  class="icon-form">
-                        </div>
-                        <div class="form-text">
-                            <div class="text">Scan QR Codes</div>
-                        </div>
-                    </div>
+    if ($akses_kamera == 1) {
+    ?>
+        <div class="scan" id="myBtn5">
+            <div class="pengajuan">
+                <div class="form-img">
+                    <img src="../images/icon-scanqr.png" class="icon-form">
                 </div>
-            <?php
-        }
+                <div class="form-text">
+                    <div class="text">Scan QR Codes</div>
+                </div>
+            </div>
+        </div>
+    <?php
+    }
     ?>
     <div class="absen" id="myBtn2" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
-                <img src="../images/icon-qrcode.png"  class="icon-form">
+                <img src="../images/icon-qrcode.png" class="icon-form">
             </div>
             <div class="form-text">
                 <div class="text">QR Codes</div>
@@ -95,7 +103,7 @@
     <div class="historiabsensi" id="myBtn3" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
-                <img src="../images/icon-histori.png"  class="icon-form">
+                <img src="../images/icon-histori.png" class="icon-form">
             </div>
             <div class="form-text">
                 <div class="text">Histori Absensi</div>
@@ -105,7 +113,7 @@
     <div class="izin" id="myBtn" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
-                <img src="../images/icon-form.png"  class="icon-form">
+                <img src="../images/icon-form.png" class="icon-form">
             </div>
             <div class="form-text">
                 <div class="text">Form Pengajuan Izin</div>
@@ -115,10 +123,30 @@
     <div class="historipengajuan" id="myBtn4" data-aos="zoom-in">
         <div class="pengajuan">
             <div class="form-img">
-                <img src="../images/icon-historiizin.png"  class="icon-form">
+                <img src="../images/icon-historiizin.png" class="icon-form">
             </div>
             <div class="form-text">
                 <div class="text">Histori Pengajuan Izin</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detailgaji" id="myBtn6">
+        <div class="pengajuan">
+            <div class="form-img">
+                <img src="../images/icon-upah.png" class="icon-form">
+            </div>
+            <div class="form-text">
+                <div class="text">Detail Gaji Bulan Ini</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail_gaji" id="detail_gaji" kode="0" style="display: none;">
+        <div class="isidetail">
+            <div style="text-align: center;"><b>Detail Gaji Bulan <?php echo $bulansekarang ?></b></div>
+            <div style="margin-left: 10px; margin-top: 30px; width: 100%; display: flex;" class="tampildetailgaji">
+
             </div>
         </div>
     </div>
@@ -138,19 +166,19 @@
                                 <option value="">-- Pilih Kategori Izin --</option>
                                 <option value="sakit">Sakit</option>
                                 <?php
-                                    date_default_timezone_set('Asia/Jakarta');
-                                    $menit = date("i") * 60;
-                                    $jam = date("H") * 3600;
-                                    $totalnow = $jam + $menit;
-                                
-                                    $maxmenit = 30 * 60;
-                                    $maxjam = 8 * 3600;
-                                    $totalmax = $maxjam + $maxmenit;
-                                    if($totalnow <= $totalmax){
-                                        ?>
-                                        <option value="terlambat">Terlambat</option>
-                                        <?php
-                                    }
+                                date_default_timezone_set('Asia/Jakarta');
+                                $menit = date("i") * 60;
+                                $jam = date("H") * 3600;
+                                $totalnow = $jam + $menit;
+
+                                $maxmenit = 30 * 60;
+                                $maxjam = 8 * 3600;
+                                $totalmax = $maxjam + $maxmenit;
+                                if ($totalnow <= $totalmax) {
+                                ?>
+                                    <option value="terlambat">Terlambat</option>
+                                <?php
+                                }
                                 ?>
                                 <option value="cuti">Cuti</option>
                                 <option value="lainlain">Lain-lain</option>
@@ -223,10 +251,10 @@
                     <form>
                         <div class="mb-3">
                             <?php
-                                include "../phpqrcode/qrlib.php";
-                                QRcode::png($notelp . ' - ' . $nama, "image.png", "H", 20, 2);
+                            include "../phpqrcode/qrlib.php";
+                            QRcode::png($notelp . ' - ' . $nama, "image.png", "H", 20, 2);
                             ?>
-                            <div ><img src="image.png" class="qrcode"></div>
+                            <div><img src="image.png" class="qrcode"></div>
                         </div>
                     </form>
                 </div>
@@ -244,7 +272,7 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3 tampilabsensi">
-                            
+
                         </div>
                     </form>
                 </div>
@@ -262,7 +290,7 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3 tampilpengajuan">
-                            
+
                         </div>
                     </form>
                 </div>
@@ -272,7 +300,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <!-- <script language="JavaScript">
         Webcam.set({
             width: 250,
@@ -310,90 +338,108 @@
             $("#take").show();
         });
     </script> -->
-    
+
     <script>
         var loadFile = function(event) {
             var images = document.getElementById('img-prev');
-	        images.src = URL.createObjectURL(event.target.files[0]);
+            images.src = URL.createObjectURL(event.target.files[0]);
         }
     </script>
-    
+
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $(".preloader").fadeOut();
-            $("#myBtn").click(function(){
+            $("#myBtn").click(function() {
                 $("#modalForm").modal('show');
             });
-            $("#myBtn2").click(function(){
+            $("#myBtn2").click(function() {
                 $("#modalForm2").modal('show');
             });
-            $("#myBtn3").click(function(){
+            $("#myBtn3").click(function() {
                 $("#modalForm3").modal('show');
                 $('.tampilabsensi').load("tampilhistoriabsensi.php");
             });
-            $("#myBtn4").click(function(){
+
+            $("#myBtn4").click(function() {
                 $("#modalForm4").modal('show');
                 $('.tampilpengajuan').load("tampilhistoripengajuan.php");
             });
 
-            $("#myBtn5").click(function(){
+            $("#myBtn5").click(function() {
                 $("#modalForm5").modal('show');
             });
-            
-            $(".submit").click(function(){
+
+            $("#myBtn6").click(function() {
+                $('.tampildetailgaji').load("tampildetailgaji.php");
+
+                const gaji = document.getElementById("detail_gaji");
+                let codes = gaji.getAttribute("kode");
+                if (codes == "1") {
+                    document.getElementById("detail_gaji").style.display = "none";
+                    document.documentElement.scrollTop = 0;
+                    document.getElementById("detail_gaji").setAttribute("kode", "0");
+                } else if (codes == "0") {
+                    document.getElementById("detail_gaji").style.display = "block";
+                    document.getElementById("detail_gaji").setAttribute("kode", "1");
+                    $("html, body").animate({
+                        scrollTop: document.body.scrollHeight
+                    }, "slow");
+                }
+            });
+
+            $(".submit").click(function() {
                 var kategori = $('.kategori').val();
                 var start_date = $('.start_date').val();
                 var last_date = $('.last_date').val();
                 var keterangan = $('.keterangan').val();
-                
+
                 var images = $('#formFile').prop('files')[0];
                 var notelp = $('.notelp').val();
                 let formData = new FormData();
                 formData.append('images', images);
-	            formData.append('kategori', kategori);
-	            formData.append('start_date', start_date);
-	            formData.append('last_date', last_date);
-	            formData.append('keterangan', keterangan);
-	            formData.append('notelp', notelp);
-                if(kategori == "cuti"){
+                formData.append('kategori', kategori);
+                formData.append('start_date', start_date);
+                formData.append('last_date', last_date);
+                formData.append('keterangan', keterangan);
+                formData.append('notelp', notelp);
+                if (kategori == "cuti") {
                     var images = "";
                 }
-                
-                if(kategori == "terlambat"){
+
+                if (kategori == "terlambat") {
                     document.getElementById('last_date').value = '';
                     last_date = "";
                     document.getElementById('start_date').value = '';
                     start_date = "";
                 }
-                if(kategori == ""){
+                if (kategori == "") {
                     Swal.fire({
-						title: 'Ups !!!',
-						html: 'Kategori harus dipilih',
-						type: 'error'
-					})
-                }else if(kategori != "cuti" &&  images == undefined){
+                        title: 'Ups !!!',
+                        html: 'Kategori harus dipilih',
+                        type: 'error'
+                    })
+                } else if (kategori != "cuti" && images == undefined) {
                     Swal.fire({
-						title: 'Ups !!!',
-						html: 'Foto harus disertakan',
-						type: 'error'
-					})
-                }else if(keterangan == ""){
+                        title: 'Ups !!!',
+                        html: 'Foto harus disertakan',
+                        type: 'error'
+                    })
+                } else if (keterangan == "") {
                     Swal.fire({
-						title: 'Ups !!!',
-						html: 'Keterangan wajib diisi',
-						type: 'error'
-					})
-                }else{
+                        title: 'Ups !!!',
+                        html: 'Keterangan wajib diisi',
+                        type: 'error'
+                    })
+                } else {
                     $.ajax({
                         url: "ajaxpengajuan.php",
                         type: "post",
                         data: formData,
-	                    cache: false,
+                        cache: false,
                         processData: false,
                         contentType: false,
-                    success: function(data) {
-                        if(data == "Proses pengajuan telah berhasil")
-                            {
+                        success: function(data) {
+                            if (data == "Proses pengajuan telah berhasil") {
                                 Swal.fire({
                                     title: 'Yeah',
                                     html: 'Proses pengajuan telah berhasil',
@@ -403,13 +449,13 @@
                                         location.reload();
                                     }
                                 })
-                            }else if(data == "Proses pengajuan gagal"){
+                            } else if (data == "Proses pengajuan gagal") {
                                 Swal.fire({
                                     title: 'Ups !!!',
                                     html: 'Proses pengajuan gagal',
                                     type: 'error'
                                 })
-                            }else if(data == "Tanggal yang diinputkan tidak valid"){
+                            } else if (data == "Tanggal yang diinputkan tidak valid") {
                                 Swal.fire({
                                     title: 'Ups !!!',
                                     html: 'Tanggal yang diinputkan tidak valid !!!',
@@ -420,147 +466,148 @@
                     })
                 }
 
-                
+
             });
-            
+
         });
     </script>
 
-<script>
-        let scanner = new Instascan.Scanner({video: document.getElementById('preview')});
-        Instascan.Camera.getCameras().then(function(cameras){
-            if(cameras.length > 0){
-                if(cameras.length > 1){
+    <script>
+        let scanner = new Instascan.Scanner({
+            video: document.getElementById('preview')
+        });
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                if (cameras.length > 1) {
                     scanner.start(cameras[1]);
-                }else{
+                } else {
                     scanner.start(cameras[0]);
                 }
-                
-            }else{
+
+            } else {
                 alert("kamera tidak ditemukan");
             }
-        }).catch(function(e){
+        }).catch(function(e) {
             console.error(e);
         });
 
-        scanner.addListener('scan', function(c){
-            document.getElementById('text').value=c;
+        scanner.addListener('scan', function(c) {
+            document.getElementById('text').value = c;
             var notelp = $('#text').val();
             var timenow = new Date();
             var hari = ["", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Minggu"]
             var date = hari[timenow.getDay()];
             // alert(date);
             $.ajax({
-				url: "../admin/ajaxscan.php",
-				method: "post",
-				data: {
-					notelp: notelp
-				},
-				success: function(data) {
-					if(data == "Absensi sukses")
-					{
-						Swal.fire({
-							title: 'Yeah',
-							html: 'Absensi sukses',
-							type: 'success',
+                url: "../admin/ajaxscan.php",
+                method: "post",
+                data: {
+                    notelp: notelp
+                },
+                success: function(data) {
+                    if (data == "Absensi sukses") {
+                        Swal.fire({
+                            title: 'Yeah',
+                            html: 'Absensi sukses',
+                            type: 'success',
                             timer: 3000
-                            
-						}).then((result) => {
+
+                        }).then((result) => {
                             document.getElementById('text').value = '';
-							if (result.value) {
-								document.getElementById('text').value = '';
-							}
-						})
-					}else if(data == "Absensi Melebihi Batas per Hari"){
-						Swal.fire({
-							title: 'Ups !!!',
-							html: 'Absensi Melebihi Batas per Hari',
-							type: 'error',
+                            if (result.value) {
+                                document.getElementById('text').value = '';
+                            }
+                        })
+                    } else if (data == "Absensi Melebihi Batas per Hari") {
+                        Swal.fire({
+                            title: 'Ups !!!',
+                            html: 'Absensi Melebihi Batas per Hari',
+                            type: 'error',
                             timer: 3000
-						}).then((result) => {
+                        }).then((result) => {
                             document.getElementById('text').value = '';
-							if (result.value) {
-								document.getElementById('text').value = '';
-							}
-						})
-					}else if(data == "Absensi gagal"){
-						Swal.fire({
-							title: 'Ups !!!',
-							html: 'Absensi gagal',
-							type: 'error'
-						})
-					}
-				}
-			})
+                            if (result.value) {
+                                document.getElementById('text').value = '';
+                            }
+                        })
+                    } else if (data == "Absensi gagal") {
+                        Swal.fire({
+                            title: 'Ups !!!',
+                            html: 'Absensi gagal',
+                            type: 'error'
+                        })
+                    }
+                }
+            })
             // Swal.fire({
-			// 	title: 'Yeah',
-			// 	html: 'Absensi sukses',
-			// 	type: 'success'
+            // 	title: 'Yeah',
+            // 	html: 'Absensi sukses',
+            // 	type: 'success'
             //     // timer: 3000
-			// }).then((result) => {
-			// 	if (result.value) {
-					
-			// 	}
-			// })
+            // }).then((result) => {
+            // 	if (result.value) {
+
+            // 	}
+            // })
         })
     </script>
 
     <script>
-      AOS.init();
+        AOS.init();
     </script>
 
     <script type="text/javascript">
         function mulai() {
             var kategori = document.getElementById("kategori").value;
             var start_date = document.getElementById("start_date").value;
-            if(start_date != ""){
+            if (start_date != "") {
                 $(".tgl_end").show();
                 document.getElementById("last_date").min = start_date;
             }
         }
     </script>
-    
-    <script type="text/javascript">
-        
-        function izin() {
-                document.getElementById('start_date').value = '';
-                document.getElementById('last_date').value = '';
-                var kategori = document.getElementById("kategori").value;
-                var today = new Date();
-                var bulan = today.getMonth();
-                var hari = today.getDate();
-                var fixhari = today.getDate() + 3;
-                if(bulan < 10){
-                    var kosongbulan = 0;
-                }
-                if(fixhari < 10){
-                    var kosonghari = 0;
-                }else{
-                    var kosonghari = "";
-                }
-                if(kategori == "terlambat"){
-                    $(".tgl_end").hide();
-                    $(".foto").show();
-                    $(".tgl_start").hide();
-                    $(".preview").show();
-                }else  if(kategori == "cuti"){
-                    var date = today.getFullYear()+'-'+ kosongbulan +(today.getMonth()+1)+'-'+ kosonghari +(today.getDate() + 3);
-                    document.getElementById("start_date").min = date;
-                    document.getElementById("last_date").min = date;
-                    $(".foto").hide();
-                    $(".tgl_end").hide();
-                    $(".tgl_start").show();
-                    $(".preview").hide();
-                }else{
-                    $(".tgl_end").hide();
-                    $(".foto").show();
-                    $(".tgl_start").show();
-                    $(".preview").show();
-                    document.getElementById("start_date").min = "";
-                    document.getElementById("last_date").min = "";
 
-                } 
+    <script type="text/javascript">
+        function izin() {
+            document.getElementById('start_date').value = '';
+            document.getElementById('last_date').value = '';
+            var kategori = document.getElementById("kategori").value;
+            var today = new Date();
+            var bulan = today.getMonth();
+            var hari = today.getDate();
+            var fixhari = today.getDate() + 3;
+            if (bulan < 10) {
+                var kosongbulan = 0;
             }
+            if (fixhari < 10) {
+                var kosonghari = 0;
+            } else {
+                var kosonghari = "";
+            }
+            if (kategori == "terlambat") {
+                $(".tgl_end").hide();
+                $(".foto").show();
+                $(".tgl_start").hide();
+                $(".preview").show();
+            } else if (kategori == "cuti") {
+                var date = today.getFullYear() + '-' + kosongbulan + (today.getMonth() + 1) + '-' + kosonghari + (today.getDate() + 3);
+                document.getElementById("start_date").min = date;
+                document.getElementById("last_date").min = date;
+                $(".foto").hide();
+                $(".tgl_end").hide();
+                $(".tgl_start").show();
+                $(".preview").hide();
+            } else {
+                $(".tgl_end").hide();
+                $(".foto").show();
+                $(".tgl_start").show();
+                $(".preview").show();
+                document.getElementById("start_date").min = "";
+                document.getElementById("last_date").min = "";
+
+            }
+        }
     </script>
 </body>
+
 </html>

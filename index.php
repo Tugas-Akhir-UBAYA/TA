@@ -15,6 +15,8 @@ $notelp = "";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="js/manifest.json">
+    <link rel="apple-touch-icon" href="images/Logo PT. ASL 3.1.png">
     <script src="js/jquery 3.5.1 min.js"></script>
     <link href="css/bootstrap 5.0.2 min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="js/bootstrap 5.0.2 bundle.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -59,6 +61,7 @@ $notelp = "";
     <script src="js/popper 2.9.2 min.js" crossorigin="anonymous"></script>
     <script src="js/bootstrap 5.0.2 min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 	<script src="js/sweetalert2 7.33.1 min.js"></script>
+    <script src="js/register.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
             var notelps = $('.notelps').val();
@@ -93,25 +96,27 @@ $notelp = "";
 						success: function(data) {
 							if(data == "Login berhasil karyawan")
 							{
-								Swal.fire({
-									title: 'Yeah',
-									html: 'Login Berhasil',
-									type: 'success'
-								}).then((result) => {
-									if (result.value) {
-										document.location.href = 'home/home.php';
-									}
-								})
+                                document.location.href = 'home/home.php';
+								// Swal.fire({
+								// 	title: 'Yeah',
+								// 	html: 'Login Berhasil',
+								// 	type: 'success'
+								// }).then((result) => {
+								// 	if (result.value) {
+								// 		document.location.href = 'home/home.php';
+								// 	}
+								// })
 							}else if(data == "Login berhasil admin"){
-								Swal.fire({
-									title: 'Yeah',
-									html: 'Login Berhasil',
-									type: 'success'
-								}).then((result) => {
-									if (result.value) {
-										document.location.href = 'admin/home.php';
-									}
-								})
+                                document.location.href = 'admin/home.php';
+								// Swal.fire({
+								// 	title: 'Yeah',
+								// 	html: 'Login Berhasil',
+								// 	type: 'success'
+								// }).then((result) => {
+								// 	if (result.value) {
+								// 		document.location.href = 'admin/home.php';
+								// 	}
+								// })
 							}else if(data == "Nomor telepon tidak terdaftar"){
 								Swal.fire({
 									title: 'Login Gagal',

@@ -37,6 +37,7 @@ if ($cekuser > 0) {
 
     <title>Kelola Karyawan</title>
 
+    <link rel="icon" type="image/png" href="../images/Logo PT. ASL 3.1.png">
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/all v5.7.2.css" rel="stylesheet" crossorigin="anonymous">
@@ -68,6 +69,9 @@ if ($cekuser > 0) {
                 </li>
                 <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
+                </li>
+                <li>
+                    <a href="daftarkaryawanlogin.php" style="font-size: 16px;">Daftar Karyawan Login</a>
                 </li>
                 <li>
                     <?php

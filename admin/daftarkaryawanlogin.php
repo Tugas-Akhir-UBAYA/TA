@@ -51,6 +51,7 @@ if ($cekuser > 0) {
     <link rel="stylesheet" href="assets/css/sweetalert2 7.33.1 min.css">
     <script src="assets/js/jquery.mCustomScrollbar.concat.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
+    <script src="assets/js/kit.fontawesome.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -68,10 +69,10 @@ if ($cekuser > 0) {
                 <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="daftarkaryawanlogin.php" style="font-size: 16px;">Daftar Karyawan Login</a>
                 </li>
-                <li class="active">
+                <li>
                     <?php
                     $pengajuan = mysqli_query($con, "SELECT * FROM pengajuan WHERE status = 'proses'");
                     $cekpengajuan = mysqli_fetch_assoc($pengajuan);
@@ -165,6 +166,7 @@ if ($cekuser > 0) {
                 </div>
             </nav>
             <input hidden class="notelp" value="<?php echo $notelp  ?>">
+            <input hidden class="id_users" value="<?php echo $id_users  ?>">
 
 
             <div class="isi">
@@ -173,19 +175,19 @@ if ($cekuser > 0) {
                         <img src="../images/loading2.gif" width="100%">
                     </div>
                 </div>
-                <div style="margin-bottom: 100px;">
+                <div>
                     <center>
-                        <h1>Daftar Pengajuan Izin</h1>
+                        <h1>Daftar Karyawan Yang Sedang Login</h1>
                     </center>
                 </div>
+                <button class="btn tambah refresh" style="margin-top: 50px; margin-bottom: 10px;"><i class="fa-solid fa-arrows-rotate"></i> &nbsp; Refresh Tabel</button>
                 <div class="wadahtampil">
-                    <div class="tabledaftarpengajuanizin tampiltabel">
+                    <div class="tabledaftarkaryawanlogin tampiltabel">
 
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap 4.1.0 min.js" crossorigin="anonymous"></script>
@@ -195,8 +197,10 @@ if ($cekuser > 0) {
 
     <script type="text/javascript">
         $(document).ready(function() {
+
             $(".preloader").fadeOut();
-            $('.tabledaftarpengajuanizin').load("tampildaftarpengajuan.php");
+            $('.tabledaftarkaryawanlogin').load("tampildaftarkaryawanlogin.php");
+
             $("#sidebar").mCustomScrollbar({
                 scrollButtons: {
                     enable: true
@@ -211,6 +215,10 @@ if ($cekuser > 0) {
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+
+            $('.refresh').click(function() {
+                $('.tabledaftarkaryawanlogin').load("tampildaftarkaryawanlogin.php");
+            })
 
             $('.logout').click(function() {
                 var notelp = $('.notelp').val();
@@ -241,8 +249,18 @@ if ($cekuser > 0) {
                         }
                     }
                 })
-            });
+            })
         });
+    </script>
+
+    <script>
+        function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
     </script>
 </body>
 

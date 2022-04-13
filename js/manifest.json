@@ -1,0 +1,16 @@
+{
+    "name": "Kelola Karyawan",
+    "short_name": "KK",
+    "description": "PT. Aman Samudera Lines",
+    "icons": [
+        {
+            "src": "../images/Logo PT. ASL 3.1.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "fullscreen",
+    "theme_color": "#007aff",
+    "background_color": "#007aff"
+}

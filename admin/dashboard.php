@@ -45,6 +45,7 @@ if ($cekbpjs == 0) {
 
     <title>Kelola Karyawan</title>
 
+    <link rel="icon" type="image/png" href="../images/Logo PT. ASL 3.1.png">
     <link href="assets/css/bootstrap 4.5.2.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/dataTables bootstrap 4 min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="assets/css/all v5.7.2.css" rel="stylesheet" crossorigin="anonymous">
@@ -79,6 +80,9 @@ if ($cekbpjs == 0) {
                 </li>
                 <li>
                     <a href="daftardatakaryawan.php" style="font-size: 16px;">Daftar Data Karyawan</a>
+                </li>
+                <li>
+                    <a href="daftarkaryawanlogin.php" style="font-size: 16px;">Daftar Karyawan Login</a>
                 </li>
                 <li>
                     <?php
@@ -145,63 +149,63 @@ if ($cekbpjs == 0) {
                 </li>
             </ul>
         </nav>
-        
-
-        </div>
-
-        <!-- Page Content  -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light navbar1">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <!-- <i class="fas fa-align-justify"></i> -->
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <div class="abcde" >
-                    </button>
-                    <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
 
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item" style="margin-right: 5px; margin-top: 5px;">
-                                <img src="../images/icon-people2.png" class="img-circle" style="width: 30px;" alt="User Image" />
-                            </li>
-                            <li class="nav-item" style="margin-top: 7px;">
-                                <?php echo "$nama"; ?>
-                            </li>
-                        </ul>
-                    </div>
+    </div>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light navbar1">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <!-- <i class="fas fa-align-justify"></i> -->
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <div class="abcde">
+                </button>
+                <div id="tulisan_header"><a href="home.php">PT. Aman Samudera Lines</a></div>
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" style="margin-right: 5px; margin-top: 5px;">
+                            <img src="../images/icon-people2.png" class="img-circle" style="width: 30px;" alt="User Image" />
+                        </li>
+                        <li class="nav-item" style="margin-top: 7px;">
+                            <?php echo "$nama"; ?>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-
-
-            <div class="isi">
-                <div class="preloader">
-                    <div class="loading">
-                        <img src="../images/loading2.gif" width="100%">
-                    </div>
-                </div>
-                <div style="margin-bottom: 50px;">
-                    <center>
-                        <h1>Dashboard</h1>
-                    </center>
-                </div>
-                <div class="chartku" id="chartku" data-aos="flip-up">
-                    <canvas id="myChart"></canvas>
-                    <center style="margin-top: 20px;">
-                        <h5>Total Karyawan Aktif : <?php
-                                                    $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
-                                                    $total_users = mysqli_num_rows($user);
-                                                    echo $total_users ?></h5>
-                    </center>
-                </div>
-                <input class="notelp" hidden value="<?php echo $notelp ?>">
             </div>
+        </nav>
+
+
+        <div class="isi">
+            <div class="preloader">
+                <div class="loading">
+                    <img src="../images/loading2.gif" width="100%">
+                </div>
+            </div>
+            <div style="margin-bottom: 50px;">
+                <center>
+                    <h1>Dashboard</h1>
+                </center>
+            </div>
+            <div class="chartku" id="chartku" data-aos="flip-up">
+                <canvas id="myChart"></canvas>
+                <center style="margin-top: 20px;">
+                    <h5>Total Karyawan Aktif : <?php
+                                                $user = mysqli_query($con, "SELECT * FROM users WHERE status_kerja = 1");
+                                                $total_users = mysqli_num_rows($user);
+                                                echo $total_users ?></h5>
+                </center>
+            </div>
+            <input class="notelp" hidden value="<?php echo $notelp ?>">
         </div>
+    </div>
 
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->

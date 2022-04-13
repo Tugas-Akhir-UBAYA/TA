@@ -38,6 +38,7 @@ $bulansekarang = date("F");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <link rel="icon" type="image/png" href="../images/Logo PT. ASL 3.1.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -372,19 +373,29 @@ $bulansekarang = date("F");
             $("#myBtn6").click(function() {
                 $('.tampildetailgaji').load("tampildetailgaji.php");
 
-                const gaji = document.getElementById("detail_gaji");
-                let codes = gaji.getAttribute("kode");
-                if (codes == "1") {
-                    document.getElementById("detail_gaji").style.display = "none";
-                    document.documentElement.scrollTop = 0;
-                    document.getElementById("detail_gaji").setAttribute("kode", "0");
-                } else if (codes == "0") {
-                    document.getElementById("detail_gaji").style.display = "block";
-                    document.getElementById("detail_gaji").setAttribute("kode", "1");
+                $header = $(this);
+                $content = $header.next();
+
+                $content.slideToggle(100, function() {
                     $("html, body").animate({
                         scrollTop: document.body.scrollHeight
-                    }, "slow");
-                }
+                    }, 10);
+
+                });
+
+                // const gaji = document.getElementById("detail_gaji");
+                // let codes = gaji.getAttribute("kode");
+                // if (codes == "1") {
+                //     document.getElementById("detail_gaji").style.display = "none";
+                //     document.documentElement.scrollTop = 0;
+                //     document.getElementById("detail_gaji").setAttribute("kode", "0");
+                // } else if (codes == "0") {
+                //     document.getElementById("detail_gaji").style.display = "block";
+                //     document.getElementById("detail_gaji").setAttribute("kode", "1");
+                //     $("html, body").animate({
+                //         scrollTop: document.body.scrollHeight
+                //     }, 100);
+                // }
             });
 
             $(".submit").click(function() {

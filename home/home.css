@@ -166,6 +166,26 @@
     transform: translateY(4px);
 }
 
+.persondata{
+    width: 80%;
+    /* border: 1px solid black; */
+    /* margin-top: 30px; */
+    margin: 20px auto;
+    height: 80px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;
+    animation: zoomin 0.3s linear 1;
+    animation-delay: 0s;
+    visibility: hidden;
+    animation-fill-mode: forwards;
+}
+.persondata:hover{
+    background-color: #03A9F4;
+}
+.persondata:active{
+    transform: translateY(4px);
+}
+
 .scan{
     width: 80%;
     /* border: 1px solid black; */

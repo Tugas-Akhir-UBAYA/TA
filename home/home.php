@@ -131,6 +131,16 @@ $bulansekarang = date("F");
             </div>
         </div>
     </div>
+    <div class="persondata" id="myBtn7">
+        <div class="pengajuan">
+            <div class="form-img">
+                <img src="../images/icon-persondata.png" class="icon-form">
+            </div>
+            <div class="form-text">
+                <div class="text">Person Data</div>
+            </div>
+        </div>
+    </div>
 
     <div class="detailgaji" id="myBtn6">
         <div class="pengajuan">
@@ -298,6 +308,87 @@ $bulansekarang = date("F");
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalForm7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Person Data</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <?php
+                        $person = mysqli_query($con, "SELECT * FROM users WHERE nomor_telp=$notelp AND status_kerja = 1 AND jabatan = 0");
+                        $cekperson = mysqli_fetch_assoc($person);
+                        if ($cekperson > 0) {
+                            $id1 = $cekperson['id'];
+                            $nik1 = $cekperson['nik'];
+                            $nama1 = $cekperson['nama'];
+                            $alamat_tinggal1 = $cekperson['alamat_tinggal'];
+                            $nomor_telp1 = $cekperson['nomor_telp'];
+                            $nomor_rekening1 = $cekperson['nomor_rekening'];
+                        }
+
+                        $bpjsketenagakerjaan = "Tidak Aktif";
+                        $bpjskesehatan = "Tidak Aktif";
+                        $detail_bpjs = mysqli_query($con, "SELECT * FROM detail_bpjs as db INNER JOIN bpjs as b ON db.id_bpjs = b.id  WHERE db.id_users = '$id1'");
+                        if (mysqli_num_rows($detail_bpjs) > 0) {
+                            while ($datas = mysqli_fetch_array($detail_bpjs)) {
+                                $id_bpjs = $datas['id_bpjs'];
+                                $nama_bpjs = $datas['nama_bpjs'];
+                                if ($nama_bpjs == 'BPJS Ketenagakerjaan') {
+                                    $bpjsketenagakerjaan = "Aktif";
+                                } else if ($nama_bpjs == 'BPJS Kesehatan') {
+                                    $bpjskesehatan = "Aktif";
+                                }
+                            }
+                        }
+
+                        ?>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">NIK</label>
+                            <input type="number" class="form-control nik" id="nik" name="nik" style="font-size: 12px;" disabled value="<?php echo $nik1; ?>" />
+                            <input type="number" hidden class="form-control niks" id="niks" name="niks" style="font-size: 12px;" disabled value="<?php echo $nik1; ?>" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">Nama</label>
+                            <input type="text" class="form-control nama" id="nama" name="nama" disabled style="font-size: 12px;" value="<?php echo $nama1; ?>" />
+                            <input type="text" hidden class="form-control namas" id="namas" name="namas" disabled style="font-size: 12px;" value="<?php echo $nama1; ?>" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">Alamat Tinggal </label>
+                            <input type="text" class="form-control alamat" id="alamat" name="alamat" disabled style="font-size: 12px;" value="<?php echo $alamat_tinggal1; ?>" />
+                            <input type="text" hidden class="form-control alamats" id="alamats" name="alamats" disabled style="font-size: 12px;" value="<?php echo $alamat_tinggal1; ?>" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">Nomor Telepon </label>
+                            <input type="text" class="form-control notelepon" id="notelepon" name="notelepon" disabled style="font-size: 12px;" value="<?php echo $nomor_telp1; ?>" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">Nomor Rekening </label>
+                            <input type="text" class="form-control norek" id="norek" name="norek" disabled style="font-size: 12px;" value="<?php echo $nomor_rekening1; ?>" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">BPJS Ketenagakerjaan </label>
+                            <input type="text" class="form-control bpjsketenagakerjaan" id="bpjsketenagakerjaan" name="bpjsketenagakerjaan" disabled style="font-size: 12px;" value="<?php echo $bpjsketenagakerjaan; ?>" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size: 14px;">BPJS Kesehatan </label>
+                            <input type="text" class="form-control bpjskesehatan" id="bpjskesehatan" name="bpjskesehatan" disabled style="font-size: 12px;" value="<?php echo $bpjskesehatan; ?>" />
+                        </div>
+
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn float-end blues save" id="save" style="font-size: 14px; display: none;">Save</button>
+                            <button type="submit" class="btn float-end blues edit" id="edit" style="font-size: 14px; ">Edit</button>
+                            <button type="submit" class="btn btn-danger float-end close" id="close" style="font-size: 14px;">Close</button>
+                            <button type="submit" class="btn btn-danger float-end back" id="back" style="font-size: 14px; display: none;">Back</button>
+                        </div>
+                        <input class="notelp" hidden value="<?php echo $notelp; ?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -396,6 +487,118 @@ $bulansekarang = date("F");
                 //         scrollTop: document.body.scrollHeight
                 //     }, 100);
                 // }
+            });
+
+            $(".edit").click(function() {
+                document.getElementById("edit").style.display = "none";
+                document.getElementById("close").style.display = "none";
+                document.getElementById("save").style.display = "block";
+                document.getElementById("back").style.display = "block";
+                document.getElementById("nama").disabled = false;
+                document.getElementById("nik").disabled = false;
+                document.getElementById("alamat").disabled = false;
+            });
+
+            $(".back").click(function() {
+                document.getElementById("edit").style.display = "block";
+                document.getElementById("close").style.display = "block";
+                document.getElementById("save").style.display = "none";
+                document.getElementById("back").style.display = "none";
+                document.getElementById("nama").disabled = true;
+                document.getElementById("nik").disabled = true;
+                document.getElementById("alamat").disabled = true;
+                var namas = $('.namas').val();
+                var niks = $('.niks').val();
+                var alamats = $('.alamats').val();
+                document.getElementById("nik").value = niks;
+                document.getElementById("nama").value = namas;
+                document.getElementById("alamat").value = alamats;
+            });
+
+            $(".close").click(function() {
+                $('#modalForm7').modal('hide');
+            });
+
+            $("#myBtn7").click(function() {
+                $("#modalForm7").modal('show');
+            });
+
+            $("#save").click(function() {
+                var nama = $('.nama').val();
+                var namas = $('.namas').val();
+                var nik = $('.nik').val();
+                var niks = $('.niks').val();
+                var alamat = $('.alamat').val();
+                var alamats = $('.alamats').val();
+                var notelp = $('.notelp').val();
+                if (nama == "" || nik == "" || nik == 0 || alamat == "") {
+                    Swal.fire({
+                        title: 'Ups !!!',
+                        html: 'Data Harus Diisi Semua !!!',
+                        type: 'error'
+                    }).then((result) => {
+                        if (result.value) {
+                            document.getElementById("nik").value = niks;
+                            document.getElementById("nama").value = namas;
+                            document.getElementById("alamat").value = alamats;
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        url: "ajaxubahdata.php",
+                        method: "post",
+                        data: {
+                            notelp: notelp,
+                            nama: nama,
+                            nik: nik,
+                            alamat: alamat
+                        },
+                        success: function(data) {
+                            if (data == "Data Berhasil Diubah") {
+                                Swal.fire({
+                                    title: 'Yeah',
+                                    html: 'Data Berhasil Diubah',
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        $("#modalForm7").modal('show');
+                                        document.getElementById("edit").style.display = "block";
+                                        document.getElementById("close").style.display = "block";
+                                        document.getElementById("save").style.display = "none";
+                                        document.getElementById("back").style.display = "none";
+                                        document.getElementById("nama").disabled = true;
+                                        document.getElementById("nik").disabled = true;
+                                        document.getElementById("alamat").disabled = true;
+                                    }
+                                })
+                            } else if (data == "Gagal Mengubah Data") {
+                                Swal.fire({
+                                    title: 'Ups !!!',
+                                    html: 'Gagal Mengubah Data',
+                                    type: 'error'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        document.getElementById("nik").value = niks;
+                                        document.getElementById("nama").value = namas;
+                                        document.getElementById("alamat").value = alamats;
+                                    }
+                                })
+                            } else if (data == "NIK Sudah di Gunakan") {
+                                Swal.fire({
+                                    title: 'Ups !!!',
+                                    html: 'NIK Sudah di Gunakan',
+                                    type: 'error'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        document.getElementById("nik").value = niks;
+                                        document.getElementById("nama").value = namas;
+                                        document.getElementById("alamat").value = alamats;
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
             });
 
             $(".submit").click(function() {
